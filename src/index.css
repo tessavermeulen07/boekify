@@ -43,9 +43,10 @@ h3 {
 
 h4 {
     font-family: poppins, sans-serif;
-    font-size: 32px;
+    font-size: 30px;
     color: var(--color-lavender);
     font-style: italic;
+    font-weight: 200;
 }
 
 h5 {
@@ -53,6 +54,7 @@ h5 {
     font-size: 20px;
     color: var(--color-lavender);
     font-style: italic;
+    font-weight: 200;
 }
 
 @media (prefers-color-scheme: light) {
