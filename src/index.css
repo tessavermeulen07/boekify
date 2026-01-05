@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Artifika&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); /*In dit bestand plaats je alle algemene styling die geldt voor de gehele applicatie*/
+
+:root {
+    --color-lavender: #7771AB;
+    --color-lilac: #EBE8FF;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* -----Typography----- */
+
+body {
+    background-color: var(--color-white);
+    font-family: poppins, sans-serif;
+    font-size: 16px;
+    color: var(--color-black);
+}
+
+h1 {
+    font-family: artifika, serif;
+    font-size: 64px;
+    color: var(--color-lavender);
+}
+
+h2 {
+    font-family: artifika, serif;
+    font-size: 45px;
+    color: var(--color-lavender);
+}
+
+h3 {
+    font-family: artifika, serif;
+    font-size: 32px;
+    color: var(--color-lavender);
+}
+
+h4 {
+    font-family: poppins, sans-serif;
+    font-size: 32px;
+    color: var(--color-lavender);
+    font-style: italic;
+}
+
+h5 {
+    font-family: poppins, sans-serif;
+    font-size: 20px;
+    color: var(--color-lavender);
+    font-style: italic;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+
+    button {
+        background-color: #f9f9f9;
+    }
+}
