@@ -49,5 +49,14 @@
     padding: 10px;
     width: 330px;
     text-align: left;
+}
 
+.span-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 28px;
 }
