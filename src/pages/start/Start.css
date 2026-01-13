@@ -39,14 +39,14 @@
     margin: 100px 0 0;
 }
 
-.article-box {
+.article-box-start {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 10px;
     border: 2px solid var(--color-lavender);
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
     width: 330px;
     text-align: left;
 }

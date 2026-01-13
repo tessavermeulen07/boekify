@@ -21,7 +21,7 @@
 nav a,
 nav a:visited {
     text-decoration: none;
-    padding: 10px;
+    padding: 15px;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -29,7 +29,7 @@ nav a:visited {
 nav a:hover {
     color: var(--color-white);
     background-color: var(--color-lavender);
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
 }
 
@@ -39,4 +39,8 @@ nav a:hover {
 
 .nav-active {
     color: var(--color-lavender);
+}
+
+.icon {
+    width: 20px;
 }
