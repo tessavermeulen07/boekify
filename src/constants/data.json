@@ -1,0 +1,463 @@
+{
+  "collections": [
+    {
+      "name": "books",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "min": 1,
+          "max": 200
+        },
+        {
+          "name": "authorId",
+          "type": "reference:authors",
+          "required": true
+        },
+        {
+          "name": "genreId",
+          "type": "reference:genres",
+          "required": true
+        },
+        {
+          "name": "isbn",
+          "type": "string",
+          "required": true,
+          "min": 10,
+          "max": 13
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "required": true,
+          "min": 0
+        },
+        {
+          "name": "available",
+          "type": "boolean",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "member",
+          "admin"
+        ],
+        "POST": [
+          "member",
+          "admin"
+        ],
+        "PUT": [
+          "member",
+          "admin"
+        ],
+        "PATCH": [
+          "member",
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "authors",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "min": 2,
+          "max": 100
+        },
+        {
+          "name": "bio",
+          "type": "string",
+          "required": false,
+          "max": 2000
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "member",
+          "admin"
+        ],
+        "POST": [
+          "member",
+          "admin"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "genres",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "min": 2,
+          "max": 50
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "member",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "bookFormat",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "min": 2,
+          "max": 100
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "member",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "members",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "min": 2,
+          "max": 100
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "min": 5,
+          "max": 100
+        },
+        {
+          "name": "membershipActive",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "joinDate",
+          "type": "date",
+          "required": false,
+          "default": "CurrentDate"
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "admin"
+        ],
+        "POST": [
+          "admin"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "library",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "memberId",
+          "type": "reference:members",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "buyDate",
+          "type": "date",
+          "required": false,
+          "default": "CurrentDate"
+        },
+      ],
+      "permissions": {
+        "GET": [
+          "member",
+          "admin"
+        ],
+        "POST": [
+          "member",
+          "admin"
+        ],
+        "PUT": [
+          "member",
+          "admin"
+        ],
+        "PATCH": [
+          "member",
+          "admin"
+        ],
+        "DELETE": [
+          "admin",
+          "member"
+        ]
+      }
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@bibliotheek.nl",
+      "password": "admin123",
+      "roles": [
+        "admin"
+      ]
+    },
+    {
+      "email": "lid1@voorbeeld.nl",
+      "password": "lid123",
+      "roles": [
+        "member"
+      ]
+    }
+  ],
+  "data": {
+    "genres": [
+      {
+        "id": 1,
+        "name": "Avontuur"
+      },
+      {
+        "id": 2,
+        "name": "Fantasy"
+      },
+      {
+        "id": 3,
+        "name": "Historische fictie"
+      },
+      {
+        "id": 4,
+        "name": "Horror"
+      },
+      {
+        "id": 5,
+        "name": "Thriller"
+      },
+      {
+        "id": 6,
+        "name": "Detective"
+      },
+      {
+        "id": 7,
+        "name": "Romance"
+      },
+      {
+        "id": 8,
+        "name": "Science fiction"
+      },
+      {
+        "id": 9,
+        "name": "Biografie"
+      },
+      {
+        "id": 10,
+        "name": "Jeugdliteratuur"
+      },
+      {
+        "id": 11,
+        "name": "Klassiekers"
+      },
+      {
+        "id": 12,
+        "name": "Graphic Novel"
+      },
+      {
+        "id": 13,
+        "name": "Historische roman"
+      },
+      {
+        "id": 14,
+        "name": "Roman"
+      },
+      {
+        "id": 15,
+        "name": "Young Adult"
+      }
+    ],
+    "bookFormat": [
+      {
+        "id": 1,
+        "name": "Hardcover"
+      },
+      {
+        "id": 2,
+        "name": "Paperback"
+      },
+      {
+        "id": 3,
+        "name": "Audiobook"
+      },
+      {
+        "id": 4,
+        "name": "Paperback"
+      }
+    ],
+    "authors": [
+      {
+        "id": 1,
+        "name": "Callie Hart"
+      },
+      {
+        "id": 2,
+        "name": "Sophie Keetch"
+      },
+      {
+        "id": 3,
+        "name": "Emily Brontë"
+      },
+      {
+        "id": 4,
+        "name": "Jane Austen"
+      }
+    ],
+    "books": [
+      {
+        "id": 1,
+        "title": "Pride & Prejudice",
+        "authorId": 4,
+        "genreId": [11, 12],
+        "isbn": "9789044769333",
+        "price": 29.95,
+        "bookFormatId": 1
+      },
+      {
+        "id": 2,
+        "title": "Wuthering Heights",
+        "authorId": 3,
+        "genreId": 11,
+        "isbn": "9781529954296",
+        "price": 26.95,
+        "bookFormatId": 1
+      },
+      {
+        "id": 3,
+        "title": "Morgan is my name",
+        "authorId": 2,
+        "genreId": [2, 3],
+        "isbn": "9780861545216",
+        "price": 15.99,
+        "bookFormatId": 2
+      },
+      {
+        "id": 4,
+        "title": "Quicksilver",
+        "authorId": 1,
+        "genreId": [2, 7],
+        "isbn": "9789049206154",
+        "price": 27.99,
+        "bookFormatId": 1
+      }
+    ],
+    "members": [
+      {
+        "id": 1,
+        "name": "Tessa Vermeulen",
+        "email": "tessavermeulen@icloud.com",
+        "membershipActive": true,
+        "joinDate": "2026-01-20"
+      },
+      {
+        "id": 2,
+        "name": "Maria de Vries",
+        "email": "maria@voorbeeld.nl",
+        "membershipActive": true,
+        "joinDate": "2024-02-20"
+      }
+    ],
+    "library": [
+      {
+        "id": 1,
+        "memberId": 1,
+        "bookId": 2,
+        "startedDate": "2024-03-01",
+        "finishedDate": "2024-03-21"
+      }
+    ]
+  }
+}
