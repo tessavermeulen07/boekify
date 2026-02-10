@@ -7,10 +7,11 @@
     flex-wrap: nowrap;
 }
 
-.main-container img {
+.main-container-img {
     width: 30%;
     height: auto;
     border-radius: 15px;
+    flex-shrink: 0;
 }
 
 .title {
@@ -21,8 +22,7 @@
     flex-wrap: wrap;
     gap: 20px;
     flex: 1;
-    width: 100%;
-
+    min-width: 0;
 }
 
 .title h4 {

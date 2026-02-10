@@ -1,6 +1,7 @@
 import './Home.css';
 import Navigation from '../../navigation/Navigation.jsx';
 import CurrentBook from '../../components/currentBook/CurrentBook.jsx';
+import Block from '../../components/block/Block.jsx';
 
 function Home() {
     return (
@@ -11,7 +12,11 @@ function Home() {
                     <CurrentBook/>
                 </section>
                 <section>
-                    <p>fdhjfdhjfhd</p>
+                    <Block>
+                        Random Quote
+                    </Block>
+                    <Block>Reading Stats</Block>
+                    <Block>Reading Goals</Block>
                 </section>
             </div>
         </>

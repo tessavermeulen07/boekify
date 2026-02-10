@@ -255,7 +255,7 @@
           "type": "date",
           "required": false,
           "default": "CurrentDate"
-        },
+        }
       ],
       "permissions": {
         "GET": [
@@ -283,7 +283,7 @@
   ],
   "users": [
     {
-      "email": "admin@bibliotheek.nl",
+      "email": "tessavermeulen@icloud.com",
       "password": "admin123",
       "roles": [
         "admin"

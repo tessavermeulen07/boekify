@@ -1,0 +1,12 @@
+.block-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 800px;
+    margin: 100px 0 0 100px;
+    padding: 15px 0 15px 100px;
+    border-radius: 10px;
+    border: solid var(--color-lavender) 1px;
+}
+

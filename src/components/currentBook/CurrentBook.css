@@ -19,3 +19,16 @@
 
     border: solid red 1px;
 }
+
+#progress-bar {
+    width: 80%;
+    background-color: #EBE8FF;
+    border-radius: 10px;
+}
+
+#reading-progress {
+    width: 0%;
+    height: 10px;
+    background-color: #7771AB;
+    border-radius: 10px;
+}

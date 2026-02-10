@@ -64,6 +64,10 @@ h5 {
     }
 
     button {
-        background-color: #f9f9f9;
+        background-color: var(--color-lavender);
+        color: var(--color-white);
+        font-family: poppins, sans-serif;
+        text-align: center;
+        border: none;
     }
 }

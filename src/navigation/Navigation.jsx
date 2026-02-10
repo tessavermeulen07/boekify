@@ -1,6 +1,5 @@
 import {NavLink} from 'react-router-dom';
 import './Navigation.css';
-import home from '../assets/icons/home.svg';
 import profile from '../assets/icons/profile.svg';
 
 function Navigation() {
@@ -11,11 +10,11 @@ function Navigation() {
                 <ul className="navbar-list">
                     <li>
                         <NavLink to="/home" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
-                            <img src={home} alt="Home icon" className="icon"/>
+                            Home
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
+                        <NavLink to="/library" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
                             Bibliotheek
                         </NavLink>
                     </li>
@@ -31,7 +30,7 @@ function Navigation() {
                     </li>
                     <li>
                         <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
-                            <img src={profile} alt="Profile icon" className="icon"/>
+                            Profile
                         </NavLink>
                     </li>
                 </ul>

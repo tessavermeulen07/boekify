@@ -12,7 +12,7 @@ function Start() {
         <>
             <NavStart/>
             <section className="main-container">
-                <img src={boekify} alt="Afbeelding van een open boek"/>
+                <img src={boekify} alt="Afbeelding van een open boek" className="main-container-img"/>
                 <div className="title">
                     <h2>Welkom bij Boekify - </h2>
                     <h2>Waar jouw boekenverzameling begint</h2>
