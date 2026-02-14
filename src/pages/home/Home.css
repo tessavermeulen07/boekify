@@ -1,8 +1,19 @@
 .outer-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
-    flex-shrink: 1;
+    flex-grow: 1;
     padding: 0 20px;
+    position: relative;
+    width: 100%;
+    gap: 150px;
+}
+
+.block-home {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 30px;
 }

@@ -11,10 +11,8 @@ function Home() {
                 <section>
                     <CurrentBook/>
                 </section>
-                <section>
-                    <Block>
-                        Random Quote
-                    </Block>
+                <section className="block-home">
+                    <Block>Random Quote</Block>
                     <Block>Reading Stats</Block>
                     <Block>Reading Goals</Block>
                 </section>

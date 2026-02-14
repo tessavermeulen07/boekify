@@ -6,6 +6,7 @@
     align-items: flex-start;
     margin-bottom: 50px;
     flex-shrink: 0;
+    flex-wrap: wrap;
 }
 
 .navbar-list {
@@ -14,23 +15,21 @@
     justify-content: flex-end;
     align-items: center;
     list-style-type: none;
-    gap: 50px;
-    flex-shrink: 0;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
 }
 
 nav a,
 nav a:visited {
     text-decoration: none;
-    padding: 15px;
-    font-weight: bold;
+    padding: 10px;
+    font-weight: 700;
     text-transform: uppercase;
 }
 
 nav a:hover {
-    color: var(--color-white);
-    background-color: var(--color-lavender);
-    padding: 15px;
-    border-radius: 10px;
+    color: var(--color-lavender);
 }
 
 .nav-default {
@@ -39,8 +38,4 @@ nav a:hover {
 
 .nav-active {
     color: var(--color-lavender);
-}
-
-.icon {
-    width: 20px;
 }

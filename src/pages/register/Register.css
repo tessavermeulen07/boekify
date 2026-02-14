@@ -4,46 +4,52 @@
     align-items: flex-start;
 }
 
-.nav-container-register {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.active-nav-link-register {
-    color: #7771AB;
-    border-bottom: 1px solid var(--color-lavender);
-    padding: 0 20px 15px 20px;
-}
-
-.default-nav-link-register {
-    color: #000;
-    border-bottom: 1px solid lightgrey;
-    padding: 0 20px 15px 20px;
-}
-
 .container-image-text-register {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     padding: 50px 0;
+    width: 100%
 }
 
 .container-text-register {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .img-books {
     width: 15%;
     height: auto;
     border-radius: 15px;
-    box-shadow: ;
+    box-shadow: 8px 5px 5px #E8E9ED;
 }
 
 .join-title-register {
     font-family: Artifika;
     font-size: 26px;
+}
+
+.container-form-register {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+}
+
+.checkbox-register {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+input.checkbox-register-square {
+    accent-color: var(--color-lavender);
+    width: 20px;
+    height: 20px;
 }

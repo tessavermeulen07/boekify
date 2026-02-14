@@ -2,7 +2,10 @@ import './Register.css';
 import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import Button from '../../components/button-nav-start/ButtonNavStart.jsx';
+import TextLabel from '../../components/textLabel/TextLabel.jsx';
+import NavLoginRegister from '../../nav-login-register/NavLoginRegister.jsx';
 import books from '../../assets/stapelboeken.jpg';
+
 
 function Register() {
 
@@ -11,23 +14,13 @@ function Register() {
     const [nameValue, setNameValue] = useState('');
     const [checkboxAgreedValue, toggleCheckboxAgreedValue] = useState(false);
 
-    const isActive = true
+    const isActive = true;
 
     return (
         <>
             <div className='main-container-register'>
-                <nav className="nav-container-register">
-                    <NavLink
-                        to="/login"
-                        className={({isActive}) => isActive ? 'active-nav-link-register' : 'default-nav-link-register'}>
-                        Login
-                    </NavLink>
-                    <NavLink
-                        to="/registreer"
-                        className={({isActive}) => isActive ? 'active-nav-link-register' : 'default-nav-link-register'}>
-                        Registreer
-                    </NavLink>
-                </nav>
+               <NavLoginRegister />
+
                 <div className="container-image-text-register">
                     <img src={books} alt="Stack of Books" className="img-books"/>
                     <div className="container-text-register">
@@ -35,51 +28,48 @@ function Register() {
                         <div>Word lid en start je eigen thuisbibliotheek</div>
                     </div>
                 </div>
-                <form>
-                    <label htmlFor="username">
-                        <p>Gebruikersnaam:</p>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={nameValue}
-                            onChange={(e) => setNameValue(e.target.value)}
-                        />
-                    </label>
-                    <label htmlFor="email">
-                        <p>Email:</p>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={emailValue}
-                            onChange={(e) => setEmailValue(e.target.value)}
-                        />
-                    </label>
-                    <label htmlFor="password">
-                        <p>Paswoord:</p>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={passwordValue}
-                            onChange={(e) => setPasswordValue(e.target.value)}
-                        />
-                    </label>
-                    <label htmlFor="checkbox">
-                        <input
+                <form className="container-form-register">
+                    <TextLabel
+                        labelHtml="name"
+                        startTextLabel="Naam"
+                        typeOfLabel="text"
+                        idOfLabel="name"
+                        nameOfLabel="name"
+                        valueOfLabel={nameValue}
+                        onChangeOfLabel={(e) => setNameValue(e.target.value)}
+                    />
+                    <TextLabel
+                        labelHTML="email"
+                        startTextLabel="E-mail"
+                        typeOfLabel="email"
+                        idOfLabel="email"
+                        nameOfLabel="email"
+                        valueOfLabel={emailValue}
+                        onChangeOfLabel={(e) => setEmailValue(e.target.value)}
+                    />
+                    <TextLabel
+                        labelHTML="password"
+                        startTextLabel="Paswoord"
+                        typeOfLabel="password"
+                        idOfLabel="password"
+                        nameOfLabel="password"
+                        valueOfLabel={passwordValue}
+                        onChangeOfLabel={(e) => setPasswordValue(e.target.value)}
+                    />
+
+                    <label htmlFor="checkbox" className="checkbox-register">
+                        <input className="checkbox-register-square"
                             type="checkbox"
                             id="agreedConditions"
                             name="agreedConditions"
-                            value={checkboxAgreedValue}
+                            checked={checkboxAgreedValue}
                             onChange={() => toggleCheckboxAgreedValue(!checkboxAgreedValue)}
-                        />
-                        Ik ga akkoord met de voorwaarden en privacy policy van Boekify.
+                        /> Ik ga akkoord met de voorwaarden en privacy policy van Boekify.
                     </label>
                     <Button
                         typeOfButton="submit"
                         valueOfButton="send"
-                        nameOfButton="send"
+                        nameOfButton="registreer"
                         textOnButton="Registreer"
                     />
                 </form>

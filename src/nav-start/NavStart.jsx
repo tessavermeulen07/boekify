@@ -7,6 +7,8 @@ function NavStart() {
 
     let navigate = useNavigate();
 
+
+
     return (
         <>
             <nav className="navbar-base">
@@ -16,7 +18,7 @@ function NavStart() {
                         typeOfButton="submit"
                         valueOfButton="send"
                         nameOfButton="send"
-                        onClickOfButton={() => navigate('/')}
+                        onClickOfButton={() => navigate('/registreer')}
                         textOnButton="Registreer"
                         heightOfButton="40"
                         widthOfButton="200"
@@ -27,7 +29,7 @@ function NavStart() {
                         typeOfButton="submit"
                         valueOfButton="send"
                         nameOfButton="send"
-                        onClickOfButton={() => navigate('/')}
+                        onClickOfButton={() => navigate('/login')}
                         textOnButton="Login"
                     />
                 </div>

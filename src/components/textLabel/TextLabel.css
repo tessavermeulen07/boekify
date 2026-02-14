@@ -1,0 +1,28 @@
+.container-text-label-register {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.text-label-register {
+    font-weight: 500;
+    width: 100%;
+}
+
+.text-input-register {
+    padding: 10px;
+    border: 2px solid var(--color-lavender);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.text-input-register:active, .text-input-register:focus {
+    background-color: var(--color-lilac);
+    border: 2px solid var(--color-lavender);
+    outline: none;
+}
