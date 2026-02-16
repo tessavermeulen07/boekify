@@ -42,31 +42,26 @@
           "name": "available",
           "type": "boolean",
           "required": true
-        },
-        {
-          "name": "coverImage",
-          "type": "image",
-          "required": true,
-          "url": "https://example.com/cover.jpg",
-          "alt": "Cover image of the book"
         }
       ],
       "permissions": {
         "GET": [
+          "anonymous",
           "member",
+          "editor",
           "admin"
         ],
         "POST": [
-          "member",
-          "admin"
+          "admin",
+          "editor"
         ],
         "PUT": [
-          "member",
-          "admin"
+          "admin",
+          "editor"
         ],
         "PATCH": [
-          "member",
-          "admin"
+          "admin",
+          "editor"
         ],
         "DELETE": [
           "admin"
@@ -97,18 +92,22 @@
       ],
       "permissions": {
         "GET": [
+          "anonymous",
           "member",
+          "editor",
           "admin"
         ],
         "POST": [
-          "member",
-          "admin"
+          "admin",
+          "editor"
         ],
         "PUT": [
-          "admin"
+          "admin",
+          "editor"
         ],
         "PATCH": [
-          "admin"
+          "admin",
+          "editor"
         ],
         "DELETE": [
           "admin"
@@ -129,52 +128,23 @@
           "required": true,
           "min": 2,
           "max": 50
-        }
-      ],
-      "permissions": {
-        "GET": [
-          "member",
-          "admin"
-        ],
-        "POST": [
-          "admin",
-          "member"
-        ],
-        "PUT": [
-          "admin"
-        ],
-        "PATCH": [
-          "admin"
-        ],
-        "DELETE": [
-          "admin"
-        ]
-      }
-    },
-    {
-      "name": "bookFormat",
-      "fields": [
-        {
-          "name": "id",
-          "type": "number",
-          "required": true
         },
         {
-          "name": "name",
+          "name": "description",
           "type": "string",
-          "required": true,
-          "min": 2,
-          "max": 100
+          "required": false,
+          "max": 500
         }
       ],
       "permissions": {
         "GET": [
+          "anonymous",
           "member",
+          "editor",
           "admin"
         ],
         "POST": [
-          "admin",
-          "member"
+          "admin"
         ],
         "PUT": [
           "admin"
@@ -223,16 +193,19 @@
       ],
       "permissions": {
         "GET": [
-          "admin"
+          "admin",
+          "editor"
         ],
         "POST": [
           "admin"
         ],
         "PUT": [
-          "admin"
+          "admin",
+          "editor"
         ],
         "PATCH": [
-          "admin"
+          "admin",
+          "editor"
         ],
         "DELETE": [
           "admin"
@@ -240,7 +213,7 @@
       }
     },
     {
-      "name": "library",
+      "name": "loans",
       "fields": [
         {
           "name": "id",
@@ -258,32 +231,42 @@
           "required": true
         },
         {
-          "name": "buyDate",
+          "name": "loanDate",
           "type": "date",
           "required": false,
           "default": "CurrentDate"
+        },
+        {
+          "name": "returnDate",
+          "type": "date",
+          "required": true
+        },
+        {
+          "name": "returned",
+          "type": "boolean",
+          "required": true
         }
       ],
       "permissions": {
         "GET": [
           "member",
+          "editor",
           "admin"
         ],
         "POST": [
-          "member",
+          "editor",
           "admin"
         ],
         "PUT": [
-          "member",
+          "editor",
           "admin"
         ],
         "PATCH": [
-          "member",
+          "editor",
           "admin"
         ],
         "DELETE": [
-          "admin",
-          "member"
+          "admin"
         ]
       }
     }
@@ -294,6 +277,13 @@
       "password": "admin123",
       "roles": [
         "admin"
+      ]
+    },
+    {
+      "email": "medewerker@bibliotheek.nl",
+      "password": "medewerker123",
+      "roles": [
+        "editor"
       ]
     },
     {
@@ -308,146 +298,69 @@
     "genres": [
       {
         "id": 1,
-        "name": "Avontuur"
+        "name": "Science Fiction",
+        "description": "Toekomstgerichte fictie"
       },
       {
         "id": 2,
-        "name": "Fantasy"
+        "name": "Fantasy",
+        "description": "Fantasierijke verhalen"
       },
       {
         "id": 3,
-        "name": "Historische fictie"
+        "name": "Non-Fictie",
+        "description": "Educatieve en informatieve boeken"
       },
       {
         "id": 4,
-        "name": "Horror"
-      },
-      {
-        "id": 5,
-        "name": "Thriller"
-      },
-      {
-        "id": 6,
-        "name": "Detective"
-      },
-      {
-        "id": 7,
-        "name": "Romance"
-      },
-      {
-        "id": 8,
-        "name": "Science fiction"
-      },
-      {
-        "id": 9,
-        "name": "Biografie"
-      },
-      {
-        "id": 10,
-        "name": "Jeugdliteratuur"
-      },
-      {
-        "id": 11,
-        "name": "Klassiekers"
-      },
-      {
-        "id": 12,
-        "name": "Graphic Novel"
-      },
-      {
-        "id": 13,
-        "name": "Historische roman"
-      },
-      {
-        "id": 14,
-        "name": "Roman"
-      },
-      {
-        "id": 15,
-        "name": "Young Adult"
-      }
-    ],
-    "bookFormat": [
-      {
-        "id": 1,
-        "name": "Hardcover"
-      },
-      {
-        "id": 2,
-        "name": "Paperback"
-      },
-      {
-        "id": 3,
-        "name": "Audiobook"
-      },
-      {
-        "id": 4,
-        "name": "Paperback"
+        "name": "Thriller",
+        "description": "Spannende verhalen"
       }
     ],
     "authors": [
       {
         "id": 1,
-        "name": "Callie Hart"
+        "name": "Isaac Asimov",
+        "bio": "Russisch-Amerikaans schrijver van SF"
       },
       {
         "id": 2,
-        "name": "Sophie Keetch"
+        "name": "J.K. Rowling",
+        "bio": "Britse schrijfster, bekend van Harry Potter"
       },
       {
         "id": 3,
-        "name": "Emily Brontë"
-      },
-      {
-        "id": 4,
-        "name": "Jane Austen"
+        "name": "Yuval Noah Harari",
+        "bio": "Israëlische historicus en auteur"
       }
     ],
     "books": [
       {
         "id": 1,
-        "title": "Pride & Prejudice",
-        "authorId": 4,
-        "genreId": [
-          11,
-          12
-        ],
-        "isbn": "9789044769333",
-        "price": 29.95,
-        "bookFormatId": 1
+        "title": "Foundation",
+        "authorId": 1,
+        "genreId": 1,
+        "isbn": "9781234567890",
+        "price": 19.99,
+        "available": true
       },
       {
         "id": 2,
-        "title": "Wuthering Heights",
-        "authorId": 3,
-        "genreId": 11,
-        "isbn": "9781529954296",
-        "price": 26.95,
-        "bookFormatId": 1
+        "title": "Harry Potter en de Steen der Wijzen",
+        "authorId": 2,
+        "genreId": 2,
+        "isbn": "9781234567891",
+        "price": 14.95,
+        "available": false
       },
       {
         "id": 3,
-        "title": "Morgan is my name",
-        "authorId": 2,
-        "genreId": [
-          2,
-          3
-        ],
-        "isbn": "9780861545216",
-        "price": 15.99,
-        "bookFormatId": 2
-      },
-      {
-        "id": 4,
-        "title": "Quicksilver",
-        "authorId": 1,
-        "genreId": [
-          2,
-          7
-        ],
-        "isbn": "9789049206154",
-        "price": 27.99,
-        "bookFormatId": 1
+        "title": "Sapiens",
+        "authorId": 3,
+        "genreId": 3,
+        "isbn": "9781234567892",
+        "price": 24.50,
+        "available": true
       }
     ],
     "members": [
@@ -456,7 +369,7 @@
         "name": "Tessa Vermeulen",
         "email": "tessavermeulen@icloud.com",
         "membershipActive": true,
-        "joinDate": "2026-01-20"
+        "joinDate": "2024-01-15"
       },
       {
         "id": 2,
@@ -466,13 +379,14 @@
         "joinDate": "2024-02-20"
       }
     ],
-    "library": [
+    "loans": [
       {
         "id": 1,
         "memberId": 1,
         "bookId": 2,
-        "startedDate": "2024-03-01",
-        "finishedDate": "2024-03-21"
+        "loanDate": "2024-03-01",
+        "returnDate": "2024-03-21",
+        "returned": false
       }
     ]
   }

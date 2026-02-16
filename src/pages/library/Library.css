@@ -1,8 +1,8 @@
 .main-content-library {
     display: flex;
     flex-direction: row;
-    gap: 100px;
-    /**/
+    justify-content: space-evenly;
+    gap: 30px;
     width: 100%;
     position: relative;
 }
@@ -12,8 +12,8 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: 20px;
-    flex-shrink: 1;
     flex-grow: 2;
+    flex-shrink: 2;
     width: 100%;
     position: relative;
 }
@@ -31,11 +31,31 @@
     justify-content: flex-start;
     width: 100%;
     position: relative;
-    flex-shrink: 1;
+}
+
+.inside-right-content-library {
+    display: flex;
+    flex-direction: column;
 }
 
 .banner-library {
     background-color: var(--color-lilac);
     width: 100%;
     position: relative;
+    padding: 10px;
+    text-align: left;
+    list-style-type: none;
+}
+
+.list-books-library {
+    border-bottom: 1px solid var(--color-lavender);
+    width: 100%;
+    position: relative;
+    padding: 10px 0;
+    text-align: left;
+    list-style-type: none;
+}
+
+.list-books-library:last-child {
+    border-bottom: none;
 }
