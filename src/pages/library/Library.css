@@ -59,3 +59,13 @@
 .list-books-library:last-child {
     border-bottom: none;
 }
+
+.title-books-library {
+    color: var(--color-lavender);
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.author-books-library {
+    color: var(--color-lavender);
+}

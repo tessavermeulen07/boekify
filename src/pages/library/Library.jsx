@@ -9,6 +9,7 @@ function Library() {
     const [library, setLibrary] = useState(null);
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
+    const [libraryAuthor, setLibraryAuthor] = useState(null);
 
     async function getBooks() {
         try {
@@ -19,7 +20,17 @@ function Library() {
             });
 
             resultBooks.data.sort((a, b) => {
-                return a - b
+                const titleA = a.title;
+                const titleB = b.title;
+
+                if (titleA < titleB) {
+                    return -1;
+                } else if (titleA > titleB) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+                // return a.title - b.title
             })
 
             setLibrary(resultBooks.data);
@@ -33,6 +44,24 @@ function Library() {
         void getBooks();
     }, []);
 
+    async function getAuthors() {
+        try {
+            const resultAuthors = await axios.get('https://novi-backend-api-wgsgz.ondigitalocean.app/api/authors', {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            })
+
+            setLibraryAuthor(resultAuthors.data);
+            console.log(resultAuthors);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    useEffect(() => {
+        void getAuthors();
+    }, []);
 
 
     return (
@@ -67,7 +96,8 @@ function Library() {
                                 {library?.map((books) => {
                                     return (
                                         <li key={books.title} className="list-books-library">
-                                            <p>{books.title}</p>
+                                            <p className="title-books-library">{books.title}</p>
+                                            <p className="author-books-library">??</p>
                                         </li>
                                     );
                                 }
