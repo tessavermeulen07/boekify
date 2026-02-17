@@ -82,12 +82,6 @@
           "required": true,
           "min": 2,
           "max": 100
-        },
-        {
-          "name": "bio",
-          "type": "string",
-          "required": false,
-          "max": 2000
         }
       ],
       "permissions": {
@@ -315,23 +309,29 @@
         "id": 4,
         "name": "Thriller",
         "description": "Spannende verhalen"
+      },
+      {
+        "id": 5,
+        "name": "Klassieke Literatuur",
+        "description": "Klassieke literatuur"
       }
     ],
     "authors": [
       {
         "id": 1,
-        "name": "Isaac Asimov",
-        "bio": "Russisch-Amerikaans schrijver van SF"
+        "name": "Isaac Asimov"
       },
       {
         "id": 2,
-        "name": "J.K. Rowling",
-        "bio": "Britse schrijfster, bekend van Harry Potter"
+        "name": "J.K. Rowling"
       },
       {
         "id": 3,
-        "name": "Yuval Noah Harari",
-        "bio": "Israëlische historicus en auteur"
+        "name": "Yuval Noah Harari"
+      },
+      {
+        "id": 4,
+        "name": "Jane Austen"
       }
     ],
     "books": [
@@ -370,6 +370,15 @@
         "isbn": "0747538484",
         "price": 14.95,
         "available": false
+      },
+      {
+        "id": 5,
+        "title": "Pride and Prejudice",
+        "authorId": 4,
+        "genreId": 3,
+        "isbn": "9781234567893",
+        "price": 14.95,
+        "available": true
       }
     ],
     "members": [

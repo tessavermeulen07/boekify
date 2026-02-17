@@ -20,15 +20,15 @@
     position: relative;
 }
 
-nav a,
-nav a:visited {
+nav > ul > li > a,
+nav > ul > li > a:visited {
     text-decoration: none;
     padding: 10px;
     font-weight: 700;
     text-transform: uppercase;
 }
 
-nav a:hover {
+nav > ul > li > a:hover {
     color: var(--color-lavender);
 }
 

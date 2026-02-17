@@ -69,3 +69,26 @@
 .author-books-library {
     color: var(--color-lavender);
 }
+
+.add-book-library {
+    text-align: left;
+}
+
+.add-book-library > a:link,
+.add-book-library > a:visited {
+    color: var(--color-lavender);
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0 0 10px 0;
+}
+
+.add-book-library > a:hover {
+    border-bottom: 1px solid var(--color-lavender);
+    padding: 0 0 10px 0;
+}
+
+.add-book-library > img {
+    width: 25px;
+    padding: 0 10px 0 0;
+}

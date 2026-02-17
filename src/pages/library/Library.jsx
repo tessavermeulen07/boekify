@@ -2,6 +2,8 @@ import './Library.css';
 import Navigation from '../../navigation/Navigation.jsx';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import add from '../../assets/icons/add.svg';
 
 
 function Library() {
@@ -44,6 +46,7 @@ function Library() {
         void getBooks();
     }, []);
 
+
     async function getAuthors() {
         try {
             const resultAuthors = await axios.get('https://novi-backend-api-wgsgz.ondigitalocean.app/api/authors', {
@@ -70,6 +73,9 @@ function Library() {
 
             <div className="main-content-library">
                 <div className="left-content-library">
+                    <div className="add-book-library">
+                        <img src={add} alt="plus-icon" /> <Link to="/add-books">Boek toevoegen</Link>
+                    </div>
                     <div className="inside-left-content-library">
                         <h3>Persoonlijke Filters</h3>
                         <p>Link</p>
@@ -80,29 +86,22 @@ function Library() {
                         <p>Link</p>
                         <p>Link</p>
                     </div>
+
                 </div>
                 <div className="right-content-library">
-                    {/*<div className="inside-right-content-library">*/}
-                    {/*    <span className="banner-library">A-balk</span>*/}
-                    {/*    <span className="list-books-library">Book 1</span>*/}
-                    {/*    <span className="list-books-library">Book 2</span>*/}
-                    {/*</div>*/}
-                    {/*<div className="inside-right-content-library">*/}
-                    {/*    <span className="banner-library">B-balk</span>*/}
-                    {/*    <span className="list-books-library">Book 1</span>*/}
-                    {/*</div>*/}
                     <div className="inside-right-content-library">
-                            <ul>
-                                {library?.map((books) => {
+                        <ul>
+                            {library?.map((books) => {
+                                    const author = libraryAuthor?.find((a) => a.id === books.authorId);
                                     return (
-                                        <li key={books.title} className="list-books-library">
-                                            <p className="title-books-library">{books.title}</p>
-                                            <p className="author-books-library">??</p>
-                                        </li>
+                                            <li key={books.title} className="list-books-library">
+                                                <p className="title-books-library">{books.title}</p>
+                                                <p className="author-books-library">{author ? author.name : "Auteur laden..."}</p>
+                                            </li>
                                     );
                                 }
-                                    )}
-                            </ul>
+                            )}
+                        </ul>
                     </div>
                 </div>
             </div>
