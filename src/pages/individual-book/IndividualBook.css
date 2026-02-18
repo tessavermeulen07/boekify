@@ -1,0 +1,25 @@
+.main-container-individual-book {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 25px;
+    position: relative;
+    width: 100%;
+}
+
+.main-container-individual-book > img {
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    align-self: flex-start;
+}
+
+.book-info-container-individual-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+    white-space: pre-wrap;
+}

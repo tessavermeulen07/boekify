@@ -6,6 +6,7 @@ import AddBooks from './pages/addBooks/AddBooks.jsx';
 import Library from './pages/library/Library.jsx';
 import Register from './pages/register/Register.jsx';
 import Login from './pages/login/Login.jsx';
+import IndividualBook from './pages/individual-book/IndividualBook.jsx';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/library" element={<Library />} />
                     <Route path="/registreer" element={<Register />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/individual-book" element={<IndividualBook />} />
                 </Routes>
             </main>
         </>

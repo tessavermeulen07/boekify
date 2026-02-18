@@ -9,10 +9,16 @@
     color: #7771AB;
     border-bottom: 1px solid var(--color-lavender);
     padding: 0 20px 15px 20px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .default-nav-link-register {
     color: #000;
     border-bottom: 1px solid lightgrey;
     padding: 0 20px 15px 20px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
 }

@@ -39,6 +39,20 @@
           "min": 0
         },
         {
+          "name": "coverImage",
+          "type": "image",
+          "required": false,
+          "url": "src/assets/book-covers/",
+          "alt": "Cover image of the book"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "min": 10,
+          "max": 500
+        },
+        {
           "name": "available",
           "type": "boolean",
           "required": true
@@ -53,7 +67,8 @@
         ],
         "POST": [
           "admin",
-          "editor"
+          "editor",
+          "anonymous"
         ],
         "PUT": [
           "admin",
@@ -314,6 +329,11 @@
         "id": 5,
         "name": "Klassieke Literatuur",
         "description": "Klassieke literatuur"
+      },
+      {
+        "id": 6,
+        "name": "Graphic Novel",
+        "description": "Graphic novels"
       }
     ],
     "authors": [
@@ -342,7 +362,8 @@
         "genreId": 1,
         "isbn": "9781234567890",
         "price": 19.99,
-        "available": true
+        "coverImage": "src/assets/book-covers/foundation.jpg",
+        "alt": "Cover image of the book Foundation"
       },
       {
         "id": 2,
@@ -351,7 +372,8 @@
         "genreId": 2,
         "isbn": "07747532745",
         "price": 14.95,
-        "available": false
+        "coverImage": "src/assets/book-covers/HP-PhilosophersStone.jpg",
+        "alt": "Cover image of the book Harry Potter and the Philosopher's Stone"
       },
       {
         "id": 3,
@@ -360,7 +382,8 @@
         "genreId": 3,
         "isbn": "9781234567892",
         "price": 24.50,
-        "available": true
+        "coverImage": "src/assets/book-covers/sapiens.jpg",
+        "alt": "Cover image of the book Sapiens"
       },
       {
         "id": 4,
@@ -369,16 +392,22 @@
         "genreId": 2,
         "isbn": "0747538484",
         "price": 14.95,
-        "available": false
+        "coverImage": "src/assets/book-covers/chamber-of-secrets-uk-childrens-edition.jpg",
+        "alt": "Cover image of the book Harry Potter and the Chamber of Secrets"
       },
       {
         "id": 5,
         "title": "Pride and Prejudice",
         "authorId": 4,
-        "genreId": 3,
+        "genreId": [
+          5,
+          6
+        ],
         "isbn": "9781234567893",
         "price": 14.95,
-        "available": true
+        "coverImage": "src/assets/book-covers/9789044769333_front.jpg",
+        "alt": "Cover image of the book Pride and Prejudice",
+        "description": "Word opnieuw verliefd op een van de mooiste liefdesverhalen ooit geschreven.\n\nMiss Elizabeth Bennet heeft vier zussen en een moeder wier grootste zorg het is om een echtgenoot voor haar dochters te vinden. Wanneer de vermogende Mr. Bingley samen met zijn vriend Mr. Darcy naar Netherfield komt, ziet Mrs. Bennet de perfecte kans voor haar meisjes. Terwijl Jane halsoverkop verliefd wordt op de vriendelijke Mr. Bingley, beslist Elizabeth dat ze haar hart nooit ofte nimmer zou kunnen geven aan een man die zo trots en arrogant is als Mr. Darcy. Maar soms schuilt er achter trots een onverwachte tederheid.\n\nDeze prachtige graphic novel brengt Jane Austens tijdloze verhaal op een unieke manier tot leven dankzij de elegante illustraties van Tara Spruit. Een onmisbaar boek voor wie houdt van regency-romantiek, klassieke verhalen en voor iedereen die voor het eerst of opnieuw verliefd wil worden op Mr. Darcy."
       }
     ],
     "members": [

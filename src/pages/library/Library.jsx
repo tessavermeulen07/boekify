@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import add from '../../assets/icons/add.svg';
 
 
+
 function Library() {
 
     const [library, setLibrary] = useState(null);
@@ -95,8 +96,11 @@ function Library() {
                                     const author = libraryAuthor?.find((a) => a.id === books.authorId);
                                     return (
                                             <li key={books.title} className="list-books-library">
-                                                <p className="title-books-library">{books.title}</p>
-                                                <p className="author-books-library">{author ? author.name : "Auteur laden..."}</p>
+                                                <img src={books.coverImage} alt={books.alt} />
+                                                <div className="books-library">
+                                                    <p className="title-books-library">{books.title}</p>
+                                                    <p className="author-books-library">{author ? author.name : "Auteur laden..."}</p>
+                                                </div>
                                             </li>
                                     );
                                 }
