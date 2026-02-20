@@ -98,7 +98,7 @@ function Library() {
                                             <li key={books.title} className="list-books-library">
                                                 <img src={books.coverImage} alt={books.alt} />
                                                 <div className="books-library">
-                                                    <p className="title-books-library">{books.title}</p>
+                                                    <Link to={`/books/${books.id}`}><p className="title-books-library">{books.title}</p></Link>
                                                     <p className="author-books-library">{author ? author.name : "Auteur laden..."}</p>
                                                 </div>
                                             </li>

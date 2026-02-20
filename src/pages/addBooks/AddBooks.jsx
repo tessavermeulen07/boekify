@@ -12,6 +12,7 @@ function AddBooks() {
     const [isbnOfBook, setIsbnOfBook] = useState('');
     const [genreOfBook, setGenreOfBook] = useState('')
     const [priceOfBook, setPriceOfBook] = useState('');
+    const [description, setDescription] = useState('');
 
     return (
         <>
@@ -61,6 +62,16 @@ function AddBooks() {
                     valueOfLabel={priceOfBook}
                     onChangeOfLabel={(e) => setPriceOfBook(e.target.value)}
                 />
+                <label htmlFor="description" className="text-area-label-add-books">Beschrijving:
+                <textarea className="text-area-add-books"
+                          id="description"
+                          name="description"
+                          value={description}
+                          onChange={(e) => setDescription((e.target.value))}
+                          rows="10"
+                          cols="120"
+                ></textarea>
+                </label>
                 <ButtonNavStart
                     typeOfButton="send"
                     valueOfButton="send"

@@ -73,6 +73,11 @@
     flex-direction: column;
 }
 
+.books-library > a:link,
+.books-library > a:visited {
+    text-decoration: none;
+}
+
 .title-books-library {
     color: var(--color-lavender);
     font-weight: 500;
