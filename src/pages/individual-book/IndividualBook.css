@@ -44,3 +44,33 @@
     text-align: left;
     white-space: pre-wrap;
 }
+
+
+.reviews-individual-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    position: relative;
+    padding: 50px 0 0 0;
+}
+
+.list-reviews-individual-book {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.list-item-reviews-individual-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid var(--color-lavender);
+    border-radius: 20px;
+    padding: 20px;
+    list-style-type: none;
+    width: 100%;
+    position: relative;
+}

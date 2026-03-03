@@ -139,13 +139,13 @@ function IndividualBook() {
                     <h5>{individualAuthor?.name}</h5>
                     <p>{individualBook?.description}</p>
                     <p><b>Genres:</b> {individualGenre}</p>
-                    <div>
+                    <div className="reviews-individual-book">
                         <h4>Reviews</h4>
-                        <ul>
+                        <ul className="list-reviews-individual-book">
                             {individualReview?.map((reviews) => {
                                 const member = individualMember?.find((m) => m.id === reviews.memberId);
                                 return (
-                                    <li key={reviews.review}>
+                                    <li key={reviews.review} className="list-item-reviews-individual-book">
                                         <p>{member ? member.name : "Lid onbekend."}</p>
                                         <p>{reviews.ratingId}</p>
                                         <p>{reviews.review}</p>
