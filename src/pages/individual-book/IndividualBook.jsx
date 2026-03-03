@@ -27,7 +27,6 @@ function IndividualBook() {
             setIndividualBook(resultIndividualBook?.data);
             console.log(resultIndividualBook?.data);
         } catch (error) {
-            `Het boek is niet gevonden.`
             console.error('Het boek is niet gevonden.')
         }
     }
@@ -47,7 +46,6 @@ function IndividualBook() {
             setIndividualAuthor(resultIndividualAuthor?.data);
             console.log(resultIndividualAuthor?.data);
         } catch (error) {
-            `Auteur niet gevonden.`
             console.error('Auteur niet gevonden.');
         }
     }
@@ -70,7 +68,6 @@ function IndividualBook() {
             setIndividualGenre(resultIndividualGenre?.data?.name);
             console.log(resultIndividualGenre?.data);
         } catch (error) {
-            `Genre niet gevonden.`
             console.error('Genre niet gevonden.');
         }
     }
@@ -102,26 +99,29 @@ function IndividualBook() {
     }, []);
 
 
-    async function getIndividualMember(id) {
+    async function getIndividualMember() {
         try {
-            const resultIndividualMember = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/${id}`, {
+            const resultIndividualMember = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
-            setIndividualMember(resultIndividualMember);
-            console.log(resultIndividualMember);
+            setIndividualMember(resultIndividualMember.data);
+            console.log(resultIndividualMember.data);
         } catch (error) {
-            `Onbekend lid`
             console.error('Onbekend lid');
         }
     }
 
-        useEffect(() => {
-            if (Object.keys(individualReview).length > 0) {
-                void getIndividualMember(individualReview.memberId);
-            }
-        }, [individualReview.memberId]);
+    useEffect(() => {
+        void getIndividualMember();
+    }, []);
+
+        // useEffect(() => {
+        //     if (Object.keys(individualReview).length > 0) {
+        //         void getIndividualMember(individualReview.memberId);
+        //     }
+        // }, [individualReview.memberId]);
 
 
     return (
@@ -143,9 +143,10 @@ function IndividualBook() {
                         <h4>Reviews</h4>
                         <ul>
                             {individualReview?.map((reviews) => {
+                                const member = individualMember?.find((m) => m.id === reviews.memberId);
                                 return (
                                     <li key={reviews.review}>
-                                        <p>{reviews.memberId}{individualMember?.name} <b>Werkt niet</b></p>
+                                        <p>{member ? member.name : "Lid onbekend."}</p>
                                         <p>{reviews.ratingId}</p>
                                         <p>{reviews.review}</p>
                                     </li>
