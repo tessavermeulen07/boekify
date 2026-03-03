@@ -8,6 +8,7 @@ import Register from './pages/register/Register.jsx';
 import Login from './pages/login/Login.jsx';
 import IndividualBook from './pages/individual-book/IndividualBook.jsx';
 import Quotes from './pages/quotes/Quotes.jsx';
+import AddReview from './pages/add-review/AddReview.jsx';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/books/:id" element={<IndividualBook />} />
                     <Route path="/quotes" element={<Quotes />} />
+                    <Route path="/review/:id" element={<AddReview />} />
                 </Routes>
             </main>
         </>

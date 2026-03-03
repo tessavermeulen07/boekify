@@ -4,7 +4,7 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import add from '../../assets/icons/add.svg';
-
+import BookRating from '../../components/book-rating/BookRating.jsx';
 
 
 function Library() {
@@ -33,7 +33,6 @@ function Library() {
                 } else {
                     return 0;
                 }
-                // return a.title - b.title
             })
 
             setLibrary(resultBooks.data);
@@ -75,19 +74,18 @@ function Library() {
             <div className="main-content-library">
                 <div className="left-content-library">
                     <div className="add-book-library">
-                        <img src={add} alt="plus-icon" /> <Link to="/add-books">Boek toevoegen</Link>
+                        <img src={add} alt="plus-icon"/> <Link to="/add-books">Boek toevoegen</Link>
                     </div>
-                    <div className="inside-left-content-library">
-                        <h3>Persoonlijke Filters</h3>
-                        <p>Link</p>
-                        <p>Link</p>
-                    </div>
-                    <div className="inside-left-content-library">
-                        <h3>Boek Filters</h3>
-                        <p>Link</p>
-                        <p>Link</p>
-                    </div>
-
+                    {/*<div className="inside-left-content-library">*/}
+                    {/*    <h3>Persoonlijke Filters</h3>*/}
+                    {/*    <p>Link</p>*/}
+                    {/*    <p>Link</p>*/}
+                    {/*</div>*/}
+                    {/*<div className="inside-left-content-library">*/}
+                    {/*    <h3>Boek Filters</h3>*/}
+                    {/*    <p>Link</p>*/}
+                    {/*    <p>Link</p>*/}
+                    {/*</div>*/}
                 </div>
                 <div className="right-content-library">
                     <div className="inside-right-content-library">
@@ -95,13 +93,17 @@ function Library() {
                             {library?.map((books) => {
                                     const author = libraryAuthor?.find((a) => a.id === books.authorId);
                                     return (
-                                            <li key={books.title} className="list-books-library">
-                                                <img src={books.coverImage} alt={books.alt} />
+                                        <li key={books.title} className="list-books-library">
+                                            <img src={books.coverImage} alt={books.alt}/>
+                                            <div className="main-books-library">
                                                 <div className="books-library">
-                                                    <Link to={`/books/${books.id}`}><p className="title-books-library">{books.title}</p></Link>
+                                                    <Link to={`/books/${books.id}`}><p
+                                                        className="title-books-library">{books.title}</p></Link>
                                                     <p className="author-books-library">{author ? author.name : "Auteur laden..."}</p>
                                                 </div>
-                                            </li>
+                                                <BookRating/>
+                                            </div>
+                                        </li>
                                     );
                                 }
                             )}

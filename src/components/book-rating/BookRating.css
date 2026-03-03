@@ -1,0 +1,14 @@
+.heart-rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+}
+
+.heart-book-rating {
+    cursor: pointer;
+}
+
+.input-radio-book-rating {
+    display: none;
+}

@@ -1,16 +1,20 @@
 import './IndividualBook.css';
 import axios from 'axios';
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import Navigation from '../../navigation/Navigation.jsx';
+import BookRating from '../../components/book-rating/BookRating.jsx';
+import {Link} from 'react-router-dom';
+
 
 function IndividualBook() {
 
     const [individualBook, setIndividualBook] = useState({});
     const [individualAuthor, setIndividualAuthor] = useState('');
     const [individualGenre, setIndividualGenre] = useState('');
+    const [individualReview, setIndividualReview] = useState([]);
+    const [individualMember, setIndividualMember] = useState([]);
     const {id} = useParams();
-
 
 
     async function getIndividualBook(id) {
@@ -67,30 +71,87 @@ function IndividualBook() {
             console.log(resultIndividualGenre?.data);
         } catch (error) {
             `Genre niet gevonden.`
-            console.error('Genre niet gevonden');
+            console.error('Genre niet gevonden.');
         }
     }
 
     useEffect(() => {
-        if (Object.keys(individualBook).length >0) {
+        if (Object.keys(individualBook).length > 0) {
             void getIndividualGenre(individualBook.genreId);
         }
     }, [individualBook.genreId]);
 
 
+    async function getIndividualReviews(id) {
+        try {
+            const resultIndividualReviews = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books/${id}/reviews`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setIndividualReview(resultIndividualReviews?.data);
+            console.log(resultIndividualReviews?.data);
+        } catch (error) {
+            `Reviews niet gevonden.`
+            console.error('Reviews niet gevonden.')
+        }
+    }
+
+    useEffect(() => {
+        void getIndividualReviews(id);
+    }, []);
+
+
+    async function getIndividualMember(id) {
+        try {
+            const resultIndividualMember = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setIndividualMember(resultIndividualMember);
+            console.log(resultIndividualMember);
+        } catch (error) {
+            `Onbekend lid`
+            console.error('Onbekend lid');
+        }
+    }
+
+    useEffect(() => {
+        void getIndividualMember(id);
+    }, []);
 
 
     return (
         <>
 
-            <Navigation />
+            <Navigation/>
             <div className="main-container-individual-book">
-                <img src={`../${individualBook?.coverImage}`} alt={individualBook?.alt} />
+                <div className="container-image-review-individual-book">
+                    <img src={`../${individualBook?.coverImage}`} alt={individualBook?.alt}/>
+                    <BookRating/>
+                    <Link to={`/review/${individualBook?.id}`}>Schrijf een review</Link>
+                </div>
                 <div className="book-info-container-individual-book">
                     <h3>{individualBook?.title}</h3>
                     <h5>{individualAuthor?.name}</h5>
                     <p>{individualBook?.description}</p>
                     <p><b>Genres:</b> {individualGenre}</p>
+                    <div>
+                        <h4>Reviews</h4>
+                        <ul>
+                            {individualReview?.map((reviews) => {
+                                return (
+                                    <li key={reviews.review}>
+                                        <p>{reviews.memberId}{individualMember?.name} <b>Werkt niet</b></p>
+                                        <p>{reviews.ratingId}</p>
+                                        <p>{reviews.review}</p>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+
+                    </div>
                 </div>
             </div>
 

@@ -1,6 +1,5 @@
 import './AddBooks.css';
 import Navigation from '../../navigation/Navigation.jsx';
-import axios from 'axios';
 import {useState} from 'react';
 import TextLabel from '../../components/textLabel/TextLabel.jsx';
 import ButtonNavStart from '../../components/button-nav-start/ButtonNavStart.jsx';
@@ -67,7 +66,7 @@ function AddBooks() {
                           id="description"
                           name="description"
                           value={description}
-                          onChange={(e) => setDescription((e.target.value))}
+                          onChange={(e) => setDescription(e.target.value)}
                           rows="10"
                           cols="120"
                 ></textarea>

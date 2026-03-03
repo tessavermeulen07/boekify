@@ -53,6 +53,11 @@
           "max": 500
         },
         {
+          "name": "ratingId",
+          "type": "reference:ratings",
+          "required": false
+        },
+        {
           "name": "available",
           "type": "boolean",
           "required": true
@@ -202,6 +207,11 @@
           "name": "authorId",
           "type": "reference:authors",
           "required": true
+        },
+        {
+          "name": "memberId",
+          "type": "reference:members",
+          "required": true
         }
       ],
       "permissions": {
@@ -222,6 +232,215 @@
         ],
         "DELETE": [
           "admin"
+        ]
+      }
+    },
+    {
+      "name": "readList",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "authorId",
+          "type": "reference:authors",
+          "required": true
+        },
+        {
+          "name": "memberId",
+          "type": "reference:members",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "currentlyReadingList",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "authorId",
+          "type": "reference:authors",
+          "required": true
+        },
+        {
+          "name": "memberId",
+          "type": "reference:members",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "ratings",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "required": true,
+          "min": 1,
+          "max": 5
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "memberId",
+          "type": "reference:members",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "anonymous",
+          "editor"
+        ],
+        "PUT": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "PATCH": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "DELETE": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "reviews",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "review",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ratingId",
+          "type": "reference:ratings",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "authorId",
+          "type": "reference:authors",
+          "required": true
+        },
+        {
+          "name": "memberId",
+          "type": "reference:members",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin",
+          "member"
+        ],
+        "PATCH": [
+          "admin",
+          "member"
+        ],
+        "DELETE": [
+          "admin",
+          "member"
         ]
       }
     },
@@ -262,7 +481,9 @@
       "permissions": {
         "GET": [
           "admin",
-          "editor"
+          "editor",
+          "members",
+          "anonymous"
         ],
         "POST": [
           "admin"
@@ -344,7 +565,9 @@
       "email": "tessavermeulen@icloud.com",
       "password": "admin123",
       "roles": [
-        "admin"
+        "admin",
+        "member",
+        "anonymous"
       ]
     },
     {
@@ -411,6 +634,10 @@
       {
         "id": 4,
         "name": "Jane Austen"
+      },
+      {
+        "id": 5,
+        "name": "Emily Brontë"
       }
     ],
     "books": [
@@ -468,6 +695,17 @@
         "coverImage": "src/assets/book-covers/9789044769333_front.jpg",
         "alt": "Cover image of the book Pride and Prejudice",
         "description": "Word opnieuw verliefd op een van de mooiste liefdesverhalen ooit geschreven.\n\nMiss Elizabeth Bennet heeft vier zussen en een moeder wier grootste zorg het is om een echtgenoot voor haar dochters te vinden. Wanneer de vermogende Mr. Bingley samen met zijn vriend Mr. Darcy naar Netherfield komt, ziet Mrs. Bennet de perfecte kans voor haar meisjes. Terwijl Jane halsoverkop verliefd wordt op de vriendelijke Mr. Bingley, beslist Elizabeth dat ze haar hart nooit ofte nimmer zou kunnen geven aan een man die zo trots en arrogant is als Mr. Darcy. Maar soms schuilt er achter trots een onverwachte tederheid.\n\nDeze prachtige graphic novel brengt Jane Austens tijdloze verhaal op een unieke manier tot leven dankzij de elegante illustraties van Tara Spruit. Een onmisbaar boek voor wie houdt van regency-romantiek, klassieke verhalen en voor iedereen die voor het eerst of opnieuw verliefd wil worden op Mr. Darcy."
+      },
+      {
+        "id": 6,
+        "title": "Wuthering Heights",
+        "authorId": 5,
+        "genreId": 5,
+        "isbn": "9781529954296",
+        "price": 17.99,
+        "coverImage": "src/assets/book-covers/wutheringheights.jpg",
+        "alt": "Cover image of the book Wuthering Heights",
+        "description": "Lockwood, the new tenant of Thrushcross Grange, situated on the bleak Yorkshire moors, is forced to seek shelter one night at Wuthering Heights, the home of his landlord. There he discovers the history of the tempestuous events that took place years before; of the intense relationship between the gypsy foundling Heathcliff and Catherine Earnshaw; and how Catherine, forced to choose between passionate, tortured Heathcliff and gentle, well-bred Edgar Linton, surrendered to the expectations of her class. As Heathcliff's bitterness and vengeance at his betrayal is visited upon the next generation, their innocent heirs must struggle to escape the legacy of the past."
       }
     ],
     "quotes": [
@@ -477,7 +715,8 @@
         "character": "Miss Bingley",
         "page": "62",
         "bookId": 5,
-        "authorId": 4
+        "authorId": 4,
+        "memberId": 1
       },
       {
         "id": 2,
@@ -485,7 +724,8 @@
         "character": "Mr. Darcy",
         "page": 185,
         "bookId": 5,
-        "authorId": 4
+        "authorId": 4,
+        "memberId": 1
       },
       {
         "id": 3,
@@ -493,7 +733,8 @@
         "character": "Elizabeth Bennet to Jane Bennet",
         "page": 356,
         "bookId": 5,
-        "authorId": 4
+        "authorId": 4,
+        "memberId": 1
       },
       {
         "id": 4,
@@ -501,7 +742,8 @@
         "character": "Albus Dumbledore",
         "page": 157,
         "bookId": 2,
-        "authorId": 2
+        "authorId": 2,
+        "memberId": 1
       },
       {
         "id": 5,
@@ -509,7 +751,36 @@
         "character": "Severus Snape",
         "page": 102,
         "bookId": 2,
-        "authorId": 2
+        "authorId": 2,
+        "memberId": 1
+      }
+    ],
+    "currentlyReadingList": [
+      {
+        "id": 1,
+        "bookId": 5,
+        "authorId": 4,
+        "memberId": 1
+      },
+      {
+        "id": 2,
+        "bookId": 6,
+        "authorId": 5,
+        "memberId": 1
+      }
+    ],
+    "readList": [
+      {
+        "id": 1,
+        "bookId": 2,
+        "authorId": 2,
+        "memberId": 1
+      },
+      {
+        "id": 2,
+        "bookId": 4,
+        "authorId": 2,
+        "memberId": 1
       }
     ],
     "members": [
@@ -526,6 +797,24 @@
         "email": "maria@voorbeeld.nl",
         "membershipActive": true,
         "joinDate": "2024-02-20"
+      }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "review": "Ik heb genoten van dit boek, heerlijk wegzwijmelen met Elizabeth Bennet en Mr. Darcy.",
+        "ratingId": 4,
+        "bookId": 5,
+        "authorId": 4,
+        "memberId": 1
+      },
+      {
+        "id": 2,
+        "review": "Prachtig boek, mooie illustraties bij dit tijdloze verhaal.",
+        "ratingId": 4,
+        "bookId": 5,
+        "authorId": 4,
+        "memberId": 2
       }
     ],
     "loans": [

@@ -18,16 +18,16 @@ function Navigation() {
                             Bibliotheek
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
-                            Statistieken
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
-                            Quotes
-                        </NavLink>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>*/}
+                    {/*        Statistieken*/}
+                    {/*    </NavLink>*/}
+                    {/*</li>*/}
+                    {/*<li>*/}
+                    {/*    <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>*/}
+                    {/*        Quotes*/}
+                    {/*    </NavLink>*/}
+                    {/*</li>*/}
                     <li>
                         <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
                             Profile

@@ -1,15 +1,38 @@
 import './CurrentBook.css';
 import ButtonSmall from '../button-small/ButtonSmall.jsx';
+import {useState, useEffect} from 'react';
+import axios from 'axios';
 
 function CurrentBook() {
+
+    const [currentRead, setCurrentRead] = useState('');
+
+    async function getCurrentRead() {
+        try {
+            const resultCurrentRead = await axios.get('https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1/currentlyReadingList', {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setCurrentRead(resultCurrentRead?.data);
+            console.log(resultCurrentRead);
+        } catch (error) {
+            'De boeken zijn niet gevonden.'
+            console.error('De boeken zijn niet gevonden.');
+        }
+    }
+
+    useEffect(() => {
+        void getCurrentRead();
+    }, []);
 
     return (
         <>
             <article className="article-box-current">
                 <h3>Op dit moment aan het lezen</h3>
-                {/*bookcover*/}
                 <span className="span-box-current">
-                    <h5>book title</h5>
+                {currentRead.filter}
+
                     book author
                     {/*<label htmlFor="pagesRead">Pagina's gelezen:</label>*/}
                     {/*<input type="number" id="pagesRead" value="0" min="0" onInput="updateProgress()"/>*/}

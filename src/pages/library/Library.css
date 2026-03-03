@@ -51,6 +51,8 @@
 .list-books-library {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
     gap: 25px;
     border-bottom: 1px solid var(--color-lavender);
     width: 100%;
@@ -62,15 +64,27 @@
 
 .list-books-library > img {
     width: 50px;
+    height: auto;
+    object-fit: contain;
 }
 
 .list-books-library:last-child {
     border-bottom: none;
 }
 
+.main-books-library {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+}
+
 .books-library {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .books-library > a:link,

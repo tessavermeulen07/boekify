@@ -1,0 +1,26 @@
+.form-add-review {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.text-area-label-add-review {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-weight: 500;
+}
+
+.text-area-add-review {
+    padding: 10px;
+    border: 2px solid var(--color-lavender);
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    resize: vertical;
+}
