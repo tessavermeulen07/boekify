@@ -119,7 +119,7 @@ function IndividualBook() {
 
         useEffect(() => {
             if (Object.keys(individualReview).length > 0) {
-                void getIndividualGenre(individualReview.memberId);
+                void getIndividualMember(individualReview.memberId);
             }
         }, [individualReview.memberId]);
 
