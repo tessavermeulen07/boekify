@@ -58,7 +58,7 @@
 .list-reviews-individual-book {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
 .list-item-reviews-individual-book {
