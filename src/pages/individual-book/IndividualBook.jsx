@@ -13,7 +13,7 @@ function IndividualBook() {
     const [individualAuthor, setIndividualAuthor] = useState('');
     const [individualGenre, setIndividualGenre] = useState('');
     const [individualReview, setIndividualReview] = useState([]);
-    const [individualMember, setIndividualMember] = useState([]);
+    const [individualMember, setIndividualMember] = useState({});
     const {id} = useParams();
 
 
@@ -104,7 +104,7 @@ function IndividualBook() {
 
     async function getIndividualMember(id) {
         try {
-            const resultIndividualMember = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1`, {
+            const resultIndividualMember = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/${id}`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
@@ -117,9 +117,11 @@ function IndividualBook() {
         }
     }
 
-    useEffect(() => {
-        void getIndividualMember(id);
-    }, []);
+        useEffect(() => {
+            if (Object.keys(individualReview).length > 0) {
+                void getIndividualGenre(individualReview.memberId);
+            }
+        }, [individualReview.memberId]);
 
 
     return (
