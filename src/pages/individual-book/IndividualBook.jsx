@@ -117,12 +117,6 @@ function IndividualBook() {
         void getIndividualMember();
     }, []);
 
-        // useEffect(() => {
-        //     if (Object.keys(individualReview).length > 0) {
-        //         void getIndividualMember(individualReview.memberId);
-        //     }
-        // }, [individualReview.memberId]);
-
 
     return (
         <>
@@ -132,7 +126,11 @@ function IndividualBook() {
                 <div className="container-image-review-individual-book">
                     <img src={`../${individualBook?.coverImage}`} alt={individualBook?.alt}/>
                     <BookRating/>
-                    <Link to={`/review/${individualBook?.id}`}>Schrijf een review</Link>
+                    <Link to={`/review/${individualBook?.id}`}
+                    state={{
+                        bookId: individualBook.id,
+                        authorId: individualBook.authorId
+                    }}>Schrijf een review</Link>
                 </div>
                 <div className="book-info-container-individual-book">
                     <h3>{individualBook?.title}</h3>
@@ -148,6 +146,7 @@ function IndividualBook() {
                                     <li key={reviews.review} className="list-item-reviews-individual-book">
                                         <p>{member ? member.name : "Lid onbekend."}</p>
                                         <p>{reviews.ratingId}</p>
+                                        <BookRating />
                                         <p>{reviews.review}</p>
                                     </li>
                                 )

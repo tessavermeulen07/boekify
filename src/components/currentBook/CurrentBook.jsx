@@ -3,9 +3,14 @@ import ButtonSmall from '../button-small/ButtonSmall.jsx';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
+
+
 function CurrentBook() {
 
-    const [currentRead, setCurrentRead] = useState('');
+    const [currentRead, setCurrentRead] = useState([]);
+    const [getBooks, setGetBooks] = useState({});
+    const [getAuthors, setGetAuthors] = useState({});
+
 
     async function getCurrentRead() {
         try {
@@ -17,7 +22,6 @@ function CurrentBook() {
             setCurrentRead(resultCurrentRead?.data);
             console.log(resultCurrentRead);
         } catch (error) {
-            'De boeken zijn niet gevonden.'
             console.error('De boeken zijn niet gevonden.');
         }
     }
@@ -26,37 +30,89 @@ function CurrentBook() {
         void getCurrentRead();
     }, []);
 
+
+    async function books() {
+        try {
+            const resultBooks = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setGetBooks(resultBooks);
+            console.log(resultBooks);
+        } catch (error) {
+            console.error('Geen boeken gevonden');
+        }
+    }
+
+    useEffect(() => {
+        void books();
+    }, []);
+
+
+    async function authors() {
+        try {
+            const resultAuthors = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/authors`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setGetAuthors(resultAuthors);
+            console.log(resultAuthors);
+        } catch (error) {
+            console.error('Geen auteurs gevonden');
+        }
+    }
+
+    useEffect(() => {
+        void authors();
+    }, []);
+
+
+
     return (
         <>
             <article className="article-box-current">
                 <h3>Op dit moment aan het lezen</h3>
                 <span className="span-box-current">
-                {currentRead.filter}
+                    <ul className="list-current-book">
+                        {currentRead?.map((currentlyReading) => {
+                            const bookTitle = getBooks?.data?.find((b) => b.id === currentlyReading.bookId);
+                            const author = getAuthors?.data?.find((a) => a.id === currentlyReading.authorId);
 
-                    book author
-                    {/*<label htmlFor="pagesRead">Pagina's gelezen:</label>*/}
-                    {/*<input type="number" id="pagesRead" value="0" min="0" onInput="updateProgress()"/>*/}
-                    {/*<p>van <span id="totalPages">100</span> pagina's</p>*/}
-                    {/*<progress id="myProgress" value="0" max="100"></progress>*/}
-
-                    {/*<div id="progress-bar">*/}
-                    {/*    <div*/}
-                    {/*        value="0"*/}
-                    {/*        max="100"*/}
-                    {/*        id="reading-progress"*/}
-                    {/*    ></div>*/}
-                    {/*</div>*/}
-                    {/*<label for htmlFor="pagesRead">Gelezen:*/}
-                    {/*<input type="number" id="pagesRead" placeholder="0" />*/}
-                    {/*Totaal: ?</label>*/}
-                    {/*<ButtonSmall*/}
-                    {/*    idOnButton="updateBook"*/}
-                    {/*    textOnButton="Update"*/}
-                    {/*/>*/}
+                            return (
+                                <li
+                                    key={currentlyReading?.bookId}
+                                    className="list-items-current-book"
+                                >
+                                    <img src={bookTitle.coverImage} alt={currentlyReading.alt}/>
+                                    <div>
+                                        <h5>{bookTitle ? bookTitle.title : "Geen boek"}</h5>
+                                        <p>{author ? author.name : "Geen auteur"}</p>
+                                    </div>
+                                    {/*<div id="progress-bar">*/}
+                                    {/*    <div*/}
+                                    {/*        value="0"*/}
+                                    {/*        max="100"*/}
+                                    {/*        id="reading-progress"*/}
+                                    {/*    ></div>*/}
+                                    {/*</div>*/}
+                                    {/*<label htmlFor htmlFor="pagesRead">Gelezen:*/}
+                                    {/*    <input type="number" id="pagesRead"/>*/}
+                                    {/*    Totaal: ?</label>*/}
+                                    {/*<ButtonSmall*/}
+                                    {/*    idOnButton="updateBook"*/}
+                                    {/*    textOnButton="Update"*/}
+                                    {/*/>*/}
+                                </li>
+                            );
+                            }
+                        )}
+                    </ul>
                 </span>
             </article>
         </>
     )
 }
 
-export default CurrentBook
+export default CurrentBook;

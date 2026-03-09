@@ -1,31 +1,39 @@
 import './AddReview.css';
 import Navigation from '../../navigation/Navigation.jsx';
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ButtonNavStart from '../../components/button-nav-start/ButtonNavStart.jsx';
 import BookRating from '../../components/book-rating/BookRating.jsx';
 import TextLabel from '../../components/textLabel/TextLabel.jsx';
+import axios from 'axios';
+
 
 function AddReview() {
 
+    const location = useLocation();
+    const {bookId, authorId, ratingId} = location.state || {};
+
     const [reviewValue, setReviewValue] = useState('');
-    const [bookIdValue, setBookIdValue] = useState('');
-    const [authorIdValue, setAuthorIdValue] = useState('');
+    const [bookIdValue, setBookIdValue] = useState(bookId || '');
+    const [authorIdValue, setAuthorIdValue] = useState(authorId || '');
     const [memberIdValue, setMemberIdValue] = useState('');
-    const [ratingIdValue, setRatingIdValue] = useState(null);
+    const [ratingIdValue, setRatingIdValue] = useState(ratingId || 0);
     const [error, setError] = useState('');
     const [succes, setSucces] = useState(false);
     const [newReviewId, setNewReviewId] = useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setError('');
 
         try {
             const postReview = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/reviews', {
-                "bookId": `${bookIdValue}`,
-                "authorId": `${authorIdValue}`,
-                "memberId": `${memberIdValue}`,
-                "ratingId": `${ratingIdValue}`,
-                "review": `${reviewValue}`
+                bookId: Number(bookIdValue),
+                authorId: Number(authorIdValue),
+                memberId: Number(memberIdValue),
+                ratingId: Number(ratingIdValue),
+                review: reviewValue
             }, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
@@ -34,46 +42,32 @@ function AddReview() {
             setNewReviewId();
             setSucces(true);
         } catch (error) {
+            console.error("Foute details:", error.response?.data);
             setError("Het is niet gelukt om het review te plaatsen. Probeer het later opnieuw")
         }
     }
 
 
-
     return (
         <>
-            <Navigation />
+            <Navigation/>
             <div>
                 <h2>Schrijf je review</h2>
             </div>
-            <form className="form-add-review">
-                <TextLabel
-                    startTextLabel="Titel"
-                    typeOfLabel="hidden"
-                    idOfLabel="test"
-                    nameOfLabel="bookId"
-                    valueOfLabel={bookIdValue}
-                    onChangeOfLabel={(e) => setBookIdValue(e.target.value)}
-                />
-                <TextLabel
-                    startTextLabel="Auteur van het boek:"
-                    typeOfLabel="hidden"
-                    idOfLabel="authorId"
-                    nameOfLabel="authorId"
-                    valueOfLabel={authorIdValue}
-                    onChangeOfLabel={(e) => setAuthorIdValue(e.target.value)}
-                />
-                <TextLabel
-                    startTextLabel="member"
-                    typeOfLabel="hidden"
-                    idOfLabel="memberId"
-                    nameOfLabel="memberId"
-                    valueOfLabel={memberIdValue}
-                    onChangeOfLabel={(e) => setMemberIdValue(e.target.value)}
-                />
-                <label htmlFor="book-review" className="text-area-label-add-review">
-                    Review:
-                </label>
+
+            {succes === true ? (
+                <section>
+                    <p>Je review is toegevoegd</p>
+                </section>
+            ) : (
+
+                <form
+                    className="form-add-review"
+                    onSubmit={handleSubmit}
+                >
+                    <label htmlFor="book-review" className="text-area-label-add-review">
+                        Review:
+                    </label>
                     <textarea
                         className="text-area-add-review"
                         id="bookreview"
@@ -82,7 +76,10 @@ function AddReview() {
                         rows="10"
                         cols="120"
                     ></textarea>
-                    <BookRating />
+                    <BookRating
+                        rating={ratingIdValue}
+                        setRating={setRatingIdValue}
+                    />
                     <ButtonNavStart
                         typeOfButton="send"
                         valueOfButton="send"
@@ -90,7 +87,8 @@ function AddReview() {
                         // onClickOfButton={}
                         textOnButton="Verstuur review"
                     />
-            </form>
+                </form>
+            )}
         </>
     )
 }

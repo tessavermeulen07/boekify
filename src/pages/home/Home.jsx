@@ -9,12 +9,24 @@ function Home() {
             <Navigation/>
             <div className="outer-container">
                 <section>
-                    <CurrentBook/>
+                    <CurrentBook />
                 </section>
                 <section className="block-home">
-                    <Block>Random Quote</Block>
-                    <Block>Reading Stats</Block>
-                    <Block>Reading Goals</Block>
+                    <Block
+                        title="Random Quote"
+                        content="Hier komt ooit een random quote."
+                        blockTextButton="Quotes"
+                    />
+                    <Block
+                        title="Reading Stats"
+                        content="Hier komen ooit de reading stats."
+                        blockTextButton="Stats"
+                    />
+                    <Block
+                        title="Reading Goals"
+                        content="Hier komen ooit reading goals te staan."
+                        blockTextButton="Goals"
+                    />
                 </section>
             </div>
         </>

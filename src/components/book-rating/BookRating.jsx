@@ -2,29 +2,15 @@ import './BookRating.css';
 import {useState, useEffect} from 'react';
 import {FaHeart} from 'react-icons/fa';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
-function BookRating() {
+function BookRating( { rating, setRating }) {
 
-    const [rating, setRating] = useState(null);
+    const location = useLocation();
+    const {ratingId} = location.state || {};
+
     const [hover, setHover] = useState(null);
-
-    async function postRating() {
-        try {
-            const resultRating = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/ratings', {
-                headers: {
-                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
-                }
-            });
-            setRating(resultRating);
-            console.log(resultRating);
-        } catch (error) {
-            console.error (error);
-        }
-    }
-
-    // useEffect(() => {
-    //     void postRating();
-    // }, []);
+    const [ratingValue, setRatingValue] = useState(ratingId || 0)
 
     return (
         <>

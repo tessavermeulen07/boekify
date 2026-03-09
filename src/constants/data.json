@@ -60,7 +60,7 @@
         {
           "name": "available",
           "type": "boolean",
-          "required": true
+          "required": false
         }
       ],
       "permissions": {
@@ -77,14 +77,18 @@
         ],
         "PUT": [
           "admin",
-          "editor"
+          "editor",
+          "anonymous"
         ],
         "PATCH": [
           "admin",
-          "editor"
+          "editor",
+          "anonymous"
         ],
         "DELETE": [
-          "admin"
+          "admin",
+          "member",
+          "anonymous"
         ]
       }
     },

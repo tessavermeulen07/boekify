@@ -2,18 +2,18 @@ import './Block.css';
 import ButtonSmall from '../button-small/ButtonSmall.jsx';
 
 
-function Block() {
+function Block({ title, content, blockTextButton }) {
     return (
         <>
             <div className="block-item">
                 <div className="block-item-header">
-                    <h2>Title</h2>
+                    <h3>{title}</h3>
                     <ButtonSmall
                         typeOfButton="button"
-                        textOnButton="test"
+                        textOnButton={blockTextButton}
                     />
                 </div>
-                <div className="block-item-content">Inhoud</div>
+                <div className="block-item-content">{content}</div>
             </div>
         </>
     )
