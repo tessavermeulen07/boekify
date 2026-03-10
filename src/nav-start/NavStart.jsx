@@ -1,6 +1,6 @@
 import './NavStart.css';
 import ButtonNavStart from '../components/button-nav-start/ButtonNavStart.jsx'
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function NavStart() {

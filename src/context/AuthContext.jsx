@@ -11,6 +11,7 @@ function AuthContextProvider({ children }) {
     const navigate = useNavigate();
 
     function login() {
+        console.log('Context login wordt nu aangeroepen');
         toggleIsAuth(true);
         console.log('Gebruiker is ingelogd');
         navigate('/home');

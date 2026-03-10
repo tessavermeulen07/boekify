@@ -15,7 +15,11 @@ function Login () {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
 
-
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log("Submit afgevuurd")
+        login();
+    }
 
 
     return (
@@ -23,7 +27,7 @@ function Login () {
             <div className='main-container-login'>
                 <NavLoginRegister />
                 <form
-                    onSubmit={login}
+                    onSubmit={handleSubmit}
                     className="container-form-login">
                     <TextLabel
                         labelHTML="email"
@@ -33,7 +37,7 @@ function Login () {
                         nameOfLabel="email"
                         valueOfLabel={emailValue}
                         onChangeOfLabel={(e) => setEmailValue(e.target.value)}
-                        />
+                    />
                     <TextLabel
                         labelHTML="password"
                         startTextLabel="Paswoord"
