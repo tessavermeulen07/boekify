@@ -1,69 +1,35 @@
-import React, {createContext, useState} from "react";
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import React, { createContext, useState } from 'react';
+import { useNavigate, Link, NavLink } from 'react-router-dom';
+import Home from '../pages/home/Home.jsx';
 
-export const AuthContext = createContext ({});
+export const AuthContext = createContext({});
 
-function AuthContextProvider() {
+function AuthContextProvider({ children }) {
 
-    const [isAuth, toggleIsAuth] = useState(
-        {
-            isAuth: false,
-            user: null,
-            status: 'pending'
-        }
-    );
+    const [isAuth, toggleIsAuth] = useState(false);
 
     const navigate = useNavigate();
 
-    async function getProfile(id) {
-        try {
-            const response = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/${id}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
-                }
-            });
-            toggleIsAuth({
-                isAuth: true,
-                status: 'done',
-                user: response.data
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     function login() {
-        toggleIsAuth({
-            isAuth: true,
-            status: 'done',
-        });
-        console.log(ingelogd - response.data);
-    }
-
-    function logout() {
-        toggleIsAuth({
-            isAuth: false,
-            status: 'done',
-            user: null
-        });
-        console.log(uitgelogd)
+        toggleIsAuth(true);
+        console.log('Gebruiker is ingelogd');
+        navigate('/home');
     }
 
     const data = {
         isAuth: isAuth,
-        user: isAuth.user,
-        status: isAuth.status,
-        login: login,
-        logout: logout
+        login: login
+    }
+
+    if (isAuth) {
+        console.log ('ingelogd - test 1');
+    } else {
+        console.log('uitgelogd - test 2')
     }
 
     return (
-
         <AuthContext.Provider value={data}>
-            {isAuth.status === 'done' ? children : <p>Loading...</p>}
+            {children}
         </AuthContext.Provider>
 
     )

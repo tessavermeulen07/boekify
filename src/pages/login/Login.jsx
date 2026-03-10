@@ -1,16 +1,19 @@
 import './Login.css';
-import React, {useState, useContext, useEffect} from 'react';
-import {NavLink} from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import Button from '../../components/button-nav-start/ButtonNavStart.jsx';
 import TextLabel from '../../components/textLabel/TextLabel.jsx';
 import NavLoginRegister from '../../nav-login-register/NavLoginRegister.jsx';
+import { AuthContext } from '../../context/AuthContext.jsx';
 
 
 function Login () {
 
-const isActive = true;
-const [emailValue, setEmailValue] = useState('');
-const [passwordValue, setPasswordValue] = useState('');
+    const { isAuth, login } = useContext(AuthContext);
+
+    const isActive = true;
+    const [emailValue, setEmailValue] = useState('');
+    const [passwordValue, setPasswordValue] = useState('');
 
 
 
@@ -20,6 +23,7 @@ const [passwordValue, setPasswordValue] = useState('');
             <div className='main-container-login'>
                 <NavLoginRegister />
                 <form
+                    onSubmit={login}
                     className="container-form-login">
                     <TextLabel
                         labelHTML="email"

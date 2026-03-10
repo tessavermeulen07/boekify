@@ -1,8 +1,14 @@
-import {NavLink} from 'react-router-dom';
+import { NavLink, useNavigation } from 'react-router-dom';
+import { useContext } from 'react'
 import './Navigation.css';
 import profile from '../assets/icons/profile.svg';
+import {AuthContext} from '../context/AuthContext.jsx';
 
 function Navigation() {
+
+    const {isAuth} = useContext(AuthContext);
+    console.log({isAuth});
+
     return (
         <>
             <nav className="navbar-base">
@@ -31,6 +37,9 @@ function Navigation() {
                     <li>
                         <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
                             Profile
+                        </NavLink>
+                        <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
+                            Uitloggen
                         </NavLink>
                     </li>
                 </ul>
