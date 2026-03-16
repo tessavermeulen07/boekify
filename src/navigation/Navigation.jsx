@@ -1,12 +1,13 @@
-import { NavLink, useNavigation } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useContext } from 'react'
 import './Navigation.css';
+import ButtonSmall from '../components/button-small/ButtonSmall.jsx';
 import profile from '../assets/icons/profile.svg';
 import {AuthContext} from '../context/AuthContext.jsx';
 
 function Navigation() {
-
-    const {isAuth} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const {isAuth, logout} = useContext(AuthContext);
     console.log({isAuth});
 
     return (
@@ -38,9 +39,11 @@ function Navigation() {
                         <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
                             Profile
                         </NavLink>
-                        <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
-                            Uitloggen
-                        </NavLink>
+                        <ButtonSmall
+                            textOnButton="LOGOUT"
+                            typeOfButton="button"
+                            onClickOfButton={logout}
+                        />
                     </li>
                 </ul>
             </nav>

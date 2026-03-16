@@ -15,9 +15,9 @@ function Login () {
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
 
-    function handleSubmit(e) {
+    async  function handleSubmit(e) {
         e.preventDefault();
-        console.log("Submit afgevuurd")
+        console.log("Submit afgevuurd");
         login();
     }
 

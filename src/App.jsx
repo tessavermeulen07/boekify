@@ -24,7 +24,7 @@ function App() {
             <main>
                 <Routes>
                     <Route path="/" element={<Start />}/>
-                    <Route path="/home" element={isAuth === true ? <Home /> : <Navigate to="/" />} />
+                    <Route path="/home" element={isAuth ? <Home /> : <Navigate to="/" />} />
                     <Route path="/add-books" element={<AddBooks />} />
                     <Route path="/library" element={<Library />} />
                     <Route path="/registreer" element={<Register />} />

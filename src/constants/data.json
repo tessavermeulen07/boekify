@@ -26,6 +26,11 @@
           "required": true
         },
         {
+          "name": "ratingId",
+          "type": "reference:ratings",
+          "required": false
+        },
+        {
           "name": "isbn",
           "type": "string",
           "required": true,
@@ -261,6 +266,11 @@
           "name": "memberId",
           "type": "reference:members",
           "required": true
+        },
+        {
+          "name": "ratingId",
+          "type": "reference:ratings",
+          "required": false
         }
       ],
       "permissions": {
@@ -474,12 +484,6 @@
           "name": "membershipActive",
           "type": "boolean",
           "required": true
-        },
-        {
-          "name": "joinDate",
-          "type": "date",
-          "required": false,
-          "default": "CurrentDate"
         }
       ],
       "permissions": {
@@ -490,7 +494,9 @@
           "anonymous"
         ],
         "POST": [
-          "admin"
+          "admin",
+          "editor",
+          "anonymous"
         ],
         "PUT": [
           "admin",
@@ -584,6 +590,13 @@
     {
       "email": "lid1@voorbeeld.nl",
       "password": "lid123",
+      "roles": [
+        "member"
+      ]
+    },
+    {
+      "email": "maria@voorbeeld.nl",
+      "password": "12345",
       "roles": [
         "member"
       ]

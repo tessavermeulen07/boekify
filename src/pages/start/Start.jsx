@@ -32,14 +32,14 @@ function Start() {
                         <h3>Track</h3>
                         <img src={bookmark} alt="Bookmark icon" className="icon"/>
                     </span>
-                    <p>Houd bij welke boeken je in je bezit hebt, maar ook welke boeken je hebt gelezen.</p>
+                    <p>Houd bij welke boeken je hebt gelezen.</p>
                 </article>
                 <article className="article-box-start">
                     <span className="span-box">
                         <h3>Add</h3>
                         <img src={add} alt="Add icon" className="icon"/>
                     </span>
-                        <p>Staat een boek niet in de database, voeg het dan toe aan je account.</p>
+                        <p>Staat een boek niet in de database, voeg het dan toe.</p>
                 </article>
             </div>
         </>

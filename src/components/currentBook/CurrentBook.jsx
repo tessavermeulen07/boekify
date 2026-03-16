@@ -5,6 +5,7 @@ import axios from 'axios';
 
 
 
+
 function CurrentBook() {
 
     const [currentRead, setCurrentRead] = useState([]);
@@ -12,9 +13,11 @@ function CurrentBook() {
     const [getAuthors, setGetAuthors] = useState({});
 
 
+
+
     async function getCurrentRead() {
         try {
-            const resultCurrentRead = await axios.get('https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1/currentlyReadingList', {
+            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1/currentlyReadingList`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
@@ -90,20 +93,6 @@ function CurrentBook() {
                                         <h5>{bookTitle ? bookTitle.title : "Geen boek"}</h5>
                                         <p>{author ? author.name : "Geen auteur"}</p>
                                     </div>
-                                    {/*<div id="progress-bar">*/}
-                                    {/*    <div*/}
-                                    {/*        value="0"*/}
-                                    {/*        max="100"*/}
-                                    {/*        id="reading-progress"*/}
-                                    {/*    ></div>*/}
-                                    {/*</div>*/}
-                                    {/*<label htmlFor htmlFor="pagesRead">Gelezen:*/}
-                                    {/*    <input type="number" id="pagesRead"/>*/}
-                                    {/*    Totaal: ?</label>*/}
-                                    {/*<ButtonSmall*/}
-                                    {/*    idOnButton="updateBook"*/}
-                                    {/*    textOnButton="Update"*/}
-                                    {/*/>*/}
                                 </li>
                             );
                             }
