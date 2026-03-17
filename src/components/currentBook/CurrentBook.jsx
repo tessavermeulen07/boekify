@@ -77,21 +77,21 @@ function CurrentBook() {
                 <span className="span-box-current">
                     <ul className="list-current-book">
                         {currentRead?.map((currentlyReading) => {
-                            const bookTitle = getBooks?.data?.find((b) => b.id === currentlyReading.bookId);
-                            const author = getAuthors?.data?.find((a) => a.id === currentlyReading.authorId);
+                                const bookTitle = getBooks?.data?.find((b) => b.id === currentlyReading.bookId);
+                                const author = getAuthors?.data?.find((a) => a.id === currentlyReading.authorId);
 
-                            return (
-                                <li
-                                    key={currentlyReading?.bookId}
-                                    className="list-items-current-book"
-                                >
-                                    <img src={bookTitle.coverImage} alt={currentlyReading.alt}/>
-                                    <div>
-                                        <h5>{bookTitle ? bookTitle.title : "Geen boek"}</h5>
-                                        <p>{author ? author.name : "Geen auteur"}</p>
-                                    </div>
-                                </li>
-                            );
+                                return (
+                                    <li
+                                        key={currentlyReading?.bookId}
+                                        className="list-items-current-book"
+                                    >
+                                        <img src={bookTitle?.coverImage} alt={currentlyReading.alt}/>
+                                        <div>
+                                            <h5>{bookTitle ? bookTitle.title : "Geen boek"}</h5>
+                                            <p>{author ? author.name : "Geen auteur"}</p>
+                                        </div>
+                                    </li>
+                                );
                             }
                         )}
                     </ul>

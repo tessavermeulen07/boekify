@@ -18,6 +18,7 @@ function IndividualBook() {
 
 
     async function getIndividualBook(id) {
+
         try {
             const resultIndividualBook = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books/${id}`, {
                 headers: {

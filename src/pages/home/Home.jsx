@@ -84,9 +84,9 @@ function Home() {
                                         <li key={booksRead.bookId}>
                                             {readBook &&
                                                 <>
-                                            <img src={readBook.coverImage} alt={readBook.alt} className="img-home"/>
-                                            </>
-                                    }
+                                                    <img src={readBook.coverImage} alt={readBook.alt} className="img-home"/>
+                                                </>
+                                            }
                                         </li>
                                     )}
                                 )}
