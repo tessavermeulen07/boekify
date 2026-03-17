@@ -1,7 +1,9 @@
 import './CurrentBook.css';
 import ButtonSmall from '../button-small/ButtonSmall.jsx';
-import {useState, useEffect} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext.jsx';
 
 
 
@@ -11,13 +13,15 @@ function CurrentBook() {
     const [currentRead, setCurrentRead] = useState([]);
     const [getBooks, setGetBooks] = useState({});
     const [getAuthors, setGetAuthors] = useState({});
+    const { id } = useParams();
+    const { isAuth } = useContext(AuthContext);
 
 
 
 
-    async function getCurrentRead() {
+    async function getCurrentRead(id) {
         try {
-            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1/currentlyReadingList`, {
+            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/${id}/currentlyReadingList`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
@@ -29,8 +33,8 @@ function CurrentBook() {
     }
 
     useEffect(() => {
-        void getCurrentRead();
-    }, []);
+        void getCurrentRead(id);
+    }, [id]);
 
 
     async function books() {

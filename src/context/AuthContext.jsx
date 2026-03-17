@@ -11,21 +11,22 @@ function AuthContextProvider({ children }) {
     const [isAuth, toggleIsAuth] = useState(
         {
             isAuth: false,
-            user: null
+            user: null,
+            status: 'pending'
         }
     );
     const navigate = useNavigate();
 
     function login(token) {
 
-        toggleIsAuth({isAuth: true, user: ''});
+        toggleIsAuth({isAuth: true, user: '', status: 'done'});
 
         navigate('/home');
 
         localStorage.setItem('JWT', token);
         const tokenId = jwtDecode(token);
-        console.log(tokenId.memberId);
-        getProfile(tokenId.memberId)
+        console.log(tokenId);
+        getProfile(tokenId);
     }
 
     async function getProfile() {
@@ -47,6 +48,8 @@ function AuthContextProvider({ children }) {
 
     function logout() {
         toggleIsAuth({isAuth: false, user: ''});
+
+        localStorage.removeItem('JWT');
 
         navigate('/');
     }
