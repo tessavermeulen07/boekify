@@ -23,7 +23,6 @@ function CurrentBook() {
                 }
             });
             setCurrentRead(resultCurrentRead?.data);
-            console.log(resultCurrentRead);
         } catch (error) {
             console.error('De boeken zijn niet gevonden.');
         }
@@ -42,7 +41,6 @@ function CurrentBook() {
                 }
             });
             setGetBooks(resultBooks);
-            console.log(resultBooks);
         } catch (error) {
             console.error('Geen boeken gevonden');
         }
@@ -61,7 +59,6 @@ function CurrentBook() {
                 }
             });
             setGetAuthors(resultAuthors);
-            console.log(resultAuthors);
         } catch (error) {
             console.error('Geen auteurs gevonden');
         }

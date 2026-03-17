@@ -16,18 +16,37 @@ function AuthContextProvider({ children }) {
     );
     const navigate = useNavigate();
 
-    function login() {
-        console.log('Context login wordt nu aangeroepen');
+    function login(token) {
+
         toggleIsAuth({isAuth: true, user: ''});
-        console.log('Gebruiker is ingelogd');
+
         navigate('/home');
 
+        localStorage.setItem('JWT', token);
+        const tokenId = jwtDecode(token);
+        console.log(tokenId.memberId);
+        getProfile(tokenId.memberId)
+    }
 
+    async function getProfile() {
+        const token = localStorage.getItem('JWT');
+        console.log(token);
+        try {
+            const response = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1`, {
+                header: {
+                    'Content-Type': 'application/json',
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     function logout() {
         toggleIsAuth({isAuth: false, user: ''});
-        console.log("gebruiker is uitgelogd");
+
         navigate('/');
     }
 
@@ -37,11 +56,6 @@ function AuthContextProvider({ children }) {
         logout: logout
     }
 
-    if (isAuth) {
-        console.log ('ingelogd - test 1');
-    } else {
-        console.log('uitgelogd - test 2')
-    }
 
     return (
         <AuthContext.Provider value={data}>

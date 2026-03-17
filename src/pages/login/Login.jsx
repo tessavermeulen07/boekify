@@ -5,11 +5,12 @@ import Button from '../../components/button-nav-start/ButtonNavStart.jsx';
 import TextLabel from '../../components/textLabel/TextLabel.jsx';
 import NavLoginRegister from '../../nav-login-register/NavLoginRegister.jsx';
 import { AuthContext } from '../../context/AuthContext.jsx';
+import axios from 'axios';
 
 
 function Login () {
 
-    const { isAuth, login } = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
 
     const isActive = true;
     const [emailValue, setEmailValue] = useState('');
@@ -17,8 +18,22 @@ function Login () {
 
     async  function handleSubmit(e) {
         e.preventDefault();
-        console.log("Submit afgevuurd");
-        login();
+        console.log(emailValue, passwordValue);
+        try {
+            const response = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/login', {
+                email: emailValue,
+                password: passwordValue
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            })
+            console.log(response);
+            login(response.data.token);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 

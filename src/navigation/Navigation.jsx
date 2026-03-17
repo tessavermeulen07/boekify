@@ -8,7 +8,6 @@ import {AuthContext} from '../context/AuthContext.jsx';
 function Navigation() {
     const navigate = useNavigate();
     const {isAuth, logout} = useContext(AuthContext);
-    console.log({isAuth});
 
     return (
         <>
@@ -39,6 +38,8 @@ function Navigation() {
                         <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
                             Profile
                         </NavLink>
+                    </li>
+                    <li>
                         <ButtonSmall
                             textOnButton="LOGOUT"
                             typeOfButton="button"

@@ -26,7 +26,6 @@ function Home() {
                 }
             });
             setBooks(resultBooksRead.data);
-            console.log(resultBooksRead.data);
         } catch (error) {
             console.error(error);
             toggleError(true);
@@ -53,7 +52,6 @@ function Home() {
             });
 
             setLibraryAll(resultLibraryAll.data);
-            console.log(resultLibraryAll.data);
 
         } catch (error) {
             console.error(error);
