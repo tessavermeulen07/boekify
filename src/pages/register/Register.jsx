@@ -14,7 +14,8 @@ function Register() {
     const [passwordValue, setPasswordValue] = useState('');
     const [nameValue, setNameValue] = useState('');
     const [checkboxAgreedValue, toggleCheckboxAgreedValue] = useState(false);
-    const [error, setError] = useState('');
+    const [loading, toggleLoading] = useState(false);
+    const [error, toggleError] = useState(false);
     const [newUserId, setNewUserId] = useState(null);
     const [success, setSuccess] = useState(false);
     const [membershipActive, setMembershipActive] = useState(true);
@@ -25,6 +26,10 @@ function Register() {
         e.preventDefault();
 
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const register = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/members', {
                 "email": `${emailValue}`,
                 "password": `${passwordValue}`,
@@ -42,7 +47,9 @@ function Register() {
             setSuccess(true);
         } catch (error) {
             console.log('registreren niet gelukt');
-            setError('Registreren niet gelukt. Probeer het later nog een keer.');
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 

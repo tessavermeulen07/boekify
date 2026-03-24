@@ -15,12 +15,20 @@ function Login () {
     const isActive = true;
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
+    const [loading, toggleLoading] = useState(false);
+    const [error, toggleError] = useState(false);
+
+    console.log(login);
 
 
     async  function handleSubmit(e) {
         e.preventDefault();
         console.log(emailValue, passwordValue);
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const response = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/login', {
                 email: emailValue,
                 password: passwordValue
@@ -32,8 +40,12 @@ function Login () {
             })
             console.log(response);
             login(response.data.token);
+
         } catch (error) {
             console.error(error);
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 
@@ -66,7 +78,7 @@ function Login () {
                     <Button
                         typeOfButton="submit"
                         valueOfButton="send"
-                        nameOfButton="login"
+                        nameOfButton="send"
                         textOnButton="Login"
                     />
                 </form>

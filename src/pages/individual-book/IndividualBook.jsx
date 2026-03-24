@@ -1,10 +1,10 @@
 import './IndividualBook.css';
 import axios from 'axios';
-import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Navigation from '../../navigation/Navigation.jsx';
 import BookRating from '../../components/book-rating/BookRating.jsx';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function IndividualBook() {
@@ -14,12 +14,18 @@ function IndividualBook() {
     const [individualGenre, setIndividualGenre] = useState('');
     const [individualReview, setIndividualReview] = useState([]);
     const [individualMember, setIndividualMember] = useState({});
+    const [loading, toggleLoading] = useState(false);
+    const [error, toggleError] = useState(false);
     const {id} = useParams();
 
 
     async function getIndividualBook(id) {
 
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const resultIndividualBook = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books/${id}`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -29,6 +35,9 @@ function IndividualBook() {
             console.log(resultIndividualBook?.data);
         } catch (error) {
             console.error('Het boek is niet gevonden.')
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 
@@ -39,6 +48,10 @@ function IndividualBook() {
 
     async function getIndividualAuthor(id) {
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const resultIndividualAuthor = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/authors/${id}`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -48,6 +61,9 @@ function IndividualBook() {
             console.log(resultIndividualAuthor?.data);
         } catch (error) {
             console.error('Auteur niet gevonden.');
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 
@@ -61,6 +77,10 @@ function IndividualBook() {
 
     async function getIndividualGenre(id) {
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const resultIndividualGenre = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/genres/${id}`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -70,6 +90,9 @@ function IndividualBook() {
             console.log(resultIndividualGenre?.data);
         } catch (error) {
             console.error('Genre niet gevonden.');
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 
@@ -82,6 +105,10 @@ function IndividualBook() {
 
     async function getIndividualReviews(id) {
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const resultIndividualReviews = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books/${id}/reviews`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -90,8 +117,10 @@ function IndividualBook() {
             setIndividualReview(resultIndividualReviews?.data);
             console.log(resultIndividualReviews?.data);
         } catch (error) {
-            `Reviews niet gevonden.`
             console.error('Reviews niet gevonden.')
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 
@@ -102,6 +131,10 @@ function IndividualBook() {
 
     async function getIndividualMember() {
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const resultIndividualMember = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -111,6 +144,9 @@ function IndividualBook() {
             console.log(resultIndividualMember.data);
         } catch (error) {
             console.error('Onbekend lid');
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 

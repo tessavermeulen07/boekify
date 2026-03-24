@@ -1,8 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate, Link, NavLink } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import axios, { isAxiosError } from 'axios';
 import Home from '../pages/home/Home.jsx';
-import axios, {isAxiosError} from 'axios';
+import isTokenValid from '../helpers/isTokenValid.js';
 
 export const AuthContext = createContext({});
 
@@ -15,19 +16,30 @@ function AuthContextProvider({ children }) {
             status: 'pending'
         }
     );
+
     const navigate = useNavigate();
 
-    function login(token) {
 
-        toggleIsAuth({isAuth: true, user: '', status: 'done'});
+    useEffect(() => {
+        const token = localStorage.getItem('JWT');
+        if (token) {
+            const tokenId = jwtDecode(token);
+            if (isTokenValid(tokenId)) {
+                void getProfile(tokenId.userId);
+            } else {
+                toggleIsAuth({
+                    isAuth: false,
+                    status: 'done',
+                    user: null
+                });
+            }
+        }else toggleIsAuth({
+            isAuth: false,
+            status: 'done',
+            user: null
+        });
+    }, []);
 
-        navigate('/home');
-
-        localStorage.setItem('JWT', token);
-        const tokenId = jwtDecode(token);
-        console.log(tokenId);
-        getProfile(tokenId);
-    }
 
     async function getProfile() {
         const token = localStorage.getItem('JWT');
@@ -41,10 +53,29 @@ function AuthContextProvider({ children }) {
                 }
             });
             console.log(response);
+            toggleIsAuth({
+                isAuth: true,
+                status: 'done',
+                user: response.data
+            });
         } catch (error) {
             console.error(error);
         }
     }
+
+
+    function login(token) {
+
+        toggleIsAuth({isAuth: true, user: '', status: 'done'});
+
+        navigate('/home');
+
+        localStorage.setItem('JWT', token);
+        const tokenId = jwtDecode(token);
+        console.log(tokenId);
+        getProfile(tokenId);
+    }
+
 
     function logout() {
         toggleIsAuth({isAuth: false, user: ''});
@@ -54,10 +85,17 @@ function AuthContextProvider({ children }) {
         navigate('/');
     }
 
+
     const data = {
-        isAuth: isAuth,
+        isAuth: isAuth.isAuth,
+        user: isAuth.user,
+        status: isAuth.status,
         login: login,
         logout: logout
+    }
+
+    if (isAuth.status === 'pending') {
+        return <p>Laden...</p>
     }
 
 

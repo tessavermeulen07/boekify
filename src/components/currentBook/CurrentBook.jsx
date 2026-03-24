@@ -13,14 +13,21 @@ function CurrentBook() {
     const [currentRead, setCurrentRead] = useState([]);
     const [getBooks, setGetBooks] = useState({});
     const [getAuthors, setGetAuthors] = useState({});
+    const [loading, toggleLoading] = useState(false);
+    const [error, toggleError] = useState(false);
     const { id } = useParams();
-    const { isAuth } = useContext(AuthContext);
+    const { isAuth, user } = useContext(AuthContext);
 
 
 
 
     async function getCurrentRead(id) {
+        console.log('ik ga nu ophalen voor ID:', );
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/${id}/currentlyReadingList`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -29,16 +36,23 @@ function CurrentBook() {
             setCurrentRead(resultCurrentRead?.data);
         } catch (error) {
             console.error('De boeken zijn niet gevonden.');
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 
-    useEffect(() => {
+    useEffect((id) => {
         void getCurrentRead(id);
     }, [id]);
 
 
     async function books() {
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const resultBooks = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -47,6 +61,9 @@ function CurrentBook() {
             setGetBooks(resultBooks);
         } catch (error) {
             console.error('Geen boeken gevonden');
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 
@@ -57,6 +74,10 @@ function CurrentBook() {
 
     async function authors() {
         try {
+            toggleLoading(true);
+
+            toggleError(false);
+
             const resultAuthors = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/authors`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -65,6 +86,9 @@ function CurrentBook() {
             setGetAuthors(resultAuthors);
         } catch (error) {
             console.error('Geen auteurs gevonden');
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
         }
     }
 
