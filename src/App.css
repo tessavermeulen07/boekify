@@ -1,5 +1,17 @@
 #root {
-  margin: 10px 20px;
-  padding: 10px;
-  text-align: center;
+    margin: 10px 20px;
+    padding: 10px;
+    text-align: center;
+    height: 100%;
+}
+
+.container-app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
 }

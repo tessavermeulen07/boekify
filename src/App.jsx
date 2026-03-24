@@ -11,6 +11,7 @@ import IndividualBook from './pages/individual-book/IndividualBook.jsx';
 import Quotes from './pages/quotes/Quotes.jsx';
 import AddReview from './pages/add-review/AddReview.jsx';
 import { AuthContext } from './context/AuthContext.jsx';
+import Footer from './footer/Footer.jsx';
 
 
 
@@ -21,19 +22,22 @@ function App() {
 
     return (
         <>
-            <main>
-                <Routes>
-                    <Route path="/" element={<Start />}/>
-                    <Route path="/home" element={isAuth ? <Home /> : <Navigate to="/" />} />
-                    <Route path="/add-books" element={<AddBooks />} />
-                    <Route path="/library" element={<Library />} />
-                    <Route path="/registreer" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/books/:id" element={<IndividualBook />} />
-                    <Route path="/quotes" element={<Quotes />} />
-                    <Route path="/review/:id" element={<AddReview />} />
-                </Routes>
-            </main>
+            <div className="container-app">
+                    <main>
+                        <Routes>
+                            <Route path="/" element={<Start/>}/>
+                            <Route path="/home" element={isAuth ? <Home/> : <Navigate to="/"/>}/>
+                            <Route path="/add-books" element={<AddBooks/>}/>
+                            <Route path="/library" element={<Library/>}/>
+                            <Route path="/registreer" element={<Register/>}/>
+                            <Route path="/login" element={<Login/>}/>
+                            <Route path="/books/:id" element={<IndividualBook/>}/>
+                            <Route path="/quotes" element={<Quotes/>}/>
+                            <Route path="/review/:id" element={<AddReview/>}/>
+                        </Routes>
+                    </main>
+                    <Footer/>
+                </div>
         </>
     )
 }
