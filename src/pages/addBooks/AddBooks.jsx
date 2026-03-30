@@ -14,9 +14,10 @@ function AddBooks() {
     const [genreOfBook, setGenreOfBook] = useState('');
     const [priceOfBook, setPriceOfBook] = useState('');
     const [description, setDescription] = useState('');
+    // const [coverImage, setCoverImage] = useState('');
     const [newBookId, setNewBookId] = useState(null);
     const [error, setError] = useState(false);
-    const [succes, setSucces] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -26,7 +27,12 @@ function AddBooks() {
             return;
         }
 
-        setSucces(false);
+        if (description.length < 10) {
+            alert("De beschrijving is te kort. Vertel iets meer over het boek.")
+            return;
+        }
+
+        setSuccess(false);
         try {
             const searchResponseAuthor = await axios.get('https://novi-backend-api-wgsgz.ondigitalocean.app/api/authors', {
                 params: {
@@ -99,7 +105,8 @@ function AddBooks() {
                 "isbn": isbnOfBook,
                 "genreId": Number(finalGenreId),
                 "price": Number(priceOfBook.replace(',', '.')),
-                "description": description
+                "description": description,
+                // "coverImage": coverImage ? URL.createObjectURL(coverImage) : ''
             }, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
@@ -108,42 +115,12 @@ function AddBooks() {
                 }
 
             });
-            setSucces(true);
+            setSuccess(true);
         } catch (error) {
             console.error(error);
             setError(true);
-        } finally {
-            setSucces(false);
         }
     }
-
-
-    //     if (!titleOfBook && !authorOfBook && !isbnOfBook && !genreOfBook && !priceOfBook && !description) {
-    //         setError('Zorg dat alle velden zijn ingevuld!');
-    //     } else setError(error);
-    //     console.log('Boek toegevoegd');
-    //
-    //     try {
-    //         const post = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/books', {
-    //             "title": `${titleOfBook}`,
-    //             "author": `${authorOfBook}`,
-    //             "isbn": `${isbnOfBook}`,
-    //             "genre": `${genreOfBook}`,
-    //             "price": `${priceOfBook}`,
-    //             "description": `${description}`
-    //         }, {
-    //             headers: {
-    //                 'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
-    //             }
-    //         });
-    //         console.log('Boek toegevoegd', post.data);
-    //         setNewBookId(post.data.id);
-    //         setSucces(true);
-    //     } catch (error) {
-    //         console.log('Er ging iets mis');
-    //         setError('Het is niet gelukt om het boek toe te voegen.');
-    //     }
-    // }
 
     return (
         <>
@@ -151,7 +128,7 @@ function AddBooks() {
             <div>
                 <h2>Voeg een boek toe</h2>
             </div>
-            {succes === true ? (
+            {success === true ? (
                 <section>
                     <p>Het boek is succesvol toegevoegd.</p>
                 </section>
@@ -204,8 +181,17 @@ function AddBooks() {
                                   name="description"
                                   value={description}
                                   onChange={(e) => setDescription(e.target.value)}
-                                  rows="20"
+                                  rows="10"
                         ></textarea>
+                    </label>
+                    <label htmlFor="coverImage" className="text-area-label-add-books">Cover Image kan nog niet worden meegestuurd.
+                        {/*<input className="input-file-add-books"*/}
+                        {/*    type="file"*/}
+                        {/*    id="coverImage"*/}
+                        {/*    name="coverImage"*/}
+                        {/*    accept="image/png, image/jpeg, image/jpg, image/gif"*/}
+                        {/*    onChange={(e) => setCoverImage(e.target.files[0])}*/}
+                        {/*/>*/}
                     </label>
                     <ButtonNavStart
                         typeOfButton="submit"
