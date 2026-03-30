@@ -2,15 +2,18 @@ import './Home.css';
 import Navigation from '../../navigation/Navigation.jsx';
 import CurrentBook from '../../components/currentBook/CurrentBook.jsx';
 import Block from '../../components/block/Block.jsx';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext.jsx';
 
 function Home() {
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
     const [books, setBooks] = useState(null);
     const [libraryAll, setLibraryAll] = useState(null);
+    const { isAuth, user } = useContext(AuthContext);
 
+console.log('hallo allemaal');
 
     async function getReadBooks() {
         try {
@@ -19,13 +22,14 @@ function Home() {
 
             toggleError(false);
 
-            const resultBooksRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1/readList
+            const resultBooksRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${user.id}/readList
 `, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
             setBooks(resultBooksRead.data);
+            console.log(resultBooksRead.data);
         } catch (error) {
             console.error(error);
             toggleError(true);

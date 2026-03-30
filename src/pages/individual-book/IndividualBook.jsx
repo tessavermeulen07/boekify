@@ -1,7 +1,8 @@
 import './IndividualBook.css';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import {AuthContext} from "../../context/AuthContext.jsx";
 import Navigation from '../../navigation/Navigation.jsx';
 import BookRating from '../../components/book-rating/BookRating.jsx';
 import { Link } from 'react-router-dom';
@@ -17,6 +18,7 @@ function IndividualBook() {
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
     const {id} = useParams();
+    const { isAuth, user } = useContext(AuthContext);
 
 
     async function getIndividualBook(id) {
@@ -43,7 +45,7 @@ function IndividualBook() {
 
     useEffect(() => {
         void getIndividualBook(id);
-    }, []);
+    }, [id]);
 
 
     async function getIndividualAuthor(id) {
@@ -126,7 +128,7 @@ function IndividualBook() {
 
     useEffect(() => {
         void getIndividualReviews(id);
-    }, []);
+    }, [id]);
 
 
     async function getIndividualMember() {
@@ -178,7 +180,7 @@ function IndividualBook() {
                         <h4>Reviews</h4>
                         <ul className="list-reviews-individual-book">
                             {individualReview?.map((reviews) => {
-                                const member = individualMember?.find((m) => m.id === reviews.memberId);
+                                const member = individualMember?.find((m) => m.id === reviews.userId);
                                 return (
                                     <li key={reviews.review} className="list-item-reviews-individual-book">
                                         <p>{member ? member.name : "Lid onbekend."}</p>

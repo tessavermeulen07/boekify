@@ -8,6 +8,7 @@ import { AuthContext } from '../../context/AuthContext.jsx';
 
 
 
+
 function CurrentBook() {
 
     const [currentRead, setCurrentRead] = useState([]);
@@ -15,20 +16,19 @@ function CurrentBook() {
     const [getAuthors, setGetAuthors] = useState({});
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
-    const { id } = useParams();
     const { isAuth, user } = useContext(AuthContext);
 
 
 
 
     async function getCurrentRead(id) {
-        console.log('ik ga nu ophalen voor ID:', );
+        console.log('ik ga nu ophalen voor ID:', id);
         try {
             toggleLoading(true);
 
             toggleError(false);
 
-            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/${id}/currentlyReadingList`, {
+            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${user.id}/currentlyReadingList`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
@@ -42,9 +42,9 @@ function CurrentBook() {
         }
     }
 
-    useEffect((id) => {
-        void getCurrentRead(id);
-    }, [id]);
+    useEffect(() => {
+        void getCurrentRead(user.id);
+    }, [user.id]);
 
 
     async function books() {

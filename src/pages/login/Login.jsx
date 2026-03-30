@@ -18,7 +18,7 @@ function Login () {
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
 
-    console.log(login);
+    console.log({login});
 
 
     async  function handleSubmit(e) {

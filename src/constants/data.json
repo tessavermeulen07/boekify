@@ -61,11 +61,6 @@
           "name": "ratingId",
           "type": "reference:ratings",
           "required": false
-        },
-        {
-          "name": "available",
-          "type": "boolean",
-          "required": false
         }
       ],
       "permissions": {
@@ -122,7 +117,9 @@
         ],
         "POST": [
           "admin",
-          "editor"
+          "editor",
+          "member",
+          "anonymous"
         ],
         "PUT": [
           "admin",
@@ -167,7 +164,10 @@
           "admin"
         ],
         "POST": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ],
         "PUT": [
           "admin"
@@ -218,8 +218,8 @@
           "required": true
         },
         {
-          "name": "memberId",
-          "type": "reference:members",
+          "name": "userId",
+          "type": "reference:users",
           "required": true
         }
       ],
@@ -263,8 +263,8 @@
           "required": true
         },
         {
-          "name": "memberId",
-          "type": "reference:members",
+          "name": "userId",
+          "type": "reference:users",
           "required": true
         },
         {
@@ -313,8 +313,8 @@
           "required": true
         },
         {
-          "name": "memberId",
-          "type": "reference:members",
+          "name": "userId",
+          "type": "reference:users",
           "required": true
         }
       ],
@@ -360,8 +360,8 @@
           "required": true
         },
         {
-          "name": "memberId",
-          "type": "reference:members",
+          "name": "userId",
+          "type": "reference:users",
           "required": true
         }
       ],
@@ -427,8 +427,8 @@
           "required": true
         },
         {
-          "name": "memberId",
-          "type": "reference:members",
+          "name": "userId",
+          "type": "reference:users",
           "required": true
         }
       ],
@@ -474,15 +474,13 @@
           "max": 100
         },
         {
-          "name": "email",
-          "type": "string",
-          "required": true,
-          "min": 5,
-          "max": 100
-        },
-        {
           "name": "membershipActive",
           "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "reference:users",
           "required": true
         }
       ],
@@ -733,7 +731,7 @@
         "page": "62",
         "bookId": 5,
         "authorId": 4,
-        "memberId": 1
+        "userId": 0
       },
       {
         "id": 2,
@@ -742,7 +740,7 @@
         "page": 185,
         "bookId": 5,
         "authorId": 4,
-        "memberId": 1
+        "userId": 0
       },
       {
         "id": 3,
@@ -751,7 +749,7 @@
         "page": 356,
         "bookId": 5,
         "authorId": 4,
-        "memberId": 1
+        "userId": 0
       },
       {
         "id": 4,
@@ -760,7 +758,7 @@
         "page": 157,
         "bookId": 2,
         "authorId": 2,
-        "memberId": 1
+        "userId": 0
       },
       {
         "id": 5,
@@ -769,7 +767,7 @@
         "page": 102,
         "bookId": 2,
         "authorId": 2,
-        "memberId": 1
+        "userId": 0
       }
     ],
     "currentlyReadingList": [
@@ -777,13 +775,13 @@
         "id": 1,
         "bookId": 5,
         "authorId": 4,
-        "memberId": 1
+        "userId": 0
       },
       {
         "id": 2,
         "bookId": 6,
         "authorId": 5,
-        "memberId": 1
+        "userId": 0
       }
     ],
     "readList": [
@@ -791,29 +789,43 @@
         "id": 1,
         "bookId": 2,
         "authorId": 2,
-        "memberId": 1
+        "userId": 0
       },
       {
         "id": 2,
         "bookId": 4,
         "authorId": 2,
-        "memberId": 1
+        "userId": 0
       }
     ],
     "members": [
       {
-        "id": 1,
+        "id": 0,
         "name": "Tessa Vermeulen",
-        "email": "tessavermeulen@icloud.com",
         "membershipActive": true,
-        "joinDate": "2024-01-15"
+        "joinDate": "2024-01-15",
+        "userId": 0
+      },
+      {
+        "id": 1,
+        "name": "Maria de Vries",
+        "membershipActive": true,
+        "joinDate": "2024-02-20",
+        "userId": 1
       },
       {
         "id": 2,
-        "name": "Maria de Vries",
-        "email": "maria@voorbeeld.nl",
+        "name": "Jane Doe",
         "membershipActive": true,
-        "joinDate": "2024-02-20"
+        "joinDate": "2024-02-20",
+        "userId": 2
+      },
+      {
+        "id": 3,
+        "name": "John Doe",
+        "membershipActive": true,
+        "joinDate": "2024-02-20",
+        "userId": 3
       }
     ],
     "reviews": [
@@ -823,7 +835,7 @@
         "ratingId": 4,
         "bookId": 5,
         "authorId": 4,
-        "memberId": 1
+        "userId": 0
       },
       {
         "id": 2,
@@ -831,13 +843,13 @@
         "ratingId": 4,
         "bookId": 5,
         "authorId": 4,
-        "memberId": 2
+        "userId": 1
       }
     ],
     "loans": [
       {
         "id": 1,
-        "memberId": 1,
+        "userId": 0,
         "bookId": 2,
         "loanDate": "2024-03-01",
         "returnDate": "2024-03-21",

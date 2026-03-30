@@ -4,6 +4,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 20px;
+    width: 100%;
 }
 
 .text-area-label-add-books {
@@ -12,16 +13,18 @@
     justify-content: flex-start;
     align-items: flex-start;
     font-weight: 500;
+    width: 100%;
 }
 
 .text-area-add-books {
-    padding: 10px;
     border: 2px solid var(--color-lavender);
     border-radius: 5px;
     position: relative;
+    heigth: 120px !important;
     width: 100%;
+    min-width: 0;
     box-sizing: border-box;
-    max-width: 100%;
+    padding: 10px;
     resize: vertical;
 }
 

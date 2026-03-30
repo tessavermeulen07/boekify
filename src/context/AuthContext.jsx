@@ -22,8 +22,10 @@ function AuthContextProvider({ children }) {
 
     useEffect(() => {
         const token = localStorage.getItem('JWT');
+        console.log(token);
         if (token) {
             const tokenId = jwtDecode(token);
+            console.log(tokenId)
             if (isTokenValid(tokenId)) {
                 void getProfile(tokenId.userId);
             } else {
@@ -41,11 +43,11 @@ function AuthContextProvider({ children }) {
     }, []);
 
 
-    async function getProfile() {
+    async function getProfile(id) {
         const token = localStorage.getItem('JWT');
         console.log(token);
         try {
-            const response = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members/1`, {
+            const response = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
@@ -68,17 +70,16 @@ function AuthContextProvider({ children }) {
 
         toggleIsAuth({isAuth: true, user: '', status: 'done'});
 
-        navigate('/home');
-
         localStorage.setItem('JWT', token);
         const tokenId = jwtDecode(token);
         console.log(tokenId);
         getProfile(tokenId);
+        navigate('/home');
     }
 
 
     function logout() {
-        toggleIsAuth({isAuth: false, user: ''});
+        toggleIsAuth({isAuth: false, user: '', status: 'done'});
 
         localStorage.removeItem('JWT');
 
