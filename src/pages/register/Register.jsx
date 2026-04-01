@@ -30,12 +30,11 @@ function Register() {
 
             toggleError(false);
 
-            const register = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/members', {
-                "email": `${emailValue}`,
-                "password": `${passwordValue}`,
-                "name": `${nameValue}`,
-                "membershipActive": membershipActive,
-                "role":['']
+            const register = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/users', {
+                "email": emailValue,
+                "password": passwordValue,
+                "name": nameValue,
+                "membershipActive": membershipActive
             }, {
                 headers: {
                     'Accept': 'application/json',

@@ -49,6 +49,19 @@
     object-fit: contain;
 }
 
+.list-items-current-book > div > a:link,
+.list-items-current-book > div > a:visited {
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.list-items-current-book > div > a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-lavender);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+}
+
 #progress-bar {
     width: 80%;
     background-color: #EBE8FF;

@@ -14,7 +14,10 @@ function IndividualBook() {
     const [individualAuthor, setIndividualAuthor] = useState('');
     const [individualGenre, setIndividualGenre] = useState('');
     const [individualReview, setIndividualReview] = useState([]);
+    const [allMembers, setAllMembers] = useState([]);
     const [individualMember, setIndividualMember] = useState({});
+    const [readList, setReadList] = useState({});
+    const [currentlyReadingList, setCurrentlyReadingList] = useState({});
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
     const {id} = useParams();
@@ -131,19 +134,19 @@ function IndividualBook() {
     }, [id]);
 
 
-    async function getIndividualMember() {
+    async function getAllMembers() {
         try {
             toggleLoading(true);
 
             toggleError(false);
 
-            const resultIndividualMember = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members`, {
+            const resultAllMembers = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/members`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
-            setIndividualMember(resultIndividualMember.data);
-            console.log(resultIndividualMember.data);
+            setAllMembers(resultAllMembers.data);
+            console.log(resultAllMembers.data);
         } catch (error) {
             console.error('Onbekend lid');
             toggleError(true);
@@ -153,8 +156,53 @@ function IndividualBook() {
     }
 
     useEffect(() => {
-        void getIndividualMember();
+        void getAllMembers();
     }, []);
+
+
+  async function checkBookStatus(id) {
+
+      try {
+      const resultReadList = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${id}/readList`, {
+          headers: {
+              'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+          }
+      });
+          setReadList(resultReadList?.data);
+          console.log("Gelezen lijst voor gebruiker:", id, resultReadList?.data);
+
+      const resultCurrentlyReadingList = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${id}/currentlyReadingList`, {
+          headers: {
+              'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+          }
+      });
+
+      setCurrentlyReadingList(resultCurrentlyReadingList?.data);
+      console.log("Currently reading lijst voor gebruiker:", id, resultCurrentlyReadingList.data);
+      } catch (error) {
+          console.error('Onbekende lijsten.');
+      }
+  }
+
+    useEffect(() => {
+       if (allMembers.length > 0) {
+           console.log("Lijst geladen, aantal leden:", allMembers.length);
+
+           const loggedMember = allMembers.find((m) => {
+               console.log(`Vergelijksn: ${m.id} met ${user?.id}`);
+               return m.id === user.id
+           });
+
+           if (loggedMember) {
+               console.log('Match gevonden! ID is:', loggedMember);
+               void checkBookStatus(loggedMember.id);
+           } else {
+               console.warn("Geen match gevonden. Is 'user' wel gevuld?")
+           }
+       }
+    }, [allMembers, user]
+    );
+
 
 
     return (
@@ -165,6 +213,7 @@ function IndividualBook() {
                 <div className="container-image-review-individual-book">
                     <img src={`../${individualBook?.coverImage}`} alt={individualBook?.alt}/>
                     <BookRating/>
+                    Boekenplank
                     <Link to={`/review/${individualBook?.id}`}
                     state={{
                         bookId: individualBook.id,
@@ -180,7 +229,7 @@ function IndividualBook() {
                         <h4>Reviews</h4>
                         <ul className="list-reviews-individual-book">
                             {individualReview?.map((reviews) => {
-                                const member = individualMember?.find((m) => m.id === reviews.userId);
+                                const member = allMembers?.find((m) => m.id === reviews.userId);
                                 return (
                                     <li key={reviews.review} className="list-item-reviews-individual-book">
                                         <p>{member ? member.name : "Lid onbekend."}</p>

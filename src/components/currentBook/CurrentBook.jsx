@@ -2,7 +2,7 @@ import './CurrentBook.css';
 import ButtonSmall from '../button-small/ButtonSmall.jsx';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 
 
@@ -115,7 +115,7 @@ function CurrentBook() {
                                     >
                                         <img src={bookTitle?.coverImage} alt={currentlyReading.alt}/>
                                         <div>
-                                            <h5>{bookTitle ? bookTitle.title : "Geen boek"}</h5>
+                                            <Link to={`/books/${currentlyReading.bookId}`}><h5>{bookTitle ? bookTitle.title : "Geen boek"}</h5></Link>
                                             <p>{author ? author.name : "Geen auteur"}</p>
                                         </div>
                                     </li>
