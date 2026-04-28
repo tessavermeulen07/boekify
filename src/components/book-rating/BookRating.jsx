@@ -11,6 +11,8 @@ function BookRating( { rating, setRating }) {
 
     const [hover, setHover] = useState(null);
     const [ratingValue, setRatingValue] = useState(ratingId || 0)
+    
+
 
     return (
         <>

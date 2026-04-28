@@ -88,6 +88,7 @@
         "DELETE": [
           "admin",
           "member",
+          "editor",
           "anonymous"
         ]
       }
@@ -281,7 +282,10 @@
           "admin"
         ],
         "POST": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ],
         "PUT": [
           "admin"
@@ -290,7 +294,10 @@
           "admin"
         ],
         "DELETE": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ]
       }
     },
@@ -326,7 +333,10 @@
           "admin"
         ],
         "POST": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ],
         "PUT": [
           "admin"
@@ -335,7 +345,10 @@
           "admin"
         ],
         "DELETE": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ]
       }
     },
@@ -579,20 +592,6 @@
       ]
     },
     {
-      "email": "medewerker@bibliotheek.nl",
-      "password": "medewerker123",
-      "roles": [
-        "editor"
-      ]
-    },
-    {
-      "email": "lid1@voorbeeld.nl",
-      "password": "lid123",
-      "roles": [
-        "member"
-      ]
-    },
-    {
       "email": "maria@voorbeeld.nl",
       "password": "12345",
       "roles": [
@@ -782,6 +781,12 @@
         "bookId": 6,
         "authorId": 5,
         "userId": 0
+      },
+      {
+        "id": 3,
+        "bookId": 1,
+        "authorId": 1,
+        "userId": 1
       }
     ],
     "readList": [
@@ -796,6 +801,12 @@
         "bookId": 4,
         "authorId": 2,
         "userId": 0
+      },
+      {
+        "id": 3,
+        "bookId": 2,
+        "authorId": 2,
+        "userId": 1
       }
     ],
     "members": [

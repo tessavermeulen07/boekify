@@ -7,6 +7,7 @@ import add from '../../assets/icons/add.svg';
 import BookRating from '../../components/book-rating/BookRating.jsx';
 import TextLabel from '../../components/textLabel/TextLabel.jsx';
 import ButtonNavStart from '../../components/button-nav-start/ButtonNavStart.jsx';
+import ButtonSmall from '../../components/button-small/ButtonSmall.jsx';
 
 
 function Library() {
@@ -19,7 +20,9 @@ function Library() {
     const [wrongName, setWrongName] = useState('');
     const [genres, setGenres] = useState(null);
     const [ratings, setRatings] = useState(null);
-    const [activeSort, setActiveSort] = useState('title')
+    const [activeSort, setActiveSort] = useState('title');
+    const [bookSearch, setBookSearch] = useState({});
+    const [wrongTitle, setWrongTitle] = useState('');
 
 
     async function getBooks() {
@@ -35,7 +38,7 @@ function Library() {
                 }
             });
 
-           const sortedInitial = resultBooks.data.sort((a, b) => {
+            const sortedInitial = resultBooks.data.sort((a, b) => {
                 const titleA = a.title;
                 const titleB = b.title;
 
@@ -119,7 +122,6 @@ function Library() {
     }, []);
 
 
-
     const handleSort = (sortType) => {
         setActiveSort(sortType);
         if (!library) return;
@@ -140,6 +142,49 @@ function Library() {
             }
         });
         setLibrary(sortedLibrary);
+    }
+
+    async function searchBook() {
+        try {
+            toggleLoading(true);
+            toggleError(false);
+            setWrongTitle('');
+            const resultSearchBook = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                },
+            });
+
+            const allBooks = resultSearchBook.data;
+            console.log('Alle boeken van API:', allBooks);
+
+            const foundBook = allBooks.find((book) => {
+                return book.title.toLowerCase() === query.toLowerCase();
+            })
+
+            if (foundBook) {
+                setBookSearch(foundBook);
+                console.log("gevonden boek:", foundBook);
+            } else {
+                    console.error(error);
+                    toggleError(true);
+                    setWrongTitle(query);
+                    setBookSearch({});
+                }
+            } catch (error) {
+            console.error(error);
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
+        }
+    }
+
+    console.log(bookSearch);
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        searchBook();
+        setQuery('');
     }
 
     return (
@@ -172,10 +217,40 @@ function Library() {
                             className={activeSort === 'genre' ? 'active-link' : 'nonactive-link'}
                         >Genre A-Z</a>
                     </div>
+                    <div className="inside-left-content-library">
+                        <h3>zoek een boek</h3>
+                        <form onSubmit={handleSearch}>
+                            <TextLabel
+                                labelHTML="searchBook"
+                                typeOfLabel="text"
+                                idOfLabel="book"
+                                nameOfLabel="book"
+                                valueOfLabel={query}
+                                onChangeOfLabel={(e) => setQuery(e.target.value)}
+                            />
+                            <ButtonSmall
+                                typeOfButton="submit"
+                                disabled={loading}
+                                textOnButton="zoek"
+                            />
+                        </form>
+                    </div>
                 </div>
                 <div className="right-content-library">
 
                     <div className="inside-right-content-library">
+                        <div className="search-book">
+                            <span>{error && <p> {wrongTitle} bestaat niet. Probeer het nog een keer.</p>}</span>
+
+                            {Object.keys(bookSearch).length > 0 &&
+                                <span>
+                                <img src={bookSearch.coverImage} alt={bookSearch.alt} className="search-book-img"/>
+                                <Link to={`/books/${bookSearch.id}`}><h4>{bookSearch.title}</h4></Link>
+                            </span>
+                            }
+                        </div>
+
+                        <h3 className="h3-library">Library</h3>
                         <ul>
                             {library?.map((books) => {
                                     const author = libraryAuthor?.find((a) => a.id === books.authorId);

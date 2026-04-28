@@ -1,11 +1,11 @@
 import './IndividualBook.css';
 import axios from 'axios';
-import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import {useEffect, useState, useContext} from 'react';
+import {useParams} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext.jsx";
 import Navigation from '../../navigation/Navigation.jsx';
 import BookRating from '../../components/book-rating/BookRating.jsx';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
 function IndividualBook() {
@@ -16,12 +16,15 @@ function IndividualBook() {
     const [individualReview, setIndividualReview] = useState([]);
     const [allMembers, setAllMembers] = useState([]);
     const [individualMember, setIndividualMember] = useState({});
-    const [readList, setReadList] = useState({});
-    const [currentlyReadingList, setCurrentlyReadingList] = useState({});
+    const [readList, setReadList] = useState([]);
+    const [currentlyReadingList, setCurrentlyReadingList] = useState([]);
+    const [bookStatus, setBookStatus] = useState('Laden...');
+    const [selectedStatus, setSelectedStatus] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
+    const [rating, setRating] = useState(0)
     const {id} = useParams();
-    const { isAuth, user } = useContext(AuthContext);
+    const {isAuth, user} = useContext(AuthContext);
 
 
     async function getIndividualBook(id) {
@@ -160,49 +163,134 @@ function IndividualBook() {
     }, []);
 
 
-  async function checkBookStatus(id) {
+    async function checkBookStatus(memberId) {
 
-      try {
-      const resultReadList = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${id}/readList`, {
-          headers: {
-              'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
-          }
-      });
-          setReadList(resultReadList?.data);
-          console.log("Gelezen lijst voor gebruiker:", id, resultReadList?.data);
+        try {
+            const resultReadList = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${memberId}/readList`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setReadList(resultReadList?.data);
+            console.log("Gelezen lijst voor gebruiker:", memberId, resultReadList?.data);
 
-      const resultCurrentlyReadingList = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${id}/currentlyReadingList`, {
-          headers: {
-              'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
-          }
-      });
+            const resultCurrentlyReadingList = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${memberId}/currentlyReadingList`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
 
-      setCurrentlyReadingList(resultCurrentlyReadingList?.data);
-      console.log("Currently reading lijst voor gebruiker:", id, resultCurrentlyReadingList.data);
-      } catch (error) {
-          console.error('Onbekende lijsten.');
-      }
-  }
+            setCurrentlyReadingList(resultCurrentlyReadingList?.data);
+            console.log("Currently reading lijst voor gebruiker:", memberId, resultCurrentlyReadingList.data);
+
+            const isRead = resultReadList.data?.some(book => book.bookId == id);
+            const isCurrentlyReading = resultCurrentlyReadingList.data?.some(book => book.bookId == id)
+
+            console.log("Staat boek " + id + " in Gelezen?", isRead);
+            console.log("Staat boek ", + id + " in Currently Reading?", isCurrentlyReading);
+
+            if (isRead) {
+                void setIndividualMember({ status: 'Gelezen'} );
+                void setSelectedStatus('read');
+            } else if (isCurrentlyReading) {
+                void setIndividualMember({ status: 'Aan het lezen' });
+                void setSelectedStatus('current');
+            } else {
+                void setIndividualMember({ status: 'Ongelezen' });
+                void setSelectedStatus('unread');
+            }
+        } catch (error) {
+            console.error('Fout bij het ophalen.', error);
+            void setBookStatus('Status onbekend.');
+        }
+    }
 
     useEffect(() => {
-       if (allMembers.length > 0) {
-           console.log("Lijst geladen, aantal leden:", allMembers.length);
+            if (allMembers.length > 0) {
+                console.log("Lijst geladen, aantal leden:", allMembers.length);
 
-           const loggedMember = allMembers.find((m) => {
-               console.log(`Vergelijksn: ${m.id} met ${user?.id}`);
-               return m.id === user.id
-           });
+                const loggedMember = allMembers.find((m) => {
+                    console.log(`Vergelijken: ${m.id} met ${user?.id}`);
+                    return m.id === user?.id
+                });
 
-           if (loggedMember) {
-               console.log('Match gevonden! ID is:', loggedMember);
-               void checkBookStatus(loggedMember.id);
-           } else {
-               console.warn("Geen match gevonden. Is 'user' wel gevuld?")
-           }
-       }
-    }, [allMembers, user]
+                if (loggedMember) {
+                    console.log('Match gevonden! ID is:', loggedMember);
+                    void checkBookStatus(loggedMember.id);
+                } else {
+                    console.error("Geen match gevonden. Is 'user' wel gevuld?")
+                }
+            }
+        }, [allMembers, user]
     );
 
+
+    const handleStatusChange = async (e) => {
+        const newStatus = e.currentTarget.value;
+        if (!newStatus || newStatus === 'unread') return;
+
+        const currentlyReadingBook = currentlyReadingList.find(b => b.bookId == id);
+        const readBook = readList.find(b => b.bookId == id);
+
+        try {
+            toggleLoading(true);
+            toggleError(false);
+
+            if (currentlyReadingBook) {
+                const deleteBookCurrentlyReading = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/${currentlyReadingBook.id}`, {
+                    headers: {
+                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+            }
+
+            if (readBook) {
+                const deleteBookRead = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList/${readBook.id}`, {
+                    headers: {
+                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+            }
+
+            if (newStatus === 'read') {
+                const moveReadBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList`, {
+                    bookId: individualBook.id,
+                    authorId: individualAuthor.id,
+                    userId: user.id
+                }, {
+                    headers: {
+                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+            } else if (newStatus === 'current') {
+                const moveCurrentlyReadingBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList`, {
+                    bookId: individualBook.id,
+                    authorId: individualAuthor.id,
+                    userId: user.id
+                }, {
+                    headers: {
+                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+        } else if (newStatus === 'unread') {
+                return setIndividualMember({status: 'Ongelezen'});
+                void selectedStatus('unread');
+            }
+
+            setSelectedStatus(newStatus);
+
+            await checkBookStatus(user.id);
+    } catch (error) {
+        toggleError(true);
+        console.error('API Fout:', error.response ? error.response.data : error.message);
+        } finally {
+            toggleLoading(false);
+        }
+    }
 
 
     return (
@@ -212,13 +300,18 @@ function IndividualBook() {
             <div className="main-container-individual-book">
                 <div className="container-image-review-individual-book">
                     <img src={`../${individualBook?.coverImage}`} alt={individualBook?.alt}/>
-                    <BookRating/>
-                    Boekenplank
+                    <BookRating rating={rating} setRating={setRating}/>
+                    <h6>Status: {individualMember.status}</h6>
+                    <select name="book-status" id="book-status" className="select-current-book" value={selectedStatus} onChange={handleStatusChange} disabled={loading}>
+                        <option value="">Verander leesstatus</option>
+                        <option value="read">Gelezen</option>
+                        <option value="current">Op dit moment aan het lezen</option>
+                    </select>
                     <Link to={`/review/${individualBook?.id}`}
-                    state={{
-                        bookId: individualBook.id,
-                        authorId: individualBook.authorId
-                    }}>Schrijf een review</Link>
+                          state={{
+                              bookId: individualBook.id,
+                              authorId: individualBook.authorId
+                          }}>Schrijf een review</Link>
                 </div>
                 <div className="book-info-container-individual-book">
                     <h3>{individualBook?.title}</h3>
@@ -234,7 +327,7 @@ function IndividualBook() {
                                     <li key={reviews.review} className="list-item-reviews-individual-book">
                                         <p>{member ? member.name : "Lid onbekend."}</p>
                                         <p>{reviews.ratingId}</p>
-                                        <BookRating />
+                                        <BookRating/>
                                         <p>{reviews.review}</p>
                                     </li>
                                 )
