@@ -4,14 +4,45 @@ import {FaHeart} from 'react-icons/fa';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
-function BookRating( { rating, setRating }) {
+function BookRating( { rating, setRating, book, user }) {
 
     const location = useLocation();
     const {ratingId} = location.state || {};
 
     const [hover, setHover] = useState(null);
-    const [ratingValue, setRatingValue] = useState(ratingId || 0)
-    
+    const [ratingValue, setRatingValue] = useState(ratingId || 0);
+    const [loading, toggleLoading] = useState(false);
+    const [error, toggleError] = useState(false);
+
+
+    async function updateRating(ratingValue) {
+        try {
+            toggleLoading(true);
+            toggleError(false);
+
+            const newRating = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/ratings`, {
+                rating: ratingValue,
+                bookId: book?.id,
+                userId: user?.id
+            }, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            console.log("Rating succesvol opgeslagen");
+        } catch (error) {
+            console.error("Fout bij opslaan rating", error);
+        }
+    }
+
+    const handleHeartClick = (ratingValue) => {
+        setRating(ratingValue);
+        updateRating(ratingValue);
+    }
+
+
 
 
     return (
@@ -27,7 +58,7 @@ function BookRating( { rating, setRating }) {
                                 type="radio"
                                 name="rating"
                                 value={ratingValue}
-                                onClick={() => setRating(ratingValue)}
+                                onClick={() => handleHeartClick(ratingValue)}
                             />
                             <FaHeart
                                 className="heart-book-rating"

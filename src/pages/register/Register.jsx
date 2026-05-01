@@ -34,7 +34,8 @@ function Register() {
                 "email": emailValue,
                 "password": passwordValue,
                 "name": nameValue,
-                "membershipActive": membershipActive
+                "membershipActive": membershipActive,
+                "role": "member"
             }, {
                 headers: {
                     'Accept': 'application/json',
