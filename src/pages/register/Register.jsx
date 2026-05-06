@@ -35,7 +35,7 @@ function Register() {
                 "password": passwordValue,
                 "name": nameValue,
                 "membershipActive": membershipActive,
-                "role": "member"
+                "roles": ["member"]
             }, {
                 headers: {
                     'Accept': 'application/json',
@@ -52,6 +52,9 @@ function Register() {
             toggleLoading(false);
         }
     }
+
+    //TODO: losse functie: aanmaken van de CurrentlyReading/Read lijsten als gebruiker succesvol is geregistreerd. Dus bij 201 de functie dit
+    //TODO: laten checken. Dan pas de lijsten aanmaken. register.status === 201
 
     return (
         <>

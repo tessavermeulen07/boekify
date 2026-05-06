@@ -1,8 +1,8 @@
 import './AddReview.css';
+import {AuthContext} from "../../context/AuthContext.jsx";
 import Navigation from '../../navigation/Navigation.jsx';
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import ButtonNavStart from '../../components/button-nav-start/ButtonNavStart.jsx';
 import BookRating from '../../components/book-rating/BookRating.jsx';
 import TextLabel from '../../components/textLabel/TextLabel.jsx';
@@ -17,11 +17,13 @@ function AddReview() {
     const [reviewValue, setReviewValue] = useState('');
     const [bookIdValue, setBookIdValue] = useState(bookId || '');
     const [authorIdValue, setAuthorIdValue] = useState(authorId || '');
-    const [memberIdValue, setMemberIdValue] = useState('');
+    // const [memberIdValue, setMemberIdValue] = useState('');
     const [ratingIdValue, setRatingIdValue] = useState(ratingId || 0);
     const [error, setError] = useState('');
     const [succes, setSucces] = useState(false);
     const [newReviewId, setNewReviewId] = useState(null);
+
+    const { isAuth, user } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -31,7 +33,7 @@ function AddReview() {
             const postReview = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/reviews', {
                 bookId: Number(bookIdValue),
                 authorId: Number(authorIdValue),
-                memberId: Number(memberIdValue),
+                userId: user?.id,
                 ratingId: Number(ratingIdValue),
                 review: reviewValue
             }, {
@@ -84,7 +86,6 @@ function AddReview() {
                         typeOfButton="send"
                         valueOfButton="send"
                         nameOfButton="add-review"
-                        // onClickOfButton={}
                         textOnButton="Verstuur review"
                     />
                 </form>

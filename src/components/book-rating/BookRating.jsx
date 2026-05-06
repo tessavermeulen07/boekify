@@ -2,7 +2,7 @@ import './BookRating.css';
 import {useState, useEffect} from 'react';
 import {FaHeart} from 'react-icons/fa';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 function BookRating( { rating, setRating, book, user }) {
 
@@ -13,6 +13,7 @@ function BookRating( { rating, setRating, book, user }) {
     const [ratingValue, setRatingValue] = useState(ratingId || 0);
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
+    const {id} = useParams();
 
 
     async function updateRating(ratingValue) {
@@ -28,7 +29,7 @@ function BookRating( { rating, setRating, book, user }) {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('JWT', ratingValue)}`
                 }
             });
             console.log("Rating succesvol opgeslagen");
@@ -42,6 +43,40 @@ function BookRating( { rating, setRating, book, user }) {
         updateRating(ratingValue);
     }
 
+    async function getRating(id) {
+        try {
+            toggleLoading(true);
+            toggleError(false);
+
+            const ratingBook = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books/${id}/ratings`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                    'Authorization': `Bearer ${localStorage.getItem('JWT')}`
+                }
+            });
+            console.log(ratingBook.data);
+            const ratingList =ratingBook.data;
+
+            if (Array.isArray(ratingList) && ratingList.length > 0) {
+                const myRating = ratingList.find(r => r.userId === user?.id);
+                if (myRating) {
+                    setRating(myRating.rating);
+                    setCurrentRatingId(myRating.id);
+                }
+            }
+        } catch (error) {
+            toggleError(true);
+            console.error("Rating niet gevonden", error);
+        } finally {
+            toggleLoading(false);
+        }
+    }
+
+
+    useEffect(() => {
+        void getRating(id);
+
+    }, [id]);
 
 
 

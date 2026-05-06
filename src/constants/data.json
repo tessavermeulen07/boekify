@@ -56,11 +56,6 @@
           "required": true,
           "min": 10,
           "max": 500
-        },
-        {
-          "name": "ratingId",
-          "type": "reference:ratings",
-          "required": false
         }
       ],
       "permissions": {
@@ -73,17 +68,20 @@
         "POST": [
           "admin",
           "editor",
-          "anonymous"
+          "anonymous",
+          "member"
         ],
         "PUT": [
           "admin",
           "editor",
-          "anonymous"
+          "anonymous",
+          "member"
         ],
         "PATCH": [
           "admin",
           "editor",
-          "anonymous"
+          "anonymous",
+          "member"
         ],
         "DELETE": [
           "admin",
@@ -310,16 +308,6 @@
           "required": true
         },
         {
-          "name": "bookId",
-          "type": "reference:books",
-          "required": true
-        },
-        {
-          "name": "authorId",
-          "type": "reference:authors",
-          "required": true
-        },
-        {
           "name": "userId",
           "type": "reference:users",
           "required": true
@@ -343,6 +331,58 @@
         ],
         "PATCH": [
           "admin"
+        ],
+        "DELETE": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ]
+      }
+    },
+    {
+      "name": "currentlyReadingItem",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "currentlyReadingListId",
+          "type": "reference:currentlyReadingList",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PATCH": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ],
         "DELETE": [
           "admin",
@@ -507,6 +547,7 @@
         "POST": [
           "admin",
           "editor",
+          "member",
           "anonymous"
         ],
         "PUT": [
@@ -587,14 +628,6 @@
       "password": "admin123",
       "roles": [
         "admin",
-        "member",
-        "anonymous"
-      ]
-    },
-    {
-      "email": "maria@voorbeeld.nl",
-      "password": "12345",
-      "roles": [
         "member"
       ]
     }
@@ -772,21 +805,15 @@
     "currentlyReadingList": [
       {
         "id": 1,
+        "userId": 0
+      }
+
+    ],
+    "currentlyReadingItem": [
+      {
+        "id": 1,
         "bookId": 5,
-        "authorId": 4,
-        "userId": 0
-      },
-      {
-        "id": 2,
-        "bookId": 6,
-        "authorId": 5,
-        "userId": 0
-      },
-      {
-        "id": 3,
-        "bookId": 1,
-        "authorId": 1,
-        "userId": 1
+        "currentlyReadingListId": 1
       }
     ],
     "readList": [

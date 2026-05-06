@@ -166,7 +166,6 @@ function AddBooks() {
                         valueOfLabel={genreOfBook}
                         onChangeOfLabel={(e) => setGenreOfBook(e.target.value)}
                     />
-                    {/*Of voor de genres een select menu maken met de ID's er al in, zodat dit makkelijker toegevoegd kan worden*/}
                     <TextLabel
                         startTextLabel="Prijs"
                         typeOfLabel="number"

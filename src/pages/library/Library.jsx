@@ -265,7 +265,6 @@ function Library() {
                                                     <h5 className="author-books-library">{author ? author.name : "Auteur laden..."}</h5>
                                                     <p className="author-books-library">{genre ? genre.name : "Genre laden..."}</p>
                                                 </div>
-                                                <BookRating/>
                                             </div>
                                         </li>
                                     );

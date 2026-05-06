@@ -221,29 +221,33 @@ function IndividualBook() {
         const currentlyReadingBook = currentlyReadingList.find(b => b.bookId == id);
         const readBook = readList.find(b => b.bookId == id);
 
+
         try {
             toggleLoading(true);
             toggleError(false);
 
             if (currentlyReadingBook) {
+                // TODO endpoint veranderen in currentlyReadingItem
                 const deleteBookCurrentlyReading = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/${currentlyReadingBook.id}`, {
                     headers: {
                         'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('JWT')}`
                     }
                 });
             }
 
             if (readBook) {
+                // TODO endpoint veranderen in readingItem
                 const deleteBookRead = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList/${readBook.id}`, {
                     headers: {
                         'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('JWT')}`
                     }
                 });
             }
 
             if (newStatus === 'read') {
+                // TODO endpoint veranderen in readingItem
                 const moveReadBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList`, {
                     bookId: individualBook.id,
                     authorId: individualAuthor.id,
@@ -251,10 +255,11 @@ function IndividualBook() {
                 }, {
                     headers: {
                         'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('JWT')}`
                     }
                 });
             } else if (newStatus === 'current') {
+                // TODO endpoint veranderen in currentlyReadingItem
                 const moveCurrentlyReadingBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList`, {
                     bookId: individualBook.id,
                     authorId: individualAuthor.id,
@@ -262,7 +267,7 @@ function IndividualBook() {
                 }, {
                     headers: {
                         'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('JWT')}`
                     }
                 });
         } else if (newStatus === 'unread') {
@@ -289,7 +294,7 @@ function IndividualBook() {
             const ratingBook = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/books/${id}/ratings`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('JWT')}`
                 }
             });
             console.log(ratingBook.data);
