@@ -13,8 +13,6 @@ function Home() {
     const [libraryAll, setLibraryAll] = useState(null);
     const { isAuth, user } = useContext(AuthContext);
 
-console.log('hallo allemaal');
-
     async function getReadBooks() {
         try {
 
@@ -22,7 +20,7 @@ console.log('hallo allemaal');
 
             toggleError(false);
 
-            const resultBooksRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${user.id}/readList
+            const resultBooksRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${user?.id}/readList
 `, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
@@ -75,7 +73,7 @@ console.log('hallo allemaal');
             <Navigation/>
             <div className="outer-container">
                 <section>
-                    <CurrentBook/>
+                    <CurrentBook />
                 </section>
                 <section className="block-home">
                     <Block

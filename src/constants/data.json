@@ -252,6 +252,52 @@
           "required": true
         },
         {
+          "name": "userId",
+          "type": "reference:users",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ]
+      }
+    },
+    {
+      "name": "readListItem",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "readListId",
+          "type": "reference:readList",
+          "required": true
+        },
+        {
           "name": "bookId",
           "type": "reference:books",
           "required": true
@@ -259,11 +305,6 @@
         {
           "name": "authorId",
           "type": "reference:authors",
-          "required": true
-        },
-        {
-          "name": "userId",
-          "type": "reference:users",
           "required": true
         },
         {
@@ -286,10 +327,16 @@
           "anonymous"
         ],
         "PUT": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ],
         "PATCH": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ],
         "DELETE": [
           "admin",
@@ -356,6 +403,11 @@
         {
           "name": "bookId",
           "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "authorId",
+          "type": "reference:authors",
           "required": true
         }
       ],
@@ -813,6 +865,13 @@
       {
         "id": 1,
         "bookId": 5,
+        "authorId": 4,
+        "currentlyReadingListId": 1
+      },
+      {
+        "id": 2,
+        "bookId": 6,
+        "authorId": 4,
         "currentlyReadingListId": 1
       }
     ],

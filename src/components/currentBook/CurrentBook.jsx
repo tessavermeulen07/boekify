@@ -12,23 +12,24 @@ import { AuthContext } from '../../context/AuthContext.jsx';
 function CurrentBook() {
 
     const [currentRead, setCurrentRead] = useState([]);
+    const [currentReadItem, setCurrentReadItem] = useState([])
     const [getBooks, setGetBooks] = useState({});
     const [getAuthors, setGetAuthors] = useState({});
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
     const { isAuth, user } = useContext(AuthContext);
+    const { parentId } = useParams();
 
 
 
-
-    async function getCurrentRead(id) {
-        console.log('ik ga nu ophalen voor ID:', id);
+    async function getCurrentRead(userId) {
+        console.log('ik ga nu ophalen voor ID:', userId);
         try {
             toggleLoading(true);
 
             toggleError(false);
 
-            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${user,id}/currentlyReadingList`, {
+            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${userId}/currentlyReadingList`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
@@ -45,6 +46,33 @@ function CurrentBook() {
     useEffect(() => {
         void getCurrentRead(user.id);
     }, [user.id]);
+
+
+
+    async function getCurrentReadItem(parentId) {
+
+        try {
+
+            toggleLoading(true);
+            toggleError(false);
+
+            const resultCurrenReadItem = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/1/currentlyReadingItem`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setCurrentReadItem(resultCurrenReadItem?.data);
+        } catch (error) {
+            console.error('De currentReadItem is niet gevonden');
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        void getCurrentReadItem(parentId);
+    }, [parentId]);
 
 
     async function books() {
@@ -104,7 +132,7 @@ function CurrentBook() {
                 <h3>Op dit moment aan het lezen</h3>
                 <span className="span-box-current">
                     <ul className="list-current-book">
-                        {currentRead?.map((currentlyReading) => {
+                        {currentReadItem?.map((currentlyReading) => {
                                 const bookTitle = getBooks?.data?.find((b) => b.id === currentlyReading.bookId);
                                 const author = getAuthors?.data?.find((a) => a.id === currentlyReading.authorId);
 
