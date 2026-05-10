@@ -18,23 +18,27 @@ function CurrentBook() {
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
     const { isAuth, user } = useContext(AuthContext);
-    const { parentId } = useParams();
 
 
 
-    async function getCurrentRead(userId) {
-        console.log('ik ga nu ophalen voor ID:', userId);
+    async function getCurrentRead() {
         try {
             toggleLoading(true);
 
             toggleError(false);
 
-            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${userId}/currentlyReadingList`, {
+            const resultCurrentRead = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${user.id}/currentlyReadingList`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
             setCurrentRead(resultCurrentRead?.data);
+
+            if (resultCurrentRead.data && resultCurrentRead.data.length > 0) {
+                const listId = resultCurrentRead.data[0].id;
+                void getCurrentReadItem(listId);
+            }
+
         } catch (error) {
             console.error('De boeken zijn niet gevonden.');
             toggleError(true);
@@ -44,19 +48,21 @@ function CurrentBook() {
     }
 
     useEffect(() => {
-        void getCurrentRead(user.id);
-    }, [user.id]);
+        if (isAuth && user && user.id !== undefined) {
+            void getCurrentRead(user.id);
+        }
+    }, [isAuth, user]);
 
 
 
-    async function getCurrentReadItem(parentId) {
+    async function getCurrentReadItem(id) {
 
         try {
 
             toggleLoading(true);
             toggleError(false);
 
-            const resultCurrenReadItem = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/1/currentlyReadingItem`, {
+            const resultCurrenReadItem = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/${id}/currentlyReadingItem`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
@@ -70,9 +76,7 @@ function CurrentBook() {
         }
     }
 
-    useEffect(() => {
-        void getCurrentReadItem(parentId);
-    }, [parentId]);
+
 
 
     async function books() {

@@ -8,10 +8,10 @@ function Block({ title, content, blockTextButton }) {
             <div className="block-item">
                 <div className="block-item-header">
                     <h3>{title}</h3>
-                    <ButtonSmall
-                        typeOfButton="button"
-                        textOnButton={blockTextButton}
-                    />
+                    {/*<ButtonSmall*/}
+                    {/*    typeOfButton="button"*/}
+                    {/*    textOnButton={blockTextButton}*/}
+                    {/*/>*/}
                 </div>
                 <div className="block-item-content">{content}</div>
             </div>

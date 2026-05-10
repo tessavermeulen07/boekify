@@ -374,10 +374,16 @@
           "anonymous"
         ],
         "PUT": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ],
         "PATCH": [
-          "admin"
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
         ],
         "DELETE": [
           "admin",
@@ -859,7 +865,6 @@
         "id": 1,
         "userId": 0
       }
-
     ],
     "currentlyReadingItem": [
       {
@@ -878,21 +883,21 @@
     "readList": [
       {
         "id": 1,
+        "userId": 0
+      }
+    ],
+    "readListItem": [
+      {
+        "id": 1,
         "bookId": 2,
         "authorId": 2,
-        "userId": 0
+        "readListId": 1
       },
       {
         "id": 2,
         "bookId": 4,
         "authorId": 2,
-        "userId": 0
-      },
-      {
-        "id": 3,
-        "bookId": 2,
-        "authorId": 2,
-        "userId": 1
+        "readListId": 1
       }
     ],
     "members": [

@@ -1,11 +1,11 @@
 import './IndividualBook.css';
 import axios from 'axios';
 import {useEffect, useState, useContext} from 'react';
-import {useParams} from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext.jsx";
 import Navigation from '../../navigation/Navigation.jsx';
 import BookRating from '../../components/book-rating/BookRating.jsx';
-import {Link} from 'react-router-dom';
+
 
 
 function IndividualBook() {
@@ -228,7 +228,7 @@ function IndividualBook() {
 
             if (currentlyReadingBook) {
                 // TODO endpoint veranderen in currentlyReadingItem
-                const deleteBookCurrentlyReading = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/${currentlyReadingBook.id}`, {
+                const deleteBookCurrentlyReading = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem/${currentlyReadingBook.id}`, {
                     headers: {
                         'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
                         'Authorization': `Bearer ${localStorage.getItem('JWT')}`
@@ -238,7 +238,7 @@ function IndividualBook() {
 
             if (readBook) {
                 // TODO endpoint veranderen in readingItem
-                const deleteBookRead = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList/${readBook.id}`, {
+                const deleteBookRead = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem/${readBook.id}`, {
                     headers: {
                         'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
                         'Authorization': `Bearer ${localStorage.getItem('JWT')}`
@@ -248,9 +248,10 @@ function IndividualBook() {
 
             if (newStatus === 'read') {
                 // TODO endpoint veranderen in readingItem
-                const moveReadBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList`, {
+                const moveReadBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem`, {
                     bookId: individualBook.id,
                     authorId: individualAuthor.id,
+                    readListId: id,
                     userId: user.id
                 }, {
                     headers: {
@@ -260,9 +261,10 @@ function IndividualBook() {
                 });
             } else if (newStatus === 'current') {
                 // TODO endpoint veranderen in currentlyReadingItem
-                const moveCurrentlyReadingBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList`, {
+                const moveCurrentlyReadingBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem`, {
                     bookId: individualBook.id,
                     authorId: individualAuthor.id,
+                    currentlyReadingListId: id,
                     userId: user.id
                 }, {
                     headers: {
