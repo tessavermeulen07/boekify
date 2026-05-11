@@ -35,7 +35,7 @@ function Navigation() {
                     {/*    </NavLink>*/}
                     {/*</li>*/}
                     <li>
-                        <NavLink to="/" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
+                        <NavLink to="/profile" className={({isActive}) => isActive ? 'nav-active' : 'nav-default'}>
                             Profile
                         </NavLink>
                     </li>

@@ -10,6 +10,7 @@ import Login from './pages/login/Login.jsx';
 import IndividualBook from './pages/individual-book/IndividualBook.jsx';
 import Quotes from './pages/quotes/Quotes.jsx';
 import AddReview from './pages/add-review/AddReview.jsx';
+import Profile from './pages/profile/Profile.jsx';
 import { AuthContext } from './context/AuthContext.jsx';
 import Footer from './footer/Footer.jsx';
 
@@ -34,6 +35,7 @@ function App() {
                             <Route path="/books/:id" element={<IndividualBook/>}/>
                             <Route path="/quotes" element={<Quotes/>}/>
                             <Route path="/review/:id" element={<AddReview/>}/>
+                            <Route path="/profile/" element={<Profile/>}/>
                         </Routes>
                     </main>
                     <Footer/>
