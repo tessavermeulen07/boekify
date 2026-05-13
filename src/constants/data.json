@@ -301,16 +301,6 @@
           "name": "bookId",
           "type": "reference:books",
           "required": true
-        },
-        {
-          "name": "authorId",
-          "type": "reference:authors",
-          "required": true
-        },
-        {
-          "name": "ratingId",
-          "type": "reference:ratings",
-          "required": false
         }
       ],
       "permissions": {
@@ -409,11 +399,6 @@
         {
           "name": "bookId",
           "type": "reference:books",
-          "required": true
-        },
-        {
-          "name": "authorId",
-          "type": "reference:authors",
           "required": true
         }
       ],
@@ -870,13 +855,11 @@
       {
         "id": 1,
         "bookId": 5,
-        "authorId": 4,
         "currentlyReadingListId": 1
       },
       {
         "id": 2,
         "bookId": 6,
-        "authorId": 4,
         "currentlyReadingListId": 1
       }
     ],
@@ -890,13 +873,11 @@
       {
         "id": 1,
         "bookId": 2,
-        "authorId": 2,
         "readListId": 1
       },
       {
         "id": 2,
         "bookId": 4,
-        "authorId": 2,
         "readListId": 1
       }
     ],

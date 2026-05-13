@@ -16,8 +16,10 @@ function IndividualBook() {
     const [individualReview, setIndividualReview] = useState([]);
     const [allMembers, setAllMembers] = useState([]);
     const [individualMember, setIndividualMember] = useState({});
-    const [readList, setReadList] = useState([]);
-    const [currentlyReadingList, setCurrentlyReadingList] = useState([]);
+    const [readList, setReadList] = useState({});
+    const [currentlyReadingList, setCurrentlyReadingList] = useState({});
+    const [readListItems, setReadListItems] = useState([]);
+    const [currentlyReadingListItems, setCurrentlyReadingListItems] = useState([]);
     const [bookStatus, setBookStatus] = useState('Laden...');
     const [selectedStatus, setSelectedStatus] = useState("");
     const [loading, toggleLoading] = useState(false);
@@ -167,7 +169,8 @@ function IndividualBook() {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
-            setReadList(resultReadList?.data);
+            setReadList(resultReadList?.data[0]);
+            console.log("gelezen boeken: ", resultReadList?.data[0]);
 
             const resultCurrentlyReadingList = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${memberId}/currentlyReadingList`, {
                 headers: {
@@ -175,10 +178,25 @@ function IndividualBook() {
                 }
             });
 
-            setCurrentlyReadingList(resultCurrentlyReadingList?.data);
+            const resultReadListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setReadListItems(resultReadListItems?.data.filter((item) => item.readListId == readList.id));
 
-            const isRead = resultReadList.data?.some(book => book.bookId == id);
-            const isCurrentlyReading = resultCurrentlyReadingList.data?.some(book => book.bookId == id)
+            const resultCurrentlyReadingListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+                }
+            });
+            setCurrentlyReadingListItems(resultCurrentlyReadingListItems?.data.filter((item) => item.currentlyReadingListId == currentlyReadingList.id ));
+
+            setCurrentlyReadingList(resultCurrentlyReadingList?.data[0]);
+            console.log("op dit moment aan het lezen: ", resultCurrentlyReadingList?.data[0]);
+
+            const isRead = readListItems?.some(book => book.bookId == id);
+            const isCurrentlyReading = currentlyReadingListItems?.some(book => book.bookId == id)
 
 
             if (isRead) {
@@ -218,8 +236,8 @@ function IndividualBook() {
         const newStatus = e.currentTarget.value;
         if (!newStatus || newStatus === 'unread') return;
 
-        const currentlyReadingBook = currentlyReadingList.find(b => b.bookId == id);
-        const readBook = readList.find(b => b.bookId == id);
+        const currentlyReadingBook = currentlyReadingListItems.find(b => b.bookId == id);
+        const readBook = readListItems.find(b => b.bookId == id);
 
 
         try {
@@ -250,9 +268,7 @@ function IndividualBook() {
                 // TODO endpoint veranderen in readingItem
                 const moveReadBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem`, {
                     bookId: individualBook.id,
-                    authorId: individualAuthor.id,
-                    readListId: id,
-                    userId: user.id
+                    readListId: readList.id,
                 }, {
                     headers: {
                         'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
@@ -263,9 +279,7 @@ function IndividualBook() {
                 // TODO endpoint veranderen in currentlyReadingItem
                 const moveCurrentlyReadingBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem`, {
                     bookId: individualBook.id,
-                    authorId: individualAuthor.id,
-                    currentlyReadingListId: id,
-                    userId: user.id
+                    currentlyReadingListId: currentlyReadingList.id,
                 }, {
                     headers: {
                         'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
@@ -299,7 +313,7 @@ function IndividualBook() {
                     'Authorization': `Bearer ${localStorage.getItem('JWT')}`
                 }
             });
-            console.log(ratingBook.data);
+            // console.log(ratingBook.data);
             const ratingList =ratingBook.data;
 
             if (Array.isArray(ratingList) && ratingList.length > 0) {
@@ -362,8 +376,8 @@ function IndividualBook() {
                                 return (
                                     <li key={reviews.review} className="list-item-reviews-individual-book">
                                         <p>{member ? member.name : "Lid onbekend."}</p>
-                                        <p>{reviews.ratingId}</p>
-                                        <BookRating/>
+                                        <p>{reviews.ratingId} hartjes</p>
+                                        {/*<BookRating/>*/}
                                         <p>{reviews.review}</p>
                                     </li>
                                 )
