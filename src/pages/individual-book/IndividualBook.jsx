@@ -169,8 +169,6 @@ function IndividualBook() {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
-            setReadList(resultReadList?.data[0]);
-            console.log("gelezen boeken: ", resultReadList?.data[0]);
 
             const resultCurrentlyReadingList = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${memberId}/currentlyReadingList`, {
                 headers: {
@@ -178,36 +176,44 @@ function IndividualBook() {
                 }
             });
 
-            const resultReadListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem`, {
+            const resultReadListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList/1/readListItem
+`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
-            setReadListItems(resultReadListItems?.data.filter((item) => item.readListId == readList.id));
+            setReadListItems(resultReadListItems?.data);
+            console.log("Items: ", resultReadListItems?.data);
 
-            const resultCurrentlyReadingListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList`, {
+            const myReadList = resultReadList?.data[0];
+            setReadList(myReadList);
+            console.log("gelezen boeken: ", myReadList);
+
+            const resultCurrentlyReadingListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/1/currentlyReadingItem`, {
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
-            setCurrentlyReadingListItems(resultCurrentlyReadingListItems?.data.filter((item) => item.currentlyReadingListId == currentlyReadingList.id ));
+            setCurrentlyReadingListItems(resultCurrentlyReadingListItems?.data);
+            console.log("Items: ", resultCurrentlyReadingListItems?.data);
 
-            setCurrentlyReadingList(resultCurrentlyReadingList?.data[0]);
-            console.log("op dit moment aan het lezen: ", resultCurrentlyReadingList?.data[0]);
+            const myCurrentlyReadingList = resultCurrentlyReadingList?.data[0];
+            setCurrentlyReadingList(myCurrentlyReadingList);
+            console.log("op dit moment aan het lezen: ", myCurrentlyReadingList);
 
             const isRead = readListItems?.some(book => book.bookId == id);
             const isCurrentlyReading = currentlyReadingListItems?.some(book => book.bookId == id)
 
 
             if (isRead) {
-                void setIndividualMember({ status: 'Gelezen'} );
-                void setSelectedStatus('read');
+                setIndividualMember({ status: 'Gelezen'} );
+                setSelectedStatus('read');
             } else if (isCurrentlyReading) {
-                void setIndividualMember({ status: 'Aan het lezen' });
-                void setSelectedStatus('current');
+                setIndividualMember({ status: 'Aan het lezen' });
+                setSelectedStatus('current');
             } else {
-                void setIndividualMember({ status: 'Ongelezen' });
-                void setSelectedStatus('unread');
+                setIndividualMember({ status: 'Ongelezen' });
+                    setSelectedStatus('unread');
             }
         } catch (error) {
             console.error('Fout bij het ophalen.', error);
