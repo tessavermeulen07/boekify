@@ -72,8 +72,11 @@ function AuthContextProvider({ children }) {
 
         localStorage.setItem('JWT', token);
         const tokenId = jwtDecode(token);
+
+        toggleIsAuth({ isAuth: true, user: null, status: 'done' })
+
         console.log(tokenId);
-        getProfile(tokenId);
+        void getProfile(tokenId.userId);
         navigate('/home');
     }
 

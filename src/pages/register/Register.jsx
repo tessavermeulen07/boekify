@@ -22,6 +22,41 @@ function Register() {
 
     const isActive = true;
 
+    async function createUserLists(userId) {
+        const makeReadList = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList', {
+            userId }, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+            }
+        });
+
+        const makeCurrentlyReadingList = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList', {
+            userId }, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
+            }
+            }
+        )
+    }
+
+    async function createMember (userId, name, membershipActive) {
+        const makeNewMember = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/members', {
+            name,
+            membershipActive,
+            userId
+        }, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+            }
+        });
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -43,6 +78,14 @@ function Register() {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
+
+            if (register.status === 201) {
+                const userId = register.data.id;
+                await createUserLists(userId);
+                await createMember(userId, nameValue, membershipActive);
+                setSuccess(true);
+            }
+
             console.log(register);
             setSuccess(true);
         } catch (error) {
@@ -52,9 +95,6 @@ function Register() {
             toggleLoading(false);
         }
     }
-
-    //TODO: losse functie: aanmaken van de CurrentlyReading/Read lijsten als gebruiker succesvol is geregistreerd. Dus bij 201 de functie dit
-    //TODO: laten checken. Dan pas de lijsten aanmaken. register.status === 201
 
     return (
         <>

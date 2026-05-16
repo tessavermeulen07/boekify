@@ -373,12 +373,19 @@ function IndividualBook() {
     async function markAsRead() {
         const { currentItems, readItems, myReadList } = await checkBookStatus(user.id);
 
-        const currentlyReadingBook = currentlyReadingListItems.find((b) => b.bookId == id);
-
-        if (!currentlyReadingBook) {
-            console.error('Boek staat niet in currently reading');
+        if (!myReadList?.id) {
+            console.error('Geen readList voor deze gebruiker');
             return;
         }
+
+        const alreadyRead = readItems.some((b) => b.bookId == id);
+        if (alreadyRead) {
+            console.log('Boek staat al op de gelezen lijst');
+            return;
+        }
+
+
+        const currentlyReadingBook = currentlyReadingListItems.find((b) => b.bookId == id);
 
         try {
             toggleLoading(true);
@@ -386,14 +393,13 @@ function IndividualBook() {
 
             console.log('Te verwijderen item:', currentlyReadingBook);
             // Verwacht: { id: 1, bookId: 5, currentlyReadingListId: ... }
-
-            await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem/${currentlyReadingBook.id}`, {
-                headers: {
-                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                }
-            });
-
-            const alreadyRead = readListItems.some((b) => b.bookId == id);
+            if (currentlyReadingBook) {
+                await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem/${currentlyReadingBook.id}`, {
+                    headers: {
+                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                    }
+                });
+            }
 
             if(!alreadyRead && myReadList?.id) {
                 await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem', {

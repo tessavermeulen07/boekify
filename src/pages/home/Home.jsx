@@ -2,9 +2,9 @@ import './Home.css';
 import Navigation from '../../navigation/Navigation.jsx';
 import CurrentBook from '../../components/currentBook/CurrentBook.jsx';
 import Block from '../../components/block/Block.jsx';
-import { useEffect, useState, useContext } from 'react';
+import {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
-import { AuthContext } from '../../context/AuthContext.jsx';
+import {AuthContext} from '../../context/AuthContext.jsx';
 
 function Home() {
     const [loading, toggleLoading] = useState(false);
@@ -12,7 +12,7 @@ function Home() {
     const [books, setBooks] = useState(null);
     const [bookItems, setBookItems] = useState(null);
     const [libraryAll, setLibraryAll] = useState(null);
-    const { isAuth, user } = useContext(AuthContext);
+    const {isAuth, user} = useContext(AuthContext);
 
 
     async function getReadBooks() {
@@ -46,7 +46,7 @@ function Home() {
     useEffect(() => {
         if (isAuth && user && user.id !== undefined) {
             void getReadBooks();
-    }
+        }
     }, [isAuth, user]);
 
     async function getReadBooksItems(id) {
@@ -68,7 +68,6 @@ function Home() {
             toggleLoading(false);
         }
     }
-
 
 
     async function getLibrary() {
@@ -124,8 +123,11 @@ function Home() {
                                             <li key={uniqueKey}>
                                                 {readBook &&
                                                     <>
-                                                        <img src={readBook.coverImage} alt={readBook.alt}
-                                                             className="img-home"/>
+                                                        <div className="read-book-block-home">
+                                                            <img src={readBook.coverImage} alt={readBook.alt}
+                                                                 className="img-home"/>
+                                                            {readBook.title}
+                                                        </div>
                                                     </>
                                                 }
                                             </li>

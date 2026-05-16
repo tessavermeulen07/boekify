@@ -605,68 +605,11 @@
           "admin"
         ]
       }
-    },
-    {
-      "name": "loans",
-      "fields": [
-        {
-          "name": "id",
-          "type": "number",
-          "required": true
-        },
-        {
-          "name": "memberId",
-          "type": "reference:members",
-          "required": true
-        },
-        {
-          "name": "bookId",
-          "type": "reference:books",
-          "required": true
-        },
-        {
-          "name": "loanDate",
-          "type": "date",
-          "required": false,
-          "default": "CurrentDate"
-        },
-        {
-          "name": "returnDate",
-          "type": "date",
-          "required": true
-        },
-        {
-          "name": "returned",
-          "type": "boolean",
-          "required": true
-        }
-      ],
-      "permissions": {
-        "GET": [
-          "member",
-          "editor",
-          "admin"
-        ],
-        "POST": [
-          "editor",
-          "admin"
-        ],
-        "PUT": [
-          "editor",
-          "admin"
-        ],
-        "PATCH": [
-          "editor",
-          "admin"
-        ],
-        "DELETE": [
-          "admin"
-        ]
-      }
     }
   ],
   "users": [
     {
+      "id": 0,
       "email": "tessavermeulen@icloud.com",
       "password": "admin123",
       "roles": [
@@ -888,27 +831,6 @@
         "membershipActive": true,
         "joinDate": "2024-01-15",
         "userId": 0
-      },
-      {
-        "id": 1,
-        "name": "Maria de Vries",
-        "membershipActive": true,
-        "joinDate": "2024-02-20",
-        "userId": 1
-      },
-      {
-        "id": 2,
-        "name": "Jane Doe",
-        "membershipActive": true,
-        "joinDate": "2024-02-20",
-        "userId": 2
-      },
-      {
-        "id": 3,
-        "name": "John Doe",
-        "membershipActive": true,
-        "joinDate": "2024-02-20",
-        "userId": 3
       }
     ],
     "reviews": [
@@ -927,16 +849,6 @@
         "bookId": 5,
         "authorId": 4,
         "userId": 1
-      }
-    ],
-    "loans": [
-      {
-        "id": 1,
-        "userId": 0,
-        "bookId": 2,
-        "loanDate": "2024-03-01",
-        "returnDate": "2024-03-21",
-        "returned": false
       }
     ]
   }
