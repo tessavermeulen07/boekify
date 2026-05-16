@@ -5,6 +5,7 @@ import { useParams, Link } from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext.jsx";
 import Navigation from '../../navigation/Navigation.jsx';
 import BookRating from '../../components/book-rating/BookRating.jsx';
+import ButtonSmall from '../../components/button-small/ButtonSmall.jsx';
 
 
 
@@ -176,34 +177,48 @@ function IndividualBook() {
                 }
             });
 
-            const resultReadListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList/1/readListItem
-`, {
-                headers: {
-                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
-                }
-            });
-            setReadListItems(resultReadListItems?.data);
-            console.log("Items: ", resultReadListItems?.data);
-
             const myReadList = resultReadList?.data[0];
-            setReadList(myReadList);
-            console.log("gelezen boeken: ", myReadList);
+            const myCurrentlyReadingList = resultCurrentlyReadingList?.data[0];
 
-            const resultCurrentlyReadingListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/1/currentlyReadingItem`, {
+            setReadList(myReadList ?? {});
+            console.log("gelezen boeken: ", myReadList ?? {});
+            setCurrentlyReadingList(myCurrentlyReadingList ?? {});
+            console.log("op dit moment aan het lezen: ", myCurrentlyReadingList ?? {});
+
+            if (!myReadList || !myCurrentlyReadingList) {
+                setIndividualMember({ status: 'Ongelezen' });
+                setSelectedStatus('unread');
+                return {
+                    readItems: [],
+                    currentItems: [],
+                    myReadList: null,
+                    myCurrentlyReadingList: null
+                };
+            }
+
+            const resultReadListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readList/${myReadList.id}/readListItem`,{
                 headers: {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
-            setCurrentlyReadingListItems(resultCurrentlyReadingListItems?.data);
-            console.log("Items: ", resultCurrentlyReadingListItems?.data);
 
-            const myCurrentlyReadingList = resultCurrentlyReadingList?.data[0];
-            setCurrentlyReadingList(myCurrentlyReadingList);
-            console.log("op dit moment aan het lezen: ", myCurrentlyReadingList);
+            const resultCurrentlyReadingListItems = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingList/${myCurrentlyReadingList.id}/currentlyReadingItem`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                }
+            });
 
-            const isRead = readListItems?.some(book => book.bookId == id);
-            const isCurrentlyReading = currentlyReadingListItems?.some(book => book.bookId == id)
+            const readItems = resultReadListItems?.data ?? [];
+            const currentItems = resultCurrentlyReadingListItems?.data ?? [];
 
+
+            setReadListItems(readItems);
+            console.log("Items: ", readItems);
+            setCurrentlyReadingListItems(currentItems);
+            console.log("Items: ", currentItems);
+
+            const isRead = readItems.some((book) => book.bookId == id);
+            const isCurrentlyReading = currentItems?.some((book) => book.bookId == id);
 
             if (isRead) {
                 setIndividualMember({ status: 'Gelezen'} );
@@ -213,11 +228,24 @@ function IndividualBook() {
                 setSelectedStatus('current');
             } else {
                 setIndividualMember({ status: 'Ongelezen' });
-                    setSelectedStatus('unread');
+                setSelectedStatus('unread');
             }
+            return {
+                readItems,
+                currentItems,
+                myReadList,
+                myCurrentlyReadingList
+            };
         } catch (error) {
             console.error('Fout bij het ophalen.', error);
-            void setBookStatus('Status onbekend.');
+            setBookStatus('Status onbekend.');
+            setIndividualMember({status: 'Status onbekend'});
+            return {
+                readItems: [],
+                currentItems: [],
+                myReadList: null,
+                myCurrentlyReadingList: null
+            };
         }
     }
 
@@ -236,77 +264,6 @@ function IndividualBook() {
             }
         }, [allMembers, user]
     );
-
-
-    const handleStatusChange = async (e) => {
-        const newStatus = e.currentTarget.value;
-        if (!newStatus || newStatus === 'unread') return;
-
-        const currentlyReadingBook = currentlyReadingListItems.find(b => b.bookId == id);
-        const readBook = readListItems.find(b => b.bookId == id);
-
-
-        try {
-            toggleLoading(true);
-            toggleError(false);
-
-            if (currentlyReadingBook) {
-                // TODO endpoint veranderen in currentlyReadingItem
-                const deleteBookCurrentlyReading = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem/${currentlyReadingBook.id}`, {
-                    headers: {
-                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                        'Authorization': `Bearer ${localStorage.getItem('JWT')}`
-                    }
-                });
-            }
-
-            if (readBook) {
-                // TODO endpoint veranderen in readingItem
-                const deleteBookRead = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem/${readBook.id}`, {
-                    headers: {
-                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                        'Authorization': `Bearer ${localStorage.getItem('JWT')}`
-                    }
-                });
-            }
-
-            if (newStatus === 'read') {
-                // TODO endpoint veranderen in readingItem
-                const moveReadBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem`, {
-                    bookId: individualBook.id,
-                    readListId: readList.id,
-                }, {
-                    headers: {
-                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                        'Authorization': `Bearer ${localStorage.getItem('JWT')}`
-                    }
-                });
-            } else if (newStatus === 'current') {
-                // TODO endpoint veranderen in currentlyReadingItem
-                const moveCurrentlyReadingBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem`, {
-                    bookId: individualBook.id,
-                    currentlyReadingListId: currentlyReadingList.id,
-                }, {
-                    headers: {
-                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
-                        'Authorization': `Bearer ${localStorage.getItem('JWT')}`
-                    }
-                });
-        } else if (newStatus === 'unread') {
-                return setIndividualMember({status: 'Ongelezen'});
-                void selectedStatus('unread');
-            }
-
-            setSelectedStatus(newStatus);
-
-            await checkBookStatus(user.id);
-    } catch (error) {
-        toggleError(true);
-        console.error('API Fout:', error.response ? error.response.data : error.message);
-        } finally {
-            toggleLoading(false);
-        }
-    }
 
     async function getRating(id) {
         try {
@@ -343,6 +300,122 @@ function IndividualBook() {
 
     }, [id]);
 
+    // const handleStatusChange = async (e) => {
+    //     const newStatus = e.currentTarget.value;
+    //     if (!newStatus || newStatus === 'unread') return;
+    //
+    //     const currentlyReadingBook = currentlyReadingListItems.find(b => b.bookId == id);
+    //     const readBook = readListItems.find(b => b.bookId == id);
+    //
+    //
+    //     try {
+    //         toggleLoading(true);
+    //         toggleError(false);
+    //
+    //         if (currentlyReadingBook) {
+    //             // TODO endpoint veranderen in currentlyReadingItem
+    //             const deleteBookCurrentlyReading = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem/${currentlyReadingBook.id}`, {
+    //                 headers: {
+    //                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+    //                     'Authorization': `Bearer ${localStorage.getItem('JWT')}`
+    //                 }
+    //             });
+    //         }
+    //
+    //         if (readBook) {
+    //             // TODO endpoint veranderen in readingItem
+    //             const deleteBookRead = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem/${readBook.id}`, {
+    //                 headers: {
+    //                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+    //                     'Authorization': `Bearer ${localStorage.getItem('JWT')}`
+    //                 }
+    //             });
+    //         }
+    //
+    //         if (newStatus === 'read') {
+    //             // TODO endpoint veranderen in readingItem
+    //             const moveReadBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem`, {
+    //                 bookId: individualBook.id,
+    //                 readListId: readList.id,
+    //             }, {
+    //                 headers: {
+    //                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+    //                     'Authorization': `Bearer ${localStorage.getItem('JWT')}`
+    //                 }
+    //             });
+    //         } else if (newStatus === 'current') {
+    //             // TODO endpoint veranderen in currentlyReadingItem
+    //             const moveCurrentlyReadingBook = await axios.post(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem`, {
+    //                 bookId: individualBook.id,
+    //                 currentlyReadingListId: currentlyReadingList.id,
+    //             }, {
+    //                 headers: {
+    //                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+    //                     'Authorization': `Bearer ${localStorage.getItem('JWT')}`
+    //                 }
+    //             });
+    //         } else if (newStatus === 'unread') {
+    //             return setIndividualMember({status: 'Ongelezen'});
+    //             void selectedStatus('unread');
+    //         }
+    //
+    //         setSelectedStatus(newStatus);
+    //
+    //         await checkBookStatus(user.id);
+    //     } catch (error) {
+    //         toggleError(true);
+    //         console.error('API Fout:', error.response ? error.response.data : error.message);
+    //     } finally {
+    //         toggleLoading(false);
+    //     }
+    // }
+
+    async function markAsRead() {
+        const { currentItems, readItems, myReadList } = await checkBookStatus(user.id);
+
+        const currentlyReadingBook = currentlyReadingListItems.find((b) => b.bookId == id);
+
+        if (!currentlyReadingBook) {
+            console.error('Boek staat niet in currently reading');
+            return;
+        }
+
+        try {
+            toggleLoading(true);
+            toggleError(false);
+
+            console.log('Te verwijderen item:', currentlyReadingBook);
+            // Verwacht: { id: 1, bookId: 5, currentlyReadingListId: ... }
+
+            await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/currentlyReadingItem/${currentlyReadingBook.id}`, {
+                headers: {
+                    'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                }
+            });
+
+            const alreadyRead = readListItems.some((b) => b.bookId == id);
+
+            if(!alreadyRead && myReadList?.id) {
+                await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/readListItem', {
+                    bookId: Number(id),
+                    readListId: myReadList.id
+                }, {
+                    headers: {
+                        'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d',
+                    }
+                });
+            }
+            await checkBookStatus(user.id);
+            setIndividualMember({ status: 'Gelezen' });
+            setSelectedStatus('read');
+        } catch (error) {
+            toggleError(true);
+            console.error('Kan boek niet als gelezen markeren', error)
+        } finally {
+            toggleLoading(false);
+        }
+    }
+
 
     return (
         <>
@@ -358,11 +431,19 @@ function IndividualBook() {
                         user={user}
                     />
                     <h6>Status: {individualMember.status}</h6>
-                    <select name="book-status" id="book-status" className="select-current-book" value={selectedStatus} onChange={handleStatusChange} disabled={loading}>
-                        <option value="">Verander leesstatus</option>
-                        <option value="read">Gelezen</option>
-                        <option value="current">Op dit moment aan het lezen</option>
-                    </select>
+                    <ButtonSmall
+                    typeOfButton="button"
+                    nameOfButton="book-status"
+                    onClickOfButton={() => void markAsRead()}
+                    textOnButton="Gelezen"
+                    />
+
+
+                    {/*<select name="book-status" id="book-status" className="select-current-book" value={selectedStatus} onChange={handleStatusChange} disabled={loading}>*/}
+                    {/*    <option value="">Verander leesstatus</option>*/}
+                    {/*    <option value="read">Gelezen</option>*/}
+                    {/*    <option value="current">Op dit moment aan het lezen</option>*/}
+                    {/*</select>*/}
                     <Link to={`/review/${individualBook?.id}`}
                           state={{
                               bookId: individualBook.id,

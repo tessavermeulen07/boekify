@@ -15,7 +15,6 @@ import { AuthContext } from './context/AuthContext.jsx';
 import Footer from './footer/Footer.jsx';
 
 
-
 function App() {
 
     const {isAuth, login} = useContext(AuthContext);
