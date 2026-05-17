@@ -1,0 +1,41 @@
+.outer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    padding: 0 20px;
+    position: relative;
+    width: 100%;
+    gap: 100px;
+}
+
+.block-home {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 55%;
+}
+
+.list-books-read-home {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.img-home {
+    width: 50px;
+    height: auto;
+    align-self: center;
+}
+
+.read-book-block-home {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: left;
+}

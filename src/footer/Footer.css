@@ -1,0 +1,7 @@
+.container-footer {
+    width: 100%;
+    background-color: fff;
+    color: var(--color-lavender);
+    padding: 10px;
+    flex-shrink: 0;
+}

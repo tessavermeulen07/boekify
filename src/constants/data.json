@@ -1,0 +1,855 @@
+{
+  "collections": [
+    {
+      "name": "books",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "min": 1,
+          "max": 200
+        },
+        {
+          "name": "authorId",
+          "type": "reference:authors",
+          "required": true
+        },
+        {
+          "name": "genreId",
+          "type": "reference:genres",
+          "required": true
+        },
+        {
+          "name": "ratingId",
+          "type": "reference:ratings",
+          "required": false
+        },
+        {
+          "name": "isbn",
+          "type": "string",
+          "required": true,
+          "min": 10,
+          "max": 13
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "required": true,
+          "min": 0
+        },
+        {
+          "name": "coverImage",
+          "type": "image",
+          "required": false,
+          "url": "src/assets/book-covers/",
+          "alt": "Cover image of the book"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "min": 10,
+          "max": 500
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "editor",
+          "anonymous",
+          "member"
+        ],
+        "PUT": [
+          "admin",
+          "editor",
+          "anonymous",
+          "member"
+        ],
+        "PATCH": [
+          "admin",
+          "editor",
+          "anonymous",
+          "member"
+        ],
+        "DELETE": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ]
+      }
+    },
+    {
+      "name": "authors",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "min": 2,
+          "max": 100
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "editor",
+          "member",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin",
+          "editor"
+        ],
+        "PATCH": [
+          "admin",
+          "editor"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "genres",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "min": 2,
+          "max": 50
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "max": 500
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "quotes",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "quote",
+          "type": "string",
+          "required": true,
+          "min": 2,
+          "max": 500
+        },
+        {
+          "name": "character",
+          "type": "string",
+          "required": false,
+          "min": 2,
+          "max": 100
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "authorId",
+          "type": "reference:authors",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "reference:users",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "readList",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "reference:users",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin"
+        ],
+        "PATCH": [
+          "admin"
+        ],
+        "DELETE": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ]
+      }
+    },
+    {
+      "name": "readListItem",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "readListId",
+          "type": "reference:readList",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PATCH": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "DELETE": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ]
+      }
+    },
+    {
+      "name": "currentlyReadingList",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "reference:users",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PATCH": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "DELETE": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ]
+      }
+    },
+    {
+      "name": "currentlyReadingItem",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "currentlyReadingListId",
+          "type": "reference:currentlyReadingList",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "PATCH": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ],
+        "DELETE": [
+          "admin",
+          "member",
+          "editor",
+          "anonymous"
+        ]
+      }
+    },
+    {
+      "name": "ratings",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "required": true,
+          "min": 1,
+          "max": 5
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "reference:users",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "anonymous",
+          "editor"
+        ],
+        "PUT": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "PATCH": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "DELETE": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ]
+      }
+    },
+    {
+      "name": "reviews",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "review",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "ratingId",
+          "type": "reference:ratings",
+          "required": true
+        },
+        {
+          "name": "bookId",
+          "type": "reference:books",
+          "required": true
+        },
+        {
+          "name": "authorId",
+          "type": "reference:authors",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "reference:users",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "anonymous",
+          "member",
+          "editor",
+          "admin"
+        ],
+        "POST": [
+          "admin",
+          "member",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin",
+          "member"
+        ],
+        "PATCH": [
+          "admin",
+          "member"
+        ],
+        "DELETE": [
+          "admin",
+          "member"
+        ]
+      }
+    },
+    {
+      "name": "members",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "min": 2,
+          "max": 100
+        },
+        {
+          "name": "membershipActive",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "reference:users",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": [
+          "admin",
+          "editor",
+          "members",
+          "anonymous"
+        ],
+        "POST": [
+          "admin",
+          "editor",
+          "member",
+          "anonymous"
+        ],
+        "PUT": [
+          "admin",
+          "editor"
+        ],
+        "PATCH": [
+          "admin",
+          "editor"
+        ],
+        "DELETE": [
+          "admin"
+        ]
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": 0,
+      "email": "tessavermeulen@icloud.com",
+      "password": "admin123",
+      "roles": [
+        "admin",
+        "member"
+      ]
+    }
+  ],
+  "data": {
+    "genres": [
+      {
+        "id": 1,
+        "name": "Science Fiction",
+        "description": "Toekomstgerichte fictie"
+      },
+      {
+        "id": 2,
+        "name": "Fantasy",
+        "description": "Fantasierijke verhalen"
+      },
+      {
+        "id": 3,
+        "name": "Non-Fictie",
+        "description": "Educatieve en informatieve boeken"
+      },
+      {
+        "id": 4,
+        "name": "Thriller",
+        "description": "Spannende verhalen"
+      },
+      {
+        "id": 5,
+        "name": "Klassieke Literatuur",
+        "description": "Klassieke literatuur"
+      },
+      {
+        "id": 6,
+        "name": "Graphic Novel",
+        "description": "Graphic novels"
+      }
+    ],
+    "authors": [
+      {
+        "id": 1,
+        "name": "Isaac Asimov"
+      },
+      {
+        "id": 2,
+        "name": "J.K. Rowling"
+      },
+      {
+        "id": 3,
+        "name": "Yuval Noah Harari"
+      },
+      {
+        "id": 4,
+        "name": "Jane Austen"
+      },
+      {
+        "id": 5,
+        "name": "Emily Brontë"
+      }
+    ],
+    "books": [
+      {
+        "id": 1,
+        "title": "Foundation",
+        "authorId": 1,
+        "genreId": 1,
+        "isbn": "9781234567890",
+        "price": 19.99,
+        "coverImage": "src/assets/book-covers/foundation.jpg",
+        "alt": "Cover image of the book Foundation",
+        "description": "For twelve thousand years the Galactic Empire has ruled supreme. Now it is dying. But only Hari Seldon, creator of the revolutionary science of psychohistory, can see into the future--to a dark age of ignorance, barbarism, and warfare that will last thirty thousand years. To preserve knowledge and save humankind, Seldon gathers the best minds in the Empire--both scientists and scholars--and brings them to a bleak planet at the edge of the galaxy to serve as a beacon of hope for future generations. He calls his sanctuary the Foundation."
+      },
+      {
+        "id": 2,
+        "title": "Harry Potter and the Philosopher's Stone",
+        "authorId": 2,
+        "genreId": 2,
+        "isbn": "07747532745",
+        "price": 14.95,
+        "coverImage": "src/assets/book-covers/HP-PhilosophersStone.jpg",
+        "alt": "Cover image of the book Harry Potter and the Philosopher's Stone",
+        "description": "Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!"
+      },
+      {
+        "id": 3,
+        "title": "Sapiens",
+        "authorId": 3,
+        "genreId": 3,
+        "isbn": "9781234567892",
+        "price": 24.50,
+        "coverImage": "src/assets/book-covers/sapiens.jpg",
+        "alt": "Cover image of the book Sapiens",
+        "description": "From a very different point of view, Yuval Noah Harari shows us who we are, how we got here, and where we are going. A bold and provocative history of humankind, Sapiens is both a deeply original idea and a powerful argument about the future of our species."
+      },
+      {
+        "id": 4,
+        "title": "Harry Potter and the Chamber of Secrets",
+        "authorId": 2,
+        "genreId": 2,
+        "isbn": "0747538484",
+        "price": 14.95,
+        "coverImage": "src/assets/book-covers/chamber-of-secrets-uk-childrens-edition.jpg",
+        "alt": "Cover image of the book Harry Potter and the Chamber of Secrets",
+        "description": "Ever since Harry Potter had come home for the summer, the Dursleys had been so mean and hideous that all Harry wanted was to get back to the Hogwarts School for Witchcraft and Wizardry. But just as he’s packing his bags, Harry receives a warning from a strange impish creature who says that if Harry returns to Hogwarts, disaster will strike.\n\nAnd strike it does. For in Harry’s second year at Hogwarts, fresh torments and horrors arise, including an outrageously stuck-up new professor and a spirit who haunts the girls’ bathroom. But then the real trouble begins – someone is turning Hogwarts students to stone. Could it be Draco Malfoy, a more poisonous rival than ever? Could it possibly be Hagrid, whose mysterious past is finally told? Or could it be the one everyone at Hogwarts most suspects… Harry Potter himself!"
+      },
+      {
+        "id": 5,
+        "title": "Pride and Prejudice",
+        "authorId": 4,
+        "genreId": 5,
+        "isbn": "9781234567893",
+        "price": 29.99,
+        "coverImage": "src/assets/book-covers/9789044769333_front.jpg",
+        "alt": "Cover image of the book Pride and Prejudice",
+        "description": "Word opnieuw verliefd op een van de mooiste liefdesverhalen ooit geschreven.\n\nMiss Elizabeth Bennet heeft vier zussen en een moeder wier grootste zorg het is om een echtgenoot voor haar dochters te vinden. Wanneer de vermogende Mr. Bingley samen met zijn vriend Mr. Darcy naar Netherfield komt, ziet Mrs. Bennet de perfecte kans voor haar meisjes. Terwijl Jane halsoverkop verliefd wordt op de vriendelijke Mr. Bingley, beslist Elizabeth dat ze haar hart nooit ofte nimmer zou kunnen geven aan een man die zo trots en arrogant is als Mr. Darcy. Maar soms schuilt er achter trots een onverwachte tederheid.\n\nDeze prachtige graphic novel brengt Jane Austens tijdloze verhaal op een unieke manier tot leven dankzij de elegante illustraties van Tara Spruit. Een onmisbaar boek voor wie houdt van regency-romantiek, klassieke verhalen en voor iedereen die voor het eerst of opnieuw verliefd wil worden op Mr. Darcy."
+      },
+      {
+        "id": 6,
+        "title": "Wuthering Heights",
+        "authorId": 5,
+        "genreId": 5,
+        "isbn": "9781529954296",
+        "price": 17.99,
+        "coverImage": "src/assets/book-covers/wutheringheights.jpg",
+        "alt": "Cover image of the book Wuthering Heights",
+        "description": "Lockwood, the new tenant of Thrushcross Grange, situated on the bleak Yorkshire moors, is forced to seek shelter one night at Wuthering Heights, the home of his landlord. There he discovers the history of the tempestuous events that took place years before; of the intense relationship between the gypsy foundling Heathcliff and Catherine Earnshaw; and how Catherine, forced to choose between passionate, tortured Heathcliff and gentle, well-bred Edgar Linton, surrendered to the expectations of her class. As Heathcliff's bitterness and vengeance at his betrayal is visited upon the next generation, their innocent heirs must struggle to escape the legacy of the past."
+      }
+    ],
+    "quotes": [
+      {
+        "id": 1,
+        "quote": "I declare after all there is no enjoyment like reading!",
+        "character": "Miss Bingley",
+        "page": "62",
+        "bookId": 5,
+        "authorId": 4,
+        "userId": 0
+      },
+      {
+        "id": 2,
+        "quote": "In vain have I struggled. It will not do. My feelings will not be repressed. You must allow me to tell you how ardently I admire and love you.",
+        "character": "Mr. Darcy",
+        "page": 185,
+        "bookId": 5,
+        "authorId": 4,
+        "userId": 0
+      },
+      {
+        "id": 3,
+        "quote": "Will you tell me how long you have loved him?\n\nIt had been coming on so gradually, that I hardly know when it began. But I must believe I must date it from my first seeing his beautiful grounds at Pemberley.",
+        "character": "Elizabeth Bennet to Jane Bennet",
+        "page": 356,
+        "bookId": 5,
+        "authorId": 4,
+        "userId": 0
+      },
+      {
+        "id": 4,
+        "quote": "It does not do to dwell on dreams and forget to live.",
+        "character": "Albus Dumbledore",
+        "page": 157,
+        "bookId": 2,
+        "authorId": 2,
+        "userId": 0
+      },
+      {
+        "id": 5,
+        "quote": "I can teach you how to bottle fame, brew glory, even put a stopper on death.",
+        "character": "Severus Snape",
+        "page": 102,
+        "bookId": 2,
+        "authorId": 2,
+        "userId": 0
+      }
+    ],
+    "currentlyReadingList": [
+      {
+        "id": 1,
+        "userId": 0
+      }
+    ],
+    "currentlyReadingItem": [
+      {
+        "id": 1,
+        "bookId": 5,
+        "currentlyReadingListId": 1
+      },
+      {
+        "id": 2,
+        "bookId": 6,
+        "currentlyReadingListId": 1
+      }
+    ],
+    "readList": [
+      {
+        "id": 1,
+        "userId": 0
+      }
+    ],
+    "readListItem": [
+      {
+        "id": 1,
+        "bookId": 2,
+        "readListId": 1
+      },
+      {
+        "id": 2,
+        "bookId": 4,
+        "readListId": 1
+      }
+    ],
+    "members": [
+      {
+        "id": 0,
+        "name": "Tessa Vermeulen",
+        "membershipActive": true,
+        "joinDate": "2024-01-15",
+        "userId": 0
+      }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "review": "Ik heb genoten van dit boek, heerlijk wegzwijmelen met Elizabeth Bennet en Mr. Darcy.",
+        "ratingId": 4,
+        "bookId": 5,
+        "authorId": 4,
+        "userId": 0
+      },
+      {
+        "id": 2,
+        "review": "Prachtig boek, mooie illustraties bij dit tijdloze verhaal.",
+        "ratingId": 4,
+        "bookId": 5,
+        "authorId": 4,
+        "userId": 1
+      }
+    ]
+  }
+}

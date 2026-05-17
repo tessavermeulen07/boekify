@@ -1,0 +1,12 @@
+.main-container-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.information-container-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}

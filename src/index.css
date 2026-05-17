@@ -21,6 +21,7 @@ body {
     font-family: poppins, sans-serif;
     font-size: 16px;
     color: var(--color-black);
+
 }
 
 h1 {
@@ -43,9 +44,10 @@ h3 {
 
 h4 {
     font-family: poppins, sans-serif;
-    font-size: 32px;
+    font-size: 30px;
     color: var(--color-lavender);
     font-style: italic;
+    font-weight: 200;
 }
 
 h5 {
@@ -53,7 +55,20 @@ h5 {
     font-size: 20px;
     color: var(--color-lavender);
     font-style: italic;
+    font-weight: 200;
 }
+
+h6 {
+    font-family: poppins, sans-serif;
+    font-size: 14px;
+    color: var(--color-lavender);
+    font-weight: 700;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
 
 @media (prefers-color-scheme: light) {
     :root {
@@ -62,6 +77,10 @@ h5 {
     }
 
     button {
-        background-color: #f9f9f9;
+        background-color: var(--color-lavender);
+        color: var(--color-white);
+        font-family: poppins, sans-serif;
+        text-align: center;
+        border: none;
     }
 }

@@ -1,0 +1,76 @@
+.main-container-individual-book {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 25px;
+    position: relative;
+    width: 100%;
+}
+
+.container-image-review-individual-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.container-image-review-individual-book > img {
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    align-self: flex-start;
+}
+
+.main-container-individual-book > div > a:link,
+.main-container-individual-book > div > a:visited {
+    color: var(--color-lavender);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0 0 10px 0;
+}
+
+.main-container-individual-book >   div > a:hover {
+    border-bottom: 1px solid var(--color-lavender);
+    padding: 0 0 10px 0;
+}
+
+.book-info-container-individual-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+
+.reviews-individual-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    position: relative;
+    padding: 50px 0 0 0;
+}
+
+.list-reviews-individual-book {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.list-item-reviews-individual-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid var(--color-lavender);
+    border-radius: 20px;
+    padding: 20px;
+    list-style-type: none;
+    width: 100%;
+    position: relative;
+}
