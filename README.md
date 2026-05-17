@@ -65,4 +65,36 @@ ES modules
 Git  
 
 ## Configuratie Handleiding
-Om dit project lokaal draaiende te krijgen zul je dit project moeten clonen middels GitHub.
+Om dit project lokaal draaiende te krijgen zul je dit project moeten clonen middels GitHub.  
+Installeer dan vervolgens de dependencies. In WebStorm wordt dit automatisch aangegeven met een popup `run npm install`.
+Of type in de terminal: 
+```javascript
+npm install
+```
+Is de installatie klaar, dan kun je de applicatie starten met:
+```javascript
+npm run dev
+```
+Open http://localhost:5173/ om de pagina in de browser te bekijken.
+Je kunt er voor kiezen om je te registeren. De functies werken (op de 'op dit moment aan het lezen' lijst na). Wil je deze
+lijst ook in actie zien. Dan kun je inloggen met:
+```javascript
+tessavermeulen@icloud.com
+admin123
+```
+Overige npm commando's die beschikbaar zijn:
+```javascript
+npm run build
+```
+Deze maakt de applicatie klaar voor productie zodat het geupload kan worden naar de hostingserver.
+
+```javascript
+npm run preview
+```
+Hiermee kan je de gebouwde app lokaal bekijken. Dit commando verwacht wel dat je eerst `npm run build` hebt gedraaid. Op
+deze manier kan je controleren of alles in productiemodus goed werkt.
+
+```javascript
+npm run lint
+```
+Hiermee kun je de code controleren op fouten en stijlregels, zonder dat de app gedraaid wordt.
