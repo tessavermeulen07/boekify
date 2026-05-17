@@ -76,13 +76,15 @@ Is de installatie klaar, dan kun je de applicatie starten met:
 npm run dev
 ```
 Open http://localhost:5173/ om de pagina in de browser te bekijken.
-Je kunt er voor kiezen om je te registeren. De functies werken (op de 'op dit moment aan het lezen' lijst na). Wil je deze
-lijst ook in actie zien. Dan kun je inloggen met:
+Je kunt er voor kiezen om je te registeren. De functies werken (op de 'op dit moment aan het lezen' lijst na). 
+
+## Inloggegevens
+Wil je de 'op dit moment aan het lezen' lijst ook in actie zien. Dan kun je inloggen met:
 ```javascript
 tessavermeulen@icloud.com
 admin123
 ```
-Overige npm commando's die beschikbaar zijn:
+## Overige npm commando's die beschikbaar zijn:
 ```javascript
 npm run build
 ```
