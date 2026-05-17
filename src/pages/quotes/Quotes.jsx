@@ -5,6 +5,10 @@ import {useState, useEffect} from "react";
 
 function Quotes() {
 
+    //TODO Ik was begonnen met deze functie, maar omdat andere functies niet goed werkten en er dingen aangepast moesten
+    //TODO worden, heb ik deze pagina onhold gezet. Ik wilde hem niet verwijderen uit de folder, want dan was ik alles
+    //TODO kwijt. Dit is een limitation die ik later nog wil gaan toevoegen.
+
     const [quotes, setQuotes] = useState('');
 
     async function getQuotes() {
@@ -15,7 +19,7 @@ function Quotes() {
                 }
             });
             setQuotes(resultGetQuotes);
-            console.log(resultGetQuotes);
+
         } catch (error) {
             'Quotes niet gevonden.'
             console.error('Quotes niet gevonden.');

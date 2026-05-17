@@ -18,12 +18,10 @@ function Login () {
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
 
-    console.log({login});
-
 
     async  function handleSubmit(e) {
         e.preventDefault();
-        console.log(emailValue, passwordValue);
+
         try {
             toggleLoading(true);
 
@@ -38,7 +36,7 @@ function Login () {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             })
-            console.log(response);
+
             login(response.data.token);
 
         } catch (error) {

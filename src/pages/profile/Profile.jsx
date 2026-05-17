@@ -26,7 +26,9 @@ function Profile() {
                     },
                 });
 
-                //TODO dit is nog hardcoded, hier moet ik nog naar kijken om het dynamisch te maken.
+                //TODO dit is nog hardcoded, hier moet ik nog naar kijken om het dynamisch te maken. Maar de profile page is
+                //TODO geen kernfunctionaliteit. Ik wilde deze niet direct verwijderen, voor het geval ik nog tijd had om er
+                //TODO naar te kijken.
                 const resultMember = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/0/members`, {
                     headers: {
                         "Content-Type": "application/json",
@@ -38,7 +40,6 @@ function Profile() {
                     user: resultUser.data,
                     member: resultMember.data
                 });
-                console.log(resultMember, resultUser);
             } catch (e) {
                 console.error(e);
             }

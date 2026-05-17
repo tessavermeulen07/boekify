@@ -52,7 +52,6 @@ function Library() {
             });
 
             setLibrary(sortedInitial);
-            console.log(sortedInitial);
         } catch (e) {
             console.error(e);
             toggleError(true);
@@ -80,7 +79,7 @@ function Library() {
             })
 
             setLibraryAuthor(resultAuthors.data);
-            console.log(resultAuthors);
+
         } catch (e) {
             console.error(e);
             toggleError(true);
@@ -108,7 +107,7 @@ function Library() {
             })
 
             setGenres(resultGenres.data);
-            console.log(resultGenres);
+
         } catch (e) {
             console.error(e);
             toggleError(true);
@@ -156,7 +155,7 @@ function Library() {
             });
 
             const allBooks = resultSearchBook.data;
-            console.log('Alle boeken van API:', allBooks);
+
 
             const foundBook = allBooks.find((book) => {
                 return book.title.toLowerCase() === query.toLowerCase();
@@ -164,7 +163,7 @@ function Library() {
 
             if (foundBook) {
                 setBookSearch(foundBook);
-                console.log("gevonden boek:", foundBook);
+
             } else {
                     console.error(error);
                     toggleError(true);
@@ -179,7 +178,7 @@ function Library() {
         }
     }
 
-    console.log(bookSearch);
+
 
     const handleSearch = (e) => {
         e.preventDefault();

@@ -28,7 +28,6 @@ function Home() {
                 }
             });
             setBooks(resultBooksRead.data);
-            console.log(resultBooksRead.data);
 
             if (resultBooksRead.data && resultBooksRead.data.length > 0) {
                 const listId = resultBooksRead.data[0].id;
@@ -60,7 +59,6 @@ function Home() {
                 }
             });
             setBookItems(resultReadBooksItems.data);
-            console.log(resultReadBooksItems.data);
         } catch (error) {
             console.error("Read Book Items niet gevonden", error);
             toggleError(true);
@@ -96,10 +94,6 @@ function Home() {
         void getLibrary();
     }, []);
 
-    console.log("User:", user);
-    console.log("Books (readList):", books);
-    console.log("BookItems (items):", bookItems);
-    console.log("Library (all):", libraryAll);
 
 
     return (
@@ -117,7 +111,6 @@ function Home() {
                                 {bookItems && bookItems.length > 0 && libraryAll && bookItems?.map((booksRead, index) => {
                                         const uniqueKey = booksRead.id || booksRead.bookId || index
                                         const readBook = libraryAll?.find((b) => b.id == booksRead.bookId);
-                                        console.log("Match gezocht voor:", booksRead.bookId, "Gevonden:", readBook);
 
                                         return (
                                             <li key={uniqueKey}>
@@ -139,6 +132,7 @@ function Home() {
 
                         blockTextButton="Alle"
                     />
+                    {/*TODO Dit wordt in een later stadium toegevoegd*/}
                     {/*<Block*/}
                     {/*    title="Random Quote"*/}
                     {/*    content="Hier komt ooit een random quote."*/}

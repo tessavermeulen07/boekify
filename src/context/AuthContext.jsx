@@ -22,10 +22,10 @@ function AuthContextProvider({ children }) {
 
     useEffect(() => {
         const token = localStorage.getItem('JWT');
-        console.log(token);
+
         if (token) {
             const tokenId = jwtDecode(token);
-            console.log(tokenId)
+
             if (isTokenValid(tokenId)) {
                 void getProfile(tokenId.userId);
             } else {
@@ -45,7 +45,7 @@ function AuthContextProvider({ children }) {
 
     async function getProfile(id) {
         const token = localStorage.getItem('JWT');
-        console.log(token);
+
         try {
             const response = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/users/${id}`, {
                 headers: {
@@ -54,7 +54,7 @@ function AuthContextProvider({ children }) {
                     'novi-education-project-id': '268aff3c-ae58-411a-a55f-e0c1ec05146d'
                 }
             });
-            console.log(response);
+
             toggleIsAuth({
                 isAuth: true,
                 status: 'done',
@@ -75,7 +75,7 @@ function AuthContextProvider({ children }) {
 
         toggleIsAuth({ isAuth: true, user: null, status: 'done' })
 
-        console.log(tokenId);
+
         void getProfile(tokenId.userId);
         navigate('/home');
     }

@@ -86,10 +86,9 @@ function Register() {
                 setSuccess(true);
             }
 
-            console.log(register);
             setSuccess(true);
         } catch (error) {
-            console.log('registreren niet gelukt');
+
             toggleError(true);
         } finally {
             toggleLoading(false);

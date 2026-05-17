@@ -32,7 +32,6 @@ function BookRating( { rating, setRating, book, user }) {
                     'Authorization': `Bearer ${localStorage.getItem('JWT', ratingValue)}`
                 }
             });
-            console.log("Rating succesvol opgeslagen");
         } catch (error) {
             console.error("Fout bij opslaan rating", error);
         }
@@ -54,7 +53,7 @@ function BookRating( { rating, setRating, book, user }) {
                     'Authorization': `Bearer ${localStorage.getItem('JWT')}`
                 }
             });
-            console.log(ratingBook.data);
+
             const ratingList =ratingBook.data;
 
             if (Array.isArray(ratingList) && ratingList.length > 0) {

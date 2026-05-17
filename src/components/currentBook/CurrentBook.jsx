@@ -6,9 +6,6 @@ import { useParams, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 
 
-
-
-
 function CurrentBook() {
 
     const [currentRead, setCurrentRead] = useState([]);

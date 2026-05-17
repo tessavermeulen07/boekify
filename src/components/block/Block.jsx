@@ -8,6 +8,7 @@ function Block({ title, content, blockTextButton }) {
             <div className="block-item">
                 <div className="block-item-header">
                     <h3>{title}</h3>
+                    {/*TODO Om later toe te voegen*/}
                     {/*<ButtonSmall*/}
                     {/*    typeOfButton="button"*/}
                     {/*    textOnButton={blockTextButton}*/}

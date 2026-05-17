@@ -93,11 +93,6 @@ function AddBooks() {
                 return;
             }
 
-            console.log("Versturen met:", {
-                "author": finalAuthorId,
-                "genre": finalGenreId,
-                "price": priceOfBook,
-            })
 
             const newBook = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/books', {
                 "title": titleOfBook,
