@@ -18,3 +18,51 @@ worden.
 
 ## Benodigde en gebruikte technieken en frameworks
 
+### Frameworks & building tools
+Voor het bouwen van deze applicatie is gebruik gemaakt van React. Zo wordt er gebruik gemaakt van componenten, hooks,
+React DOM voor het renderen in de browser, Vite 7 voor de dev-server, @vitejs/plugin-react voor de React-ondersteuning 
+in Vite en ESLint voor de codekwaliteit/linting
+
+### Routing & navigatie
+Hiervoor is gebruik gemaakt van React Router DOM v7 voor de routing (`BrowserRouter`, `Routes`, `Route`).
+Verder wordt er gebruik gemaakt van:
+- `useParams` voor de dynamische routes. 
+- `Navigate` voor het doorsturen bij login/logout.
+- `UseNavigate` voor het programmatisch navigeren.
+- `NavLink` voor navigatie met actieve link-styling.
+- `UseLocation/location.state` voor het doorgeven van data tussen pagina's.
+- `Link` voor links naar bijv. boekdetails.
+
+### Data & Backend
+Er wordt gebruik gemaakt van de NOVI Backend API. Hier staat alle data op, middels een `data.json` file. Voor de API request
+is er een novi-education-project-id nodig. Deze is toegevoegd in de project-header.
+De data wordt opgehaald middels `axios`.
+
+### Authenticatie & autorisatie
+Er wordt ingelogd met behulp van React Context (AuthContext). Hierbij wordt een token aangemaakt, en deze wordt uitgelezen 
+met jwt-decode. Er is een `isTokenValid` helper om te controleren of de token niet verlopen is. 
+Verder wordt er gebruik gemaakt van Bearer Authorization voor beveiligde requests en zijn er protected routes.
+
+### Technieken
+Deze applicatie maakt gebruik van componenten.  
+Daarnaast worden er hooks als `useState`, `useEffect` en `useContext` gebruikt voor bijv. formulieren, lijsten, sorteren, 
+data ophalen en de navigatie.  
+Het inloggen, registreren, het toevoegen van een boek of review en het zoekveld zijn middels controlled forms gemaakt.  
+De API-calls gaan middels async/await.  
+Verder is er gebruik gemaakt van lifted state/props (bijv. rating parent <-> child), conditional rendering, `.map()` voor 
+het gebruik van lijsten als boeken, reviews, gelezen boeken en kan de gebruiker de bibliotheeklijst 
+sorteren/filteren op titel, auteur en genre.
+
+### Styling & assets
+Er is voornamelijk gebruik gemaakt van gewonen CSS. De pagina's zijn middels flexbox gepositioneerd. Deels is er gebruik 
+gemaakt van CSS modules (bij de knoppen). Ook is er gebruik gemaakt van CSS-variabelen, met name bij de kleuren.  
+In de assets folder zijn afbeeldingen, boekcovers en iconen geplaatst.  
+Er is gebruik gemaakt van react-icons voor de rating (`FaHeart`)  
+
+### Overig
+Dependency beheer is middels npm/package-lock.json.  
+ES modules  
+Git  
+
+## Configuratie Handleiding
+Om dit project lokaal draaiende te krijgen zul je dit project moeten clonen middels GitHub.
