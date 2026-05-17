@@ -78,7 +78,8 @@ npm run dev
 Open http://localhost:5173/ om de pagina in de browser te bekijken.
 
 ## Inloggegevens
-Je kunt er voor kiezen om je te registeren. De functies werken (op de 'op dit moment aan het lezen' lijst na). Wil je deze
+Je kunt er voor kiezen om je te registeren.  
+De functies werken (op de 'op dit moment aan het lezen' lijst na). Wil je deze
 lijst ook in actie zien. Dan kun je inloggen met:
 ```javascript
 tessavermeulen@icloud.com
